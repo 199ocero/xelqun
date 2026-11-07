@@ -1,0 +1,1 @@
+<blockquote class="border-l-2 border-xq-border pl-3 text-sm italic">{{ $quote ?? 'Write a quote' }}<footer class="mt-1 text-xs not-italic text-xq-muted-foreground">{{ $author ?? '' }}</footer></blockquote>
