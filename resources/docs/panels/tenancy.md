@@ -92,6 +92,9 @@ use Illuminate\Database\Eloquent\Model;
 use Xelqun\Forms\Components\TextInput;
 use Xelqun\Forms\Form;
 
+/**
+ * @extends Form<Team>
+ */
 class RegisterTeam extends Form
 {
     public function model(): string
@@ -109,8 +112,6 @@ class RegisterTeam extends Form
 
     public function afterSave(Model $record, array $data): void
     {
-        assert($record instanceof Team);
-
         $record->users()->attach(auth()->user());
     }
 }

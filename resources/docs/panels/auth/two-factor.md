@@ -45,7 +45,7 @@ $panel->emailAuthentication();
 
 The code is kept only as a hash, works once, and ends with the 5 minute challenge. It's weaker than an authenticator, because anyone in the mailbox can read it.
 
-The challenge page says when a code was emailed. There's no button to send another: after 5 minutes, go back to sign in for a new one.
+The challenge page says when a code was emailed, and offers "Send a new code". A new code replaces the old one and gives the challenge another 5 minutes. It can be asked for 3 times a minute.
 
 ## With a Laravel starter kit
 

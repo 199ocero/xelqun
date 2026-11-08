@@ -3,7 +3,7 @@ title: Soft deletes
 description: A model with SoftDeletes gets a filter, restore and force delete by itself.
 ---
 
-A model with `SoftDeletes` gets this by itself: deleted records leave the list, a filter brings them back, and `RestoreAction`, `ForceDeleteAction` and their bulk versions appear.
+A model with `SoftDeletes` gets this by itself: deleted records leave the list, a filter brings them back, and `RestoreAction`, `ForceDeleteAction` and their bulk versions appear. The bulk "Restore selected" and "Delete selected for good" show only while the filter shows deleted records.
 
 They need `restore` and `forceDelete` in the policy. These use the `is_admin` column from [installation](/panels/installation#let-people-in).
 

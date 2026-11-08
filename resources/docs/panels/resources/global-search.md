@@ -6,6 +6,7 @@ description: ⌘K finds pages and records, through each resource's query and pol
 ⌘K finds pages and records. A resource with `$recordTitleAttribute` is searched on that column. If the title is an accessor, or you want more columns, override this.
 
 ```php
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 public static function getGloballySearchableAttributes(): array
@@ -13,6 +14,9 @@ public static function getGloballySearchableAttributes(): array
     return ['name', 'sku', 'category.name'];
 }
 
+/**
+ * @param  Product  $record
+ */
 public static function getGlobalSearchResultDetails(Model $record): array
 {
     return ['SKU' => $record->sku];

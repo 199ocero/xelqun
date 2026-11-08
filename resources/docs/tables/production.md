@@ -35,7 +35,7 @@ public function query(): Builder
 
 ## Limit bulk actions
 
-`maxSelectableRecords()` sets the most rows one bulk action can take, and the server enforces it. The default is 1,000. A bulk action loads every selected row as a model in one request, so a higher limit needs the memory for that many models.
+`maxSelectableRecords()` sets the most rows one bulk action can take, and the server enforces it. The default is 1,000. With a higher limit, take [`$query`](/tables/actions/bulk#many-rows-at-once) in the action rather than `$records`, which loads every selected row as a model in one request.
 
 ```php
 protected function boot(): void

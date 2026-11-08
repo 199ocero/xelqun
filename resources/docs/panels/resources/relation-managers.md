@@ -41,7 +41,7 @@ With two or more, the tables sit on tabs under the record. Set `$relatedResource
 
 It works for has-many, morph-many and many-to-many, where a new record is attached to the parent.
 
-A relationship [repeater](/forms/fields/repeater) in the resource's form loads every child into the page, which suits a few dozen rows. For more, use a relation manager: its table pages through them.
+A relationship [repeater](/forms/fields/repeater) in the resource's form loads every child into the page. It stays quick to a few hundred rows; past that, each request loads them all, so use a relation manager: its table pages through them.
 
 <!-- screenshot: relation-manager | A table of order items under the edit form of an order -->
 

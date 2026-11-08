@@ -8,10 +8,14 @@ description: ListWidget shows rows with actions, and TileWidget a grid of small 
 Rows with an icon, a title, detail, and actions, a progress bar or a link. It's a table underneath, so actions are checked on the server, and `query()` limits what it reaches.
 
 ```php
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Xelqun\Panels\Widgets\ListWidget;
 
+/**
+ * @extends ListWidget<Product>
+ */
 class LowStock extends ListWidget
 {
     protected static ?string $heading = 'Restocking now';
@@ -41,6 +45,8 @@ class LowStock extends ListWidget
 ```
 
 <!-- screenshot: list-widget | A list widget with actions on each row -->
+
+The `@extends ListWidget<Product>` line tells Larastan that each `$record` is a `Product`, so `$record->name` type-checks.
 
 ## TileWidget
 

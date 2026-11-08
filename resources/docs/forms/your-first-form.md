@@ -154,6 +154,8 @@ public function authorize(?Authenticatable $user, ?Model $record): bool
 
 `mutateBeforeSave($attributes)` changes the attributes just before they reach the model.
 
+The hooks declare `$record` as `Model`. Name your model above the class, as in `/** @extends Form<Order> */`, and Larastan reads it as an `Order` in each of them.
+
 ## View-only forms
 
 `disabled()` shows a form that nobody can change, as on a View page. The lock travels in the token, so the package's endpoints (live updates, actions and uploads) refuse a tampered request on the server too. Your own update route doesn't read the token: build the form with the same `disabled()` there, which makes `save()` throw, or don't give a View page an update route at all.
