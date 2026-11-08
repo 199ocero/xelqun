@@ -36,7 +36,7 @@ php artisan xelqun-panels:install
 
 Only need one piece? Install [`xelqun/forms`](https://xelqun.com/forms/installation) or [`xelqun/tables`](https://xelqun.com/tables/installation) by itself.
 
-Xelqun is pre-alpha. Until 1.0, a minor version can break existing code, and each package's changelog lists every break.
+Xelqun is alpha. Until 1.0, a minor version can break existing code, and each package's changelog lists every break.
 
 ## Contributing
 

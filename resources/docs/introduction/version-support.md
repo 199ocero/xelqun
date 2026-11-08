@@ -1,11 +1,11 @@
 ---
 title: Version support
-description: Which Xelqun versions are current, what they run on, and what pre-alpha means for your code.
+description: Which Xelqun versions are current, what they run on, and what alpha means for your code.
 ---
 
-## Pre-alpha
+## Alpha
 
-Xelqun is pre-alpha. It works, and this site's demo runs on it, but it isn't stable yet.
+Xelqun is alpha. It works, and this site's demo runs on it, but it isn't stable yet.
 
 Until 1.0, a minor version can break existing code. Each package's changelog lists every break, so read it before you upgrade.
 

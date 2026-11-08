@@ -87,7 +87,7 @@ Xelqun suits you if you're on Laravel with Inertia and Vue, and you want to buil
 
 It's less of a fit in these cases:
 
-- **You need stability today.** Xelqun is pre-alpha, and a minor version can break your code. See [version support](/introduction/version-support).
+- **You need stability today.** Xelqun is alpha, and a minor version can break your code. See [version support](/introduction/version-support).
 - **Your app uses Livewire.** Xelqun is for Inertia and Vue. [Filament](https://filamentphp.com), which inspired Xelqun, is the mature choice for Livewire, and has a large plugin ecosystem.
 - **You want a one-of-a-kind design.** A marketing site or a highly custom interface is better written by hand.
 
