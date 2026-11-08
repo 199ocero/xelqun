@@ -19,7 +19,7 @@
         "phiki/phiki": "^2.0",
         "symfony/yaml": "^8.1",
         "xelqun/forms": "^0.8.1",
-        "xelqun/panels": "^0.4.1",
+        "xelqun/panels": "^0.4.2",
         "xelqun/tables": "^0.6.1"
     },
     "require-dev": {
