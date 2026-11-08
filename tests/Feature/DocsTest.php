@@ -192,6 +192,18 @@ it('only calls methods that exist', function (): void {
     expect($unknown)->toBe([]);
 });
 
+it('lists the installed package versions on the version support page', function (): void {
+    $markdown = File::get(resource_path('docs/introduction/version-support.md'));
+
+    foreach (json_decode(File::get(base_path('composer.lock')), true)['packages'] as $package) {
+        if (preg_match('#^xelqun/(\w+)$#', $package['name'], $name)) {
+            $minor = implode('.', array_slice(explode('.', ltrim($package['version'], 'v')), 0, 2));
+
+            expect($markdown)->toMatch('#\['.ucfirst($name[1]).'\]\([^)]+\)\s*\|\s*'.preg_quote($minor).'\s*\|#');
+        }
+    }
+});
+
 it('only links to pages that exist', function (): void {
     $pages = collect(docsPages())->map(fn (array $page): string => app(DocsRepository::class)->url($page[0], $page[1]));
     $broken = [];
