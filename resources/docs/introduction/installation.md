@@ -37,12 +37,12 @@ class User extends Authenticatable implements PanelUser
 {
     public function canAccessPanel(Panel $panel): bool
     {
-        return (bool) $this->is_admin;
+        return in_array($this->email, ['you@example.com']);
     }
 }
 ```
 
-The `users` table has no `is_admin` column by default, so [add one](/panels/installation#let-people-in) before you sign in.
+Put your own email in the list. For other rules, such as a company domain or an admin column, see [Let people in](/panels/installation#let-people-in).
 
 ## Installing forms
 

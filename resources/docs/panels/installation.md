@@ -24,7 +24,7 @@ The installer adds the matching npm package, two small page files in `resources/
 
 ## Let people in
 
-Add `PanelUser` to your user model. Nobody can sign in until you do.
+Add `PanelUser` to your user model. Nobody can sign in until you do. `canAccessPanel()` returns `true` for each user who may enter, so you don't need a new column. The simplest rule lists who gets in:
 
 ```php
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,8 +35,29 @@ class User extends Authenticatable implements PanelUser
 {
     public function canAccessPanel(Panel $panel): bool
     {
-        return (bool) $this->is_admin;
+        return in_array($this->email, ['you@example.com']);
     }
+}
+```
+
+Other rules that need no migration:
+
+```php
+// Everyone who has an account. If you turn on registration, anyone who signs up gets in.
+return true;
+
+// Anyone with a verified email on your company's domain.
+return str_ends_with($this->email, '@yourcompany.com') && $this->hasVerifiedEmail();
+```
+
+### Use an admin column
+
+When admins change often, keep a flag on the user instead:
+
+```php
+public function canAccessPanel(Panel $panel): bool
+{
+    return $this->is_admin;
 }
 ```
 
@@ -70,6 +91,6 @@ Run `php artisan migrate`, then make yourself an admin:
 php artisan tinker --execute 'App\Models\User::where("email", "you@example.com")->update(["is_admin" => true]);'
 ```
 
-A user model without it can't enter any panel, in any environment. The check runs on every page and on the endpoints forms and tables use, so taking away access works at once, even on a page that's already open.
+Whichever rule you pick, a user model without `PanelUser` can't enter any panel, in any environment. The check runs on every page and on the endpoints forms and tables use, so taking away access works at once, even on a page that's already open.
 
 Rebuild your frontend with `npm run build` or `npm run dev`, then build [your first panel](/panels/your-first-panel).
