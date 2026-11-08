@@ -34,7 +34,7 @@ services:
         volumes:
             - storage:/var/www/html/storage
         command: >-
-            sh -lc "touch storage/database.sqlite && php artisan migrate --force && php artisan demo:reset && php artisan optimize && exec php artisan serve --host=0.0.0.0 --port=8000"
+            sh -lc "touch storage/database.sqlite && php artisan migrate --force && php artisan demo:reset && php artisan optimize && exec php artisan serve --host=0.0.0.0 --port=8000 --no-reload"
         healthcheck:
             test:
                 [
