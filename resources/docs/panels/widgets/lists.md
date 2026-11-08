@@ -47,12 +47,13 @@ class LowStock extends ListWidget
 A grid of small cards with a status.
 
 ```php
+use App\Xelqun\Admin\Resources\ProductResource;
 use Xelqun\Panels\Widgets\Tile;
 
 Tile::make('Keyboards')
     ->icon('package')
     ->status('12 live', 'success')
-    ->url('/products');
+    ->url(ProductResource::getUrl());
 ```
 
 <!-- screenshot: tile-widget | A grid of category tiles -->

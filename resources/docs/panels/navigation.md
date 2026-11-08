@@ -30,6 +30,8 @@ $panel->navigationItems([
 ]);
 ```
 
+An icon is a Lucide name, and it has to be [registered](/panels/resources/overview#icons) to show.
+
 ## Clusters
 
 Clusters put several pages and resources behind one sidebar link, with tabs between them. Extend `Cluster`, then set `$cluster` on each member. The link goes to the first member the user can reach.

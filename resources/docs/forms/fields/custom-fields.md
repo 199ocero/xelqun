@@ -23,7 +23,7 @@ Register the component in your Inertia entry file.
 app.use(
     createXelqunForms({
         components: {
-            'app/rating': () => import('./components/RatingField.vue'),
+            'app/rating': () => import('./forms/RatingField.vue'),
         },
     }),
 );
@@ -37,7 +37,7 @@ For a field you'll use often, make a class.
 php artisan make:xelqun-field Rating --type=app/rating
 ```
 
-That creates both halves. Add `--search` or `--uploads` to start from a field that does those.
+That creates both halves, `app/Forms/Components/Rating.php` and `resources/js/forms/RatingField.vue`, and prints the line that registers the Vue file, as above. Add `--search` or `--uploads` to start from a field that does those.
 
 ```php
 use Xelqun\Forms\Components\Field;

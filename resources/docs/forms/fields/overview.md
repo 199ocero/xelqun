@@ -47,7 +47,7 @@ The options on this page work on every field.
 
 ## Labels and help text
 
-A label comes from the field's name, so `first_name` reads as "First name". Change it with `label()`.
+A label comes from the field's name in title case, so `first_name` reads as "First Name" and `country_id` as "Country". Change it with `label()`.
 
 ```php
 TextInput::make('email')

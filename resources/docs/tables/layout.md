@@ -16,6 +16,8 @@ protected function boot(): void
 
 <!-- example: table-grid -->
 
+Cards have no column headers, so a Sort by menu above them lists the sortable columns.
+
 ## Stripes
 
 ```php

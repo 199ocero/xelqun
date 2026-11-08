@@ -19,7 +19,7 @@ MorphToSelect::make('commentable')
 
 <!-- example: form-morph-to-select -->
 
-Only these records can be chosen, and a posted type outside the list is refused. `searchable()` searches on the server instead of loading every record.
+Only these records can be chosen, and a posted type outside the list is refused. `searchable()` searches on the server. Without it, picking a type sends every record of that type to the page, so use `searchable()` for any type with more than a few hundred records.
 
 ## Limiting the records
 

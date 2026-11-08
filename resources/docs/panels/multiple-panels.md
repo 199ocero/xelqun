@@ -38,12 +38,36 @@ Without a domain, a panel answers on every host. With one, it only answers on th
 $panel->authGuard('admin')->authPasswordBroker('admins');
 ```
 
+Both have to exist in `config/auth.php`, with a provider for the guard:
+
+```php
+'guards' => [
+    // ...
+    'admin' => ['driver' => 'session', 'provider' => 'admins'],
+],
+
+'providers' => [
+    // ...
+    'admins' => ['driver' => 'eloquent', 'model' => App\Models\User::class],
+],
+
+'passwords' => [
+    // ...
+    'admins' => [
+        'provider' => 'admins',
+        'table' => 'password_reset_tokens',
+        'expire' => 60,
+        'throttle' => 60,
+    ],
+],
+```
+
 `canAccessPanel()` gets the panel, so one user can reach some panels and not others.
 
 ```php
 public function canAccessPanel(Panel $panel): bool
 {
-    return $panel->getId() === 'admin' ? $this->is_admin : true;
+    return $panel->getId() === 'admin' ? (bool) $this->is_admin : true;
 }
 ```
 

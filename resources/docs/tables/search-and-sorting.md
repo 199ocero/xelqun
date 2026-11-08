@@ -12,7 +12,7 @@ TextColumn::make('category.name')->searchable();
 
 <!-- example: table-search-and-sorting -->
 
-A closure replaces the query, which suits a column that isn't a real one.
+A closure replaces the query, which suits a column that isn't a real one. Its conditions are grouped on their own, so starting with `where()` leaves the other columns' searches alone.
 
 ```php
 use Illuminate\Database\Eloquent\Builder;

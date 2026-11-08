@@ -18,7 +18,7 @@ public function authorize(?Authenticatable $user): bool
 
 ## Give each action its own `authorize()`
 
-An action does nothing without one, and the table's `authorize()` doesn't count.
+An action does nothing without one, and the table's `authorize()` doesn't count. A string such as `'update'` is checked against the row's [policy](/tables/your-first-table#things-to-know).
 
 ## Scope `query()` to what the viewer may see
 
@@ -35,7 +35,7 @@ public function query(): Builder
 
 ## Limit bulk actions
 
-`maxSelectableRecords()` sets the most rows one bulk action can take, and the server enforces it.
+`maxSelectableRecords()` sets the most rows one bulk action can take, and the server enforces it. The default is 1,000. A bulk action loads every selected row as a model in one request, so a higher limit needs the memory for that many models.
 
 ```php
 protected function boot(): void
@@ -43,3 +43,24 @@ protected function boot(): void
     $this->maxSelectableRecords(500);
 }
 ```
+
+## Check the rate limits
+
+Each endpoint has its own rate limit per person, so a burst of searches or polls doesn't block actions. Change them under `routes.throttle` in `config/xelqun-tables.php`. Publish the file first:
+
+```bash
+php artisan vendor:publish --tag=xelqun-tables-config
+```
+
+```php
+'routes' => [
+    // ...
+    'throttle' => [
+        'query' => '240,1',
+        'update' => '120,1',
+        'action' => '60,1',
+    ],
+],
+```
+
+`query` covers loading, searching, sorting, filtering and polling. `update` covers editable cells and reordering, and `action` covers every action.

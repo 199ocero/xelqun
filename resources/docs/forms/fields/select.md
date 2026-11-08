@@ -44,7 +44,7 @@ The state is then a list, so a model needs an array cast. `reorderable()` lets p
 
 ## Searching
 
-`searchable()` filters options as you type.
+`searchable()` filters options as you type. A select with more than 100 options shows a search box anyway, and any list draws only its first 100 matches, so type to find the rest.
 
 ```php
 Select::make('author_id')->options(User::pluck('name', 'id'))->searchable();
@@ -70,7 +70,7 @@ Select::make('country_id')->relationship('country', 'name');
 Select::make('tags')->multiple()->relationship('tags', 'name');
 ```
 
-The third argument changes the query. Options load from the server when you search, and `preload()` loads them all up front.
+The third argument changes the query. Without `searchable()`, the select sends every related record to the page, until there are more than 500: then it searches on the server instead. With `searchable()`, options load from the server as you type, and `preload()` loads them all up front. Over a few hundred records, use `searchable()` without `preload()`.
 
 ```php
 use Illuminate\Database\Eloquent\Builder;
@@ -92,16 +92,17 @@ Select::make('tags')
 
 ## Creating a record from the select
 
-`createOptionForm()` shows a button that opens these fields, and selects the record they create.
+`createOptionForm()` shows a button that opens these fields, and selects the record they create. The button only shows when the related model's policy allows `create`, here a `CategoryPolicy`.
 
 ```php
-Select::make('author_id')
-    ->relationship('author', 'name')
+Select::make('category_id')
+    ->relationship('category', 'name')
     ->createOptionForm([
         TextInput::make('name')->required(),
-        TextInput::make('email')->email()->required(),
     ]);
 ```
+
+The fields fill the new record, so every column the table requires needs a field. For a record that needs more, such as a user's password, save it with `createOptionUsing()`.
 
 `editOptionForm()` adds a button that edits the selected record. `manageOptionForm()` uses the same fields for both.
 

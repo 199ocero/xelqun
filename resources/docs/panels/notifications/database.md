@@ -22,6 +22,8 @@ DatabaseNotification::make()
     ->sendToDatabase($user);
 ```
 
+This works from a job, an observer or a webhook too. `getUrl()` finds the panel when only one registers the resource, and takes the panel as a [third argument](/panels/resources/pages#links) when several do.
+
 `databaseNotificationsPolling()` changes how often it checks, and `null` checks only on page load.
 
 ```php

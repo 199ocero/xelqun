@@ -11,3 +11,5 @@ description: The Artisan commands of Xelqun Panels.
 | `make:xelqun-relation-manager` | Creates a relation manager.                                       |
 | `make:xelqun-page`             | Creates a page.                                                   |
 | `make:xelqun-widget`           | Creates a chart widget. `--stats` makes a stats overview.         |
+
+`make:xelqun-resource` and `make:xelqun-relation-manager` start the form and table from a column the model's table has: `name`, `title`, `label`, `number`, `email`, `slug`, or its first text column. A generated resource sets `$recordTitleAttribute` to it, so it shows in global search.

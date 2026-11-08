@@ -58,13 +58,13 @@ Group::make([
 
 ## FusedGroup
 
-`FusedGroup` joins fields into one control.
+`FusedGroup` joins fields into one control under one label. Each field's own label is kept for screen readers only, so give the group a `label()` and each field a placeholder, or people see unlabelled boxes.
 
 ```php
 use Xelqun\Forms\Layouts\FusedGroup;
 
 FusedGroup::make([
-    TextInput::make('amount')->numeric(),
-    Select::make('currency')->options(['usd' => 'USD', 'eur' => 'EUR']),
-])->columns(2);
+    TextInput::make('amount')->numeric()->placeholder('Amount'),
+    Select::make('currency')->options(['usd' => 'USD', 'eur' => 'EUR'])->placeholder('Currency'),
+])->label('Price')->columns(2);
 ```

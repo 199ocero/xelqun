@@ -5,7 +5,7 @@ description: A model with SoftDeletes gets a filter, restore and force delete by
 
 A model with `SoftDeletes` gets this by itself: deleted records leave the list, a filter brings them back, and `RestoreAction`, `ForceDeleteAction` and their bulk versions appear.
 
-They need `restore` and `forceDelete` in the policy.
+They need `restore` and `forceDelete` in the policy. These use the `is_admin` column from [installation](/panels/installation#let-people-in).
 
 ```php
 public function restore(User $user, Post $post): bool

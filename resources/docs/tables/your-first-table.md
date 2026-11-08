@@ -11,7 +11,7 @@ php artisan make:xelqun-table ProductsTable
 
 <!-- example: table-first-table -->
 
-A table needs a `query()` and its `columns()`.
+A table needs a `query()` and its `columns()`. This one assumes a `Product` model with `name`, `price` and `team_id` columns, and users with a `team_id`. Without teams, drop the `where()` and the context.
 
 ```php
 namespace App\Tables;
@@ -81,6 +81,7 @@ defineProps<{ table: TableSchema }>();
 
 - **`authorize()` runs on every request.** It allows everything until you say otherwise.
 - **A missing `authorize()` on an action hides its button.**
+- **A string in `authorize('update')` is a policy ability** on the row's model. Without a policy, every action that uses one is hidden, and every editable cell is read-only. Make one with `php artisan make:policy ProductPolicy --model=Product`.
 - **Closures get values by parameter name.** Write `$record`, `$records`, `$state`, `$query`, `$data` or `$direction`. Another name gets a value from the container, not your row.
 - **`$set` and `$get` do nothing in a table action,** because the table has no form state. Use the record.
 - **Don't use `Action::record()` in a table.** The table already finds the row.

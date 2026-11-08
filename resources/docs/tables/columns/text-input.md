@@ -13,4 +13,4 @@ TextInputColumn::make('stock')
 
 <!-- example: table-text-input -->
 
-`rules()` takes Laravel rules, and an error shows in the cell. It's read-only until `authorize()` says who can edit.
+`rules()` takes Laravel rules. A refused value stays in the cell with the error under it, and the message names the column, as in "The Stock field...". It's read-only until `authorize()` says who can edit, and `'update'` needs a [policy](/tables/your-first-table#things-to-know).

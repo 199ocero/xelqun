@@ -27,6 +27,16 @@ class Reports extends Page
 }
 ```
 
+On a page of its own there's no record or model, so `authorize('export')` asks a plain gate. Define it in a service provider's `boot()`, or the button stays hidden:
+
+```php
+use Illuminate\Support\Facades\Gate;
+
+Gate::define('export', fn (User $user): bool => (bool) $user->is_admin);
+```
+
+A page is open to everyone the panel lets in. Override `canAccess()` to narrow it.
+
 `content()` takes tables, action sets and `FormContent`.
 
 ```php

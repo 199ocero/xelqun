@@ -7,11 +7,14 @@ A plugin adds fields from its own repository. Built-in fields use the same contr
 
 ## Installing a plugin
 
+Require the Composer package first, then run the plugin command.
+
 ```bash
+composer require acme/rating
 php artisan xelqun-forms:plugin acme/rating
 ```
 
-That installs the npm package, adds the plugin to your Inertia entry file, and points Tailwind at its components.
+The command installs the npm package, adds the plugin to your Inertia entry file, and points Tailwind at its components.
 
 ## Laying one out
 

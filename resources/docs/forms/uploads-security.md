@@ -7,19 +7,26 @@ description: How Xelqun Forms protects tokens, endpoints and uploads, and what's
 
 A form in the browser is a schema and an encrypted token. Each request rebuilds the form on the server from that token, so the browser can't change which class runs, or which record it edits.
 
-`token_ttl` in `config/xelqun-forms.php` sets how many minutes a token lasts. The default is 720.
+`token_ttl` in `config/xelqun-forms.php` sets how many minutes a token lasts. The default is 720. The installer doesn't publish that file, so publish it before you change anything in it:
+
+```bash
+php artisan vendor:publish --tag=xelqun-forms-config
+```
 
 ## Endpoints
 
-Search, uploads, live updates, step checks and actions each run `authorize()` again. They're throttled, and you can change the limits in the config.
+Search, uploads, live updates, step checks and actions each run `authorize()` again. Each endpoint has its own rate limit, set under `routes` in the config.
 
 ```php
-'throttle' => [
-    'update' => '240,1',
-    'upload' => '30,1',
-    'search' => '120,1',
-    'validate' => '120,1',
-    'action' => '60,1',
+'routes' => [
+    // ...
+    'throttle' => [
+        'update' => '240,1',
+        'upload' => '30,1',
+        'search' => '120,1',
+        'validate' => '120,1',
+        'action' => '60,1',
+    ],
 ],
 ```
 

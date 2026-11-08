@@ -31,6 +31,8 @@ ProductForm::make($product);  // edit
 | `HasOne` or `BelongsTo`, edited in place | `Group::make([...])->relationship('profile')`                    |
 | `MorphTo`                                | `MorphToSelect::make('commentable')->types([...])`               |
 
+A relationship `Select` without `searchable()` sends every related record to the page, up to 500. Add `searchable()` for anything over a few hundred records, as on the [select](/forms/fields/select) page.
+
 ## Casts
 
 A field that holds a list or an array needs an `array` cast on the model: `CheckboxList`, `TagsInput`, `KeyValue`, `Repeater` and `Builder`, plus `Select` and `ToggleButtons` with `multiple()`, and `FileUpload` with `multiple()`.

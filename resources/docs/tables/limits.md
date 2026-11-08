@@ -17,7 +17,6 @@ Xelqun is pre-alpha, and a minor version can break existing code until 1.0. Thes
 
 ## Filters
 
-- A relationship `SelectFilter` sends every related record. For a long list, use a `Filter` with an async `Select`.
 - The query builder's rules match all or any, with no nested groups.
 - Filters open in one panel. There's no layout above the table.
 

@@ -14,5 +14,7 @@ protected function boot(): void
 
 Each value gets a heading, and rows sort by it first, so a group stays together whatever the sort.
 
+A related value, such as `category.name`, needs a column with that name, and groups the way that column sorts. Without the column, the table throws a `TableDefinitionException`.
+
 > [!NOTE]
 > Grouping is set in code. Viewers can't choose a group yet, and summaries have no per-group lines.

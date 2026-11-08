@@ -13,7 +13,7 @@ SelectColumn::make('status')
 
 <!-- example: table-select -->
 
-An editable column saves as you change it. It's read-only until `authorize()` says who can edit, the same as an action.
+An editable column saves as you change it. It's read-only until `authorize()` says who can edit, the same as an action. A string such as `'update'` asks the row's [policy](/tables/your-first-table#things-to-know), so without one every cell stays read-only. A refused value shows under the cell.
 
 The row comes through `query()`, and a select only takes its own options.
 

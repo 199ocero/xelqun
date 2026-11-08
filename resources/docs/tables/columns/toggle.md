@@ -11,4 +11,4 @@ ToggleColumn::make('is_featured')->label('Featured')->authorize('update');
 
 <!-- example: table-toggle -->
 
-It's read-only until `authorize()` says who can edit. `updateStateUsing()` saves it your own way, and `rules()` adds validation.
+It's read-only until `authorize()` says who can edit, and `'update'` needs a [policy](/tables/your-first-table#things-to-know). `updateStateUsing()` saves it your own way, and `rules()` adds validation.

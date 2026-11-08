@@ -35,9 +35,39 @@ class User extends Authenticatable implements PanelUser
 {
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->is_admin;
+        return (bool) $this->is_admin;
     }
 }
+```
+
+The `users` table has no `is_admin` column by default. Add one with a migration:
+
+```bash
+php artisan make:migration add_is_admin_to_users_table
+```
+
+```php
+Schema::table('users', function (Blueprint $table) {
+    $table->boolean('is_admin')->default(false);
+});
+```
+
+Cast it in the user model, with the casts it already has:
+
+```php
+protected function casts(): array
+{
+    return [
+        // ...
+        'is_admin' => 'boolean',
+    ];
+}
+```
+
+Run `php artisan migrate`, then make yourself an admin:
+
+```bash
+php artisan tinker --execute 'App\Models\User::where("email", "you@example.com")->update(["is_admin" => true]);'
 ```
 
 A user model without it can't enter any panel, in any environment. The check runs on every page and on the endpoints forms and tables use, so taking away access works at once, even on a page that's already open.

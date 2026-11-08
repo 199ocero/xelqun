@@ -78,4 +78,21 @@ public static function getNavigationBadge(): int
 
 The sidebar's New button lists every resource with a create page that the user may `create`.
 
+### Icons
+
+Icons are Lucide names, and a name only shows once it's registered. Panels registers the ones a sidebar usually needs, on top of forms' set: see `panelsPlugin()` in `@xelqun/panels/resources/js/plugin.ts` and `@xelqun/forms/resources/js/ui/icons.ts`. Add others with the `icons` option of `createXelqunForms()` in your Inertia entry file:
+
+```ts
+import { Newspaper } from '@lucide/vue';
+
+app.use(
+    createXelqunForms({
+        plugins: [panelsPlugin()],
+        icons: { newspaper: Newspaper },
+    }),
+);
+```
+
+An unregistered name shows no icon, and only warns in the console in dev mode.
+
 [See one in the demo](demo:/products).

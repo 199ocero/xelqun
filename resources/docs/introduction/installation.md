@@ -37,10 +37,12 @@ class User extends Authenticatable implements PanelUser
 {
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->is_admin;
+        return (bool) $this->is_admin;
     }
 }
 ```
+
+The `users` table has no `is_admin` column by default, so [add one](/panels/installation#let-people-in) before you sign in.
 
 ## Installing forms
 

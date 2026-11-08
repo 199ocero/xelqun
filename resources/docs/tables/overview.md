@@ -6,6 +6,7 @@ description: Xelqun Tables lets you define tables in PHP, with sorting, search, 
 Xelqun Tables is a table builder for Laravel, Inertia and Vue. A table is a PHP class, and it needs no Vue written for it.
 
 ```php
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Xelqun\Tables\Columns\TextColumn;
 use Xelqun\Tables\Filters\SelectFilter;

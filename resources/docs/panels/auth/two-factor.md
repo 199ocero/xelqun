@@ -45,4 +45,10 @@ $panel->emailAuthentication();
 
 The code is kept only as a hash, works once, and ends with the 5 minute challenge. It's weaker than an authenticator, because anyone in the mailbox can read it.
 
+The challenge page says when a code was emailed. There's no button to send another: after 5 minutes, go back to sign in for a new one.
+
+## With a Laravel starter kit
+
+A starter kit has Fortify's own two-factor, on its settings page. That's separate: it uses other columns, and the panel never reads them, so someone set up in one isn't asked for a code by the other. Keep both, or turn Fortify's `twoFactorAuthentication` feature off in `config/fortify.php`.
+
 [Register an account in the demo](demo:/register), then open your profile. The shared demo account can't turn this on.

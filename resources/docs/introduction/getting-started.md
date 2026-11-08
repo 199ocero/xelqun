@@ -40,7 +40,7 @@ This creates the resource and a policy, and your panel picks it up by itself.
 > [!WARNING]
 > A resource shows nothing until its policy allows it. With no policy, or no such method, the answer is no.
 
-Open `app/Policies/ProductPolicy.php`, and let your admins in.
+Open `app/Policies/ProductPolicy.php`, and let your admins in. This uses the `is_admin` column from [installation](/panels/installation#let-people-in).
 
 ```php
 public function viewAny(User $user): bool

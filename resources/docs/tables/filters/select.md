@@ -20,10 +20,7 @@ SelectFilter::make('state')->attribute('status')->multiple()->options($statuses)
 ## Relationships
 
 ```php
-SelectFilter::make('category')->relationship('category', 'name');
+SelectFilter::make('category')->relationship('category', 'name')->searchable();
 ```
 
-It keeps rows that have the chosen record.
-
-> [!NOTE]
-> A relationship filter sends every related record. For a long list, use a [custom filter](/tables/filters/custom) with an async `Select`.
+It keeps rows that have the chosen record. `searchable()` searches the related records on the server, so the list never reaches the page. Use it for anything over a few hundred related records. Without it, the filter sends every related record, until there are more than 500: then it searches on the server anyway.

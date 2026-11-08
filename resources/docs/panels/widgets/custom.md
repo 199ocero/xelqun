@@ -34,4 +34,20 @@ app.use(
 );
 ```
 
-`XqPanelWidgetCard` gives your component the card every other widget uses.
+Every key of `getData()` arrives as a prop. So do `heading`, when the widget sets `$heading`, and `seeAllUrl`, when `getSeeAllUrl()` returns one. They're left out otherwise.
+
+`XqPanelWidgetCard` gives your component the card every other widget uses. Pass the heading and link on to it:
+
+```vue
+<script setup lang="ts">
+import { XqPanelWidgetCard } from '@xelqun/panels';
+
+defineProps<{ online: boolean; heading?: string; seeAllUrl?: string }>();
+</script>
+
+<template>
+    <XqPanelWidgetCard :heading="heading ?? 'Server'" :see-all-url="seeAllUrl">
+        <p class="px-5 pb-4">{{ online ? 'Online' : 'Offline' }}</p>
+    </XqPanelWidgetCard>
+</template>
+```

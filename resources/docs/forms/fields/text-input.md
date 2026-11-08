@@ -13,7 +13,7 @@ TextInput::make('name')->required()->maxLength(255);
 
 ## Input types
 
-Each of these sets the browser's input type and adds the matching validation rule.
+Each of these adds the matching validation rule. `email()`, `url()` and `tel()` set the browser's input type. `numeric()` and `integer()` keep a text input and set `inputmode`, so phones open a number keyboard.
 
 ```php
 TextInput::make('email')->email();
@@ -25,7 +25,7 @@ TextInput::make('quantity')->integer();
 
 ## Numbers
 
-`minValue()`, `maxValue()` and `step()` set the range.
+`minValue()` and `maxValue()` set the range, and the server validates it. `step()` is only a hint in the field's schema: nothing checks it, so add a rule if the step matters.
 
 ```php
 TextInput::make('quantity')->integer()->minValue(1)->maxValue(100)->step(5);

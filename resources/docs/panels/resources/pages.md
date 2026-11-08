@@ -51,8 +51,35 @@ ProductResource::getUrl();
 ProductResource::getUrl('view', ['record' => $product]);
 ```
 
+It works outside a panel's request too, as in a job, a mail or a test, when one panel registers the resource. When several do, pass the panel as the third argument:
+
+```php
+use Xelqun\Panels\Panels;
+
+ProductResource::getUrl('view', ['record' => $product], app(Panels::class)->get('admin'));
+```
+
 ## Tabs across a record
 
-`getRecordSubNavigation()` on a resource adds tabs across a record's pages.
+`getRecordSubNavigation()` on a resource adds tabs across a record's pages. It returns `NavigationItem`s. A tab is only highlighted when you say so with `active()`, and a link to a nested resource needs the `parentRecord`.
+
+```php
+use Illuminate\Database\Eloquent\Model;
+use Xelqun\Panels\Navigation\NavigationItem;
+
+public static function getRecordSubNavigation(Model $record): array
+{
+    $view = static::getUrl('view', ['record' => $record]);
+    $edit = static::getUrl('edit', ['record' => $record]);
+
+    return [
+        NavigationItem::make('Details')->url($view)->active(request()->url() === $view),
+        NavigationItem::make('Edit')->url($edit)->active(request()->url() === $edit),
+        NavigationItem::make('Items')->url(OrderItemResource::getUrl('index', ['parentRecord' => $record])),
+    ];
+}
+```
+
+The tabs show on the record's own pages, not on the nested list they link to.
 
 [See them in the demo](demo:/orders).

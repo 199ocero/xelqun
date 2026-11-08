@@ -10,7 +10,13 @@ composer require xelqun/tables
 php artisan xelqun-tables:install
 ```
 
-The installer adds the npm packages and sets up your Inertia entry file and stylesheet. Forms comes with it.
+The installer adds both npm packages, `@xelqun/tables` and `@xelqun/forms`, and runs `xelqun-forms:install` for you. So your entry file registers the forms plugin, and your Vite config gets the `optimizeDeps` setting [forms describes](/forms/installation). Your stylesheet imports both packages' styles. The forms one holds the theme, so badges and the filters panel need it too.
+
+```css
+@import 'tailwindcss';
+@import '@xelqun/tables/style.css';
+@import '@xelqun/forms/style.css';
+```
 
 Rebuild your frontend with `npm run build` or `npm run dev`, and you're ready for [your first table](/tables/your-first-table).
 

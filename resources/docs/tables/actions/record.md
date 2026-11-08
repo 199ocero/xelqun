@@ -6,6 +6,7 @@ description: Buttons on each row, with modals, groups and authorization.
 Table actions are the same [actions](/forms/actions/overview) forms use.
 
 ```php
+use App\Models\Product;
 use Xelqun\Actions\Action;
 use Xelqun\Actions\ActionGroup;
 
@@ -30,11 +31,15 @@ The server finds each row again through the table's `query()`, so an action can'
 > [!WARNING]
 > An action does nothing until its own `authorize()` says so, and a missing one hides its button.
 
+`authorize('update')` asks the row's [policy](/tables/your-first-table#things-to-know), so without one these buttons are hidden. `products.edit` and `products.show` stand for routes in your own app.
+
 ## Modals
 
 `schema()` opens a [modal](/forms/actions/modals) with fields, and `fillForm()` sets their values from the row.
 
 ```php
+use Xelqun\Forms\Components\TextInput;
+
 Action::make('rename')
     ->authorize('update')
     ->fillForm(fn (Product $record): array => ['name' => $record->name])

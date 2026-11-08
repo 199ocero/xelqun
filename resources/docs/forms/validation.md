@@ -35,7 +35,21 @@ TextInput::make('code')->rules(['digits:6']);
 TextInput::make('vat')->rule('required', fn (Get $get): bool => $get('type') === 'business');
 ```
 
-A closure rule works too.
+A closure rule works too. A plain Laravel closure rule takes the attribute, the value and `$fail`:
+
+```php
+use Closure;
+
+TextInput::make('slug')->rules([
+    function (string $attribute, mixed $value, Closure $fail): void {
+        if ($value === 'admin') {
+            $fail('That name is taken.');
+        }
+    },
+]);
+```
+
+A closure with fewer arguments builds the rule instead. It runs first, and can take `Get` to read other fields:
 
 ```php
 use Closure;
@@ -51,7 +65,7 @@ TextInput::make('slug')->rules([
 
 ## Database rules
 
-`unique()` and `exists()` take the record into account.
+`unique()` and `exists()` take the record into account. Without a table, they use the table of the form's `model()`.
 
 ```php
 TextInput::make('email')->unique(ignoreRecord: true);

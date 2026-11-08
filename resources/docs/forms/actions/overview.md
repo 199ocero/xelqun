@@ -35,11 +35,12 @@ Each click rebuilds the form on the server and checks the action again.
 > [!WARNING]
 > An action does nothing without `authorize()`, and the form's `authorize()` doesn't count.
 
-`authorize()` takes a boolean, a closure, or a policy ability checked against the record.
+`authorize()` takes a boolean, a closure, or a policy ability checked against the record. An ability needs a policy for the record's model, such as `OrderPolicy`. Without one, the button is hidden.
 
 ```php
 Action::make('publish')->authorize('update');
 
+// isManager() stands for a method on your own User model.
 Action::make('refund')->authorize(fn (): bool => auth()->user()->isManager());
 ```
 

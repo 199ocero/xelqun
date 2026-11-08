@@ -22,6 +22,8 @@ Wizard::make()->steps([
 
 Next checks the step in the browser, then on the server. The server keeps no record of the steps, so submitting checks all of them again.
 
+The form's own Save button only shows on the last step, and Enter on an earlier step means Next. Fields outside the wizard are saved from there too.
+
 ## Running code between steps
 
 `beforeValidation()` runs on Next, before the step's rules, and a `ValidationException` stops it. `afterValidation()` runs once they pass.

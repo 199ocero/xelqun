@@ -12,4 +12,4 @@ protected function boot(): void
 
 <!-- example: table-empty-state -->
 
-This replaces "No records".
+This replaces the default, "No records found.".

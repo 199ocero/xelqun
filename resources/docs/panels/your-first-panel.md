@@ -50,6 +50,8 @@ class ProductResource extends Resource
 > [!WARNING]
 > A resource shows nothing until its policy allows it. With no policy, or no such method, the answer is no. This differs from Filament, which allows by default.
 
+Here everyone in the panel can look, and only admins can change anything, using the `is_admin` column from [installation](/panels/installation#let-people-in).
+
 ```php
 class ProductPolicy
 {

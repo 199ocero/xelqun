@@ -11,3 +11,5 @@ protected function boot(): void
 ```
 
 <!-- example: table-polling -->
+
+The interval is seconds or minutes, as in `'10s'` or `'1m'`. Anything else throws a `TableDefinitionException`.

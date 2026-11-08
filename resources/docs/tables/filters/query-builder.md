@@ -25,7 +25,26 @@ QueryBuilder::make('rules')
 
 <!-- example: table-filter-query-builder -->
 
-Use a dot for a relation. Only the constraints you list can be asked about, and a rule with a bad value is skipped.
+Use a dot for a relation. Only the constraints you list can be asked about, and a rule with a bad value is skipped. A rule only counts as an active filter when it filters something.
+
+Each kind of value has its own field in a rule, and the panel shows the one the chosen column takes:
+
+| Constraint                           | Value field                      |
+| ------------------------------------ | -------------------------------- |
+| `TextConstraint`, `NumberConstraint` | `value`                          |
+| `SelectConstraint` with `options()`  | `option`, one of the option keys |
+| `DateConstraint`                     | `date`, from a date picker       |
+| `BooleanConstraint`                  | None                             |
+
+That matters when you build the filter's state yourself, as in a test:
+
+```php
+$this->queryTable(ProductsTable::make(['team' => 1]), [
+    'filters' => ['rules' => [
+        ['constraint' => 'status', 'operator' => 'equals', 'option' => 'draft'],
+    ]],
+]);
+```
 
 > [!NOTE]
 > Rules match all or any. Nested groups aren't supported yet.

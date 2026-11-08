@@ -6,11 +6,17 @@ description: ActionSet gives you buttons on a page, with no form or table around
 An `ActionSet` is a class of actions. Each click rebuilds it on the server and checks the action again, then the page reloads to show what changed.
 
 ```php
+use App\Models\Order;
 use Xelqun\Actions\Action;
 use Xelqun\Actions\ActionSet;
 
 class OrderActions extends ActionSet
 {
+    public function model(): string
+    {
+        return Order::class;
+    }
+
     public function actions(): array
     {
         return [
@@ -25,6 +31,8 @@ class OrderActions extends ActionSet
 ```
 
 <!-- example: standalone-actions -->
+
+A set that works on a record must define `model()`, or the page fails. `authorize('update')` asks the `update` ability of an `OrderPolicy`, so without a policy the button is hidden. `ship()` stands for a method on your own model.
 
 Pass it to your page, and render it with `XqActions`.
 

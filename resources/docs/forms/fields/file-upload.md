@@ -17,6 +17,12 @@ FileUpload::make('attachment')
 
 A file uploads as soon as it's picked. Until the form is saved, the state only holds a short token, and the file sits on a temporary disk.
 
+Files go to the `public` disk unless you set another, and their URLs start with `APP_URL`. Run `php artisan storage:link` once, and set `APP_URL` to the address you browse, or previews of saved files won't load.
+
+```bash
+php artisan storage:link
+```
+
 ## Images
 
 `image()` only takes images. `previewable()` shows thumbnails, and `avatar()` shows one image as a compact circle.
@@ -38,6 +44,8 @@ FileUpload::make('gallery')
 ```
 
 The state is a list, so a model needs an array cast. `appendFiles(false)` puts new files first. `maxParallelUploads()` defaults to 1.
+
+The upload route takes 30 files a minute from each person by default. A bigger batch waits and tries again, so a large gallery uploads slowly. Raise `routes.throttle.upload` in the [config](/forms/uploads-security#endpoints) if that's too slow.
 
 ## Size limits
 
