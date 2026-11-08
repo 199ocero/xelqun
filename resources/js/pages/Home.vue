@@ -10,6 +10,7 @@ import {
 } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import DocsSearch from '@/components/docs/DocsSearch.vue';
+import GithubStars from '@/components/docs/GithubStars.vue';
 import ThemeToggle from '@/components/docs/ThemeToggle.vue';
 import XelqunMark from '@/components/docs/XelqunMark.vue';
 import ProductPreview from '@/components/home/ProductPreview.vue';
@@ -107,14 +108,9 @@ const pillButton =
                     >
                         {{ item.label }}
                     </Link>
-                    <a
-                        :href="links.github"
-                        class="transition-colors duration-(--xq-duration-fast) hover:text-xq-foreground"
-                    >
-                        GitHub
-                    </a>
                 </nav>
                 <div class="ml-auto flex items-center gap-1.5">
+                    <GithubStars />
                     <ThemeToggle />
                     <a
                         :href="links.demo"

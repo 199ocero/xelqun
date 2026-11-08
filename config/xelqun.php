@@ -15,6 +15,8 @@ return [
 
     'demo_domain' => env('XELQUN_DEMO_DOMAIN', 'demo.xelqun.test'),
 
-    'github_url' => 'https://github.com/199ocero',
+    'github_repo' => '199ocero/xelqun',
+
+    'github_url' => 'https://github.com/199ocero/xelqun',
 
 ];

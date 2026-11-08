@@ -12,6 +12,7 @@ import {
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import DocsSearch from '@/components/docs/DocsSearch.vue';
 import DocsSidebar from '@/components/docs/DocsSidebar.vue';
+import GithubStars from '@/components/docs/GithubStars.vue';
 import ThemeToggle from '@/components/docs/ThemeToggle.vue';
 import { iconButtonClass } from '@/lib/classes';
 import type { DocsDocument, DocsShell } from '@/types/docs';
@@ -125,6 +126,7 @@ onBeforeUnmount(() => {
                     >
                         <Search class="size-4" aria-hidden="true" />
                     </button>
+                    <GithubStars />
                     <ThemeToggle />
                     <a
                         :href="demoUrl"

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 /*
@@ -14,6 +15,7 @@ use Tests\TestCase;
 */
 
 pest()->extend(TestCase::class)
+    ->beforeEach(fn () => Http::preventStrayRequests()->allowStrayRequests(['*/__inertia_ssr']))
     ->in('Feature');
 
 /*

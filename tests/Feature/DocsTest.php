@@ -2,6 +2,7 @@
 
 use App\Docs\DocsRepository;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Inertia\Testing\AssertableInertia as Assert;
 
 /**
@@ -91,6 +92,18 @@ it('shows the packages and their real page counts on the landing page', function
             ->has('packages', 3)
             ->where('packages.0.label', 'Forms')
             ->where('packages.0.pages', count(app(DocsRepository::class)->pages('forms'))));
+});
+
+it('shows the repository star count', function (): void {
+    Http::fake(['api.github.com/repos/199ocero/xelqun' => Http::response(['stargazers_count' => 1234])]);
+
+    $this->get('/')->assertInertia(fn (Assert $page) => $page->where('links.githubStars', 1234));
+});
+
+it('hides the star count when GitHub cannot be reached', function (): void {
+    Http::fake(['api.github.com/*' => Http::response(status: 500)]);
+
+    $this->get('/')->assertInertia(fn (Assert $page) => $page->where('links.githubStars', false));
 });
 
 it('shows every section in one sidebar, with the current page marked', function (): void {
