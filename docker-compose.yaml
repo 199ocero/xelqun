@@ -22,6 +22,7 @@ x-xelqun-runtime: &xelqun-runtime
     QUEUE_CONNECTION: sync
     MAIL_MAILER: log
     PHP_CLI_SERVER_WORKERS: ${PHP_CLI_SERVER_WORKERS:-4}
+    INERTIA_SSR_URL: http://ssr:13714
 
 services:
     app:
@@ -55,6 +56,28 @@ services:
         volumes:
             - storage:/var/www/html/storage
         command: php artisan schedule:work
+
+    ssr:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: assets
+            args:
+                VITE_APP_NAME: ${VITE_APP_NAME:-Xelqun}
+        restart: unless-stopped
+        expose:
+            - '13714'
+        command: node bootstrap/ssr/app.js
+        healthcheck:
+            test:
+                [
+                    'CMD-SHELL',
+                    'wget -q -O /dev/null http://127.0.0.1:13714/health || exit 1',
+                ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
 
 volumes:
     storage:

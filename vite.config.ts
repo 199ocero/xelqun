@@ -29,6 +29,10 @@ export default defineConfig({
         }),
         wayfinder({
             formVariants: true,
+            // The Docker assets stage has no PHP; its types come from an earlier stage.
+            command:
+                process.env.WAYFINDER_COMMAND ||
+                'php artisan wayfinder:generate',
         }),
     ]),
     resolve: {

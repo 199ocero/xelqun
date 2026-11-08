@@ -27,11 +27,13 @@ COPY vite.config.ts tsconfig.json ./
 ARG VITE_APP_NAME=Xelqun
 ENV VITE_APP_NAME=$VITE_APP_NAME \
     WAYFINDER_COMMAND=true
-RUN npm run build
+RUN npm run build:ssr
+EXPOSE 13714
 
 FROM base
 COPY --from=vendor /var/www/html/vendor ./vendor
 COPY --from=assets /app/public/build ./public/build
+COPY --from=assets /app/bootstrap/ssr ./bootstrap/ssr
 COPY . .
 RUN ln -s ../storage/app/public public/storage \
     && mkdir -p storage/app/private storage/app/public storage/app/demo storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
