@@ -40,7 +40,7 @@ A plugin is one repository, with a `composer.json` and a `package.json`.
     "files": ["resources/js"],
     "exports": { ".": "./resources/js/index.ts" },
     "peerDependencies": {
-        "@xelqun/forms": "^0.7.0",
+        "@xelqun/forms": "^0.8.0",
         "reka-ui": "^2.11.0",
         "vue": "^3.5.0"
     }
