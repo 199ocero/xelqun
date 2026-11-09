@@ -9,7 +9,7 @@ export type DocsHeading = { id: string; text: string; level: number };
 
 export type DocsBlock =
     | { type: 'html'; html: string }
-    | { type: 'example'; name: string };
+    | { type: 'example' | 'flow'; name: string };
 
 export type DocsDocument = {
     title: string;

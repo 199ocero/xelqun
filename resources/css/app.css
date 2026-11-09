@@ -208,6 +208,103 @@ body {
     display: block;
 }
 
+/* An arrow of an animated diagram in the docs, with a dot that travels along it. */
+.docs-flow-step {
+    --docs-flow-color: var(--xq-muted-foreground);
+}
+
+.docs-flow-step[data-state='current'] {
+    --docs-flow-color: var(--xq-primary);
+}
+
+.docs-flow-line {
+    position: relative;
+    align-self: stretch;
+    height: 2px;
+    margin-inline: var(--docs-flow-inset);
+    border-radius: 999px;
+    background: var(--docs-flow-color);
+}
+
+.docs-flow-line::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    border-block: 5px solid transparent;
+}
+
+.docs-flow-line[data-direction='right']::after {
+    right: -2px;
+    border-left: 7px solid var(--docs-flow-color);
+}
+
+.docs-flow-line[data-direction='left']::after {
+    left: -2px;
+    border-right: 7px solid var(--docs-flow-color);
+}
+
+.docs-flow-dot {
+    position: absolute;
+    top: 50%;
+    width: 0.625rem;
+    height: 0.625rem;
+    translate: -50% -50%;
+    border-radius: 999px;
+    background: var(--docs-flow-color);
+    box-shadow: 0 0 0 4px
+        color-mix(in oklab, var(--docs-flow-color) 25%, transparent);
+    animation: docs-flow-travel 1.2s var(--xq-ease-out) both;
+}
+
+.docs-flow-line[data-direction='left'] .docs-flow-dot {
+    animation-name: docs-flow-travel-left;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .docs-flow-step[data-state='current'] .docs-flow-line {
+        animation: docs-flow-draw var(--xq-duration-slow) var(--xq-ease-out)
+            both;
+    }
+
+    .docs-flow-step[data-state='current']
+        .docs-flow-line[data-direction='left'] {
+        transform-origin: right;
+    }
+
+    .docs-flow-step[data-state='current']
+        .docs-flow-line[data-direction='right'] {
+        transform-origin: left;
+    }
+}
+
+@keyframes docs-flow-draw {
+    from {
+        scale: 0 1;
+    }
+}
+
+/* The dot stops short of the arrowhead, so the arrow still reads. */
+@keyframes docs-flow-travel {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: calc(100% - 0.75rem);
+    }
+}
+
+@keyframes docs-flow-travel-left {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: 0.75rem;
+    }
+}
+
 /* The soft wash of color behind the landing page and the docs. It's only decoration. */
 .site-glow {
     position: absolute;

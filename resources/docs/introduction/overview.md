@@ -55,6 +55,8 @@ Every part of Xelqun works the same way:
 
 Rules that don't need the database, such as showing a field or adding up a total, run right in the browser, so the page feels instant. They're worked out again on the server when the form is sent, so the browser is never trusted.
 
+[How Xelqun works](/introduction/architecture) goes deeper, and shows what each package does on every request.
+
 ## Packages
 
 Xelqun is three packages. Each one builds on the one before it, so you can start small.

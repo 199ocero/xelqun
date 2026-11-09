@@ -3,6 +3,7 @@ import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ArrowLeft, ArrowRight } from 'lucide-vue-next';
 import { computed } from 'vue';
 import DocsExample from '@/components/docs/DocsExample.vue';
+import DocsFlow from '@/components/docs/DocsFlow.vue';
 import DocsToc from '@/components/docs/DocsToc.vue';
 import DocsLayout from '@/layouts/DocsLayout.vue';
 import type { DocsDocument, DocsShell } from '@/types/docs';
@@ -73,6 +74,10 @@ const title = computed(() => `${props.document.title} - ${props.docs.label}`);
                     class="docs-prose"
                     v-html="block.html"
                 ></div>
+                <DocsFlow
+                    v-else-if="block.type === 'flow'"
+                    :name="block.name"
+                />
                 <DocsExample v-else :name="block.name" />
             </template>
 

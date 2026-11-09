@@ -1,6 +1,7 @@
 <?php
 
 use App\Docs\DocsRepository;
+use App\Docs\MarkdownRenderer;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Inertia\Testing\AssertableInertia as Assert;
@@ -174,7 +175,7 @@ it('only imports classes that exist', function (): void {
 
 it('only calls methods that exist', function (): void {
     $known = knownMethods();
-    $laravel = ['where', 'whereNotNull', 'orWhere', 'whereDate', 'whereKey', 'whereBelongsTo', 'when', 'orderBy', 'with', 'count', 'pluck', 'all', 'update', 'create', 'fresh', 'send', 'to', 'id', 'user', 'can', 'addYear', 'hourly', 'decimal', 'timestamps', 'is', 'assertOk', 'throws', 'toBe', 'isManager', 'isAdmin', 'ship', 'teams', 'users', 'assertJsonPath', 'assertRedirect', 'actingAs', 'post', 'toBeTrue', 'toBeNull', 'belongsTo', 'belongsToMany', 'attach', 'name', 'foreignId', 'constrained', 'cascadeOnDelete', 'primary', 'chunkById', 'archive'];
+    $laravel = ['where', 'whereNotNull', 'orWhere', 'whereDate', 'whereKey', 'whereBelongsTo', 'when', 'orderBy', 'with', 'count', 'pluck', 'all', 'update', 'create', 'fresh', 'send', 'to', 'id', 'user', 'can', 'addYear', 'hourly', 'decimal', 'timestamps', 'is', 'assertOk', 'throws', 'toBe', 'isManager', 'isAdmin', 'ship', 'teams', 'users', 'assertJsonPath', 'assertRedirect', 'actingAs', 'post', 'toBeTrue', 'toBeNull', 'belongsTo', 'belongsToMany', 'attach', 'name', 'foreignId', 'constrained', 'cascadeOnDelete', 'primary', 'chunkById', 'archive', 'singletonIf', 'defaults', 'route', 'parameter', 'firstOrFail', 'toBase', 'getCountForPagination', 'paginate', 'getCollection', 'map', 'mapWithKeys', 'currentPage', 'total'];
     $unknown = [];
 
     foreach (docsSources() as $path => $markdown) {
@@ -219,4 +220,27 @@ it('only links to pages that exist', function (): void {
     }
 
     expect($broken)->toBe([]);
+});
+
+it('puts animated diagrams between the HTML of a page', function (): void {
+    $blocks = app(MarkdownRenderer::class)->render("Before\n\n<!-- flow: overview -->\n\nBetween\n\n<!-- example: products -->\n\nAfter")['blocks'];
+
+    expect(array_column($blocks, 'type'))->toBe(['html', 'flow', 'html', 'example', 'html'])
+        ->and($blocks[1]['name'])->toBe('overview');
+});
+
+it('only shows animated diagrams that exist', function (): void {
+    preg_match_all("/^    '?([\w-]+)'?: \{$/m", File::get(resource_path('js/components/docs/flows.ts')), $defined);
+    $missing = [];
+
+    foreach (docsSources() as $path => $markdown) {
+        preg_match_all('/<!--\s*flow:\s*([\w\/-]+)\s*-->/', $markdown, $used);
+
+        foreach (array_diff($used[1], $defined[1]) as $name) {
+            $missing[] = "{$path}: {$name}";
+        }
+    }
+
+    expect($defined[1])->not->toBeEmpty()
+        ->and($missing)->toBe([]);
 });

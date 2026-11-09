@@ -25,6 +25,7 @@ return [
                     'overview' => 'What is Xelqun?',
                     'installation' => 'Installation',
                     'getting-started' => 'Getting started',
+                    'architecture' => 'How it works',
                     'local-development' => 'Local development',
                     'version-support' => 'Version support',
                 ],
@@ -100,6 +101,9 @@ return [
                     'translations' => 'Translations',
                     'testing' => 'Testing',
                 ],
+                'Under the hood' => [
+                    'architecture' => 'How it works',
+                ],
             ],
         ],
 
@@ -155,6 +159,9 @@ return [
                     'plugins' => 'Plugins',
                     'testing' => 'Testing',
                     'limits' => 'Current limits',
+                ],
+                'Under the hood' => [
+                    'architecture' => 'How it works',
                 ],
             ],
         ],
@@ -237,6 +244,9 @@ return [
                     'commands' => 'Commands',
                     'testing' => 'Testing',
                     'parity' => 'Parity with Filament',
+                ],
+                'Under the hood' => [
+                    'architecture' => 'How it works',
                 ],
             ],
         ],

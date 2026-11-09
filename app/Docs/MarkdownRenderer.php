@@ -49,7 +49,7 @@ final class MarkdownRenderer
     }
 
     /**
-     * @return array{title: string, description: string, blocks: list<array{type: 'html', html: string}|array{type: 'example', name: string}>, headings: list<array{id: string, text: string, level: int}>, text: string}
+     * @return array{title: string, description: string, blocks: list<array{type: 'html', html: string}|array{type: 'example'|'flow', name: string}>, headings: list<array{id: string, text: string, level: int}>, text: string}
      */
     public function render(string $markdown): array
     {
@@ -114,19 +114,24 @@ final class MarkdownRenderer
     }
 
     /**
-     * A page is HTML with live examples between it, marked `<!-- example: name -->`.
+     * A page is HTML with live examples between it, marked `<!-- example: name -->`,
+     * and animated diagrams, marked `<!-- flow: name -->`.
      *
-     * @return list<array{type: 'html', html: string}|array{type: 'example', name: string}>
+     * @return list<array{type: 'html', html: string}|array{type: 'example'|'flow', name: string}>
      */
     private function blocks(string $html): array
     {
         $blocks = [];
+        $parts = preg_split('/<!--\s*(example|flow):\s*([\w\/-]+)\s*-->/', $html, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
 
-        foreach (preg_split('/<!--\s*example:\s*([\w\/-]+)\s*-->/', $html, -1, PREG_SPLIT_DELIM_CAPTURE) ?: [] as $index => $part) {
-            if ($index % 2 === 1) {
-                $blocks[] = ['type' => 'example', 'name' => $part];
-            } elseif (trim($part) !== '') {
-                $blocks[] = ['type' => 'html', 'html' => $part];
+        // The split gives the HTML, then the kind and name of each marker, then the HTML after it.
+        foreach (array_chunk($parts, 3) as $chunk) {
+            if (trim($chunk[0]) !== '') {
+                $blocks[] = ['type' => 'html', 'html' => $chunk[0]];
+            }
+
+            if (isset($chunk[2])) {
+                $blocks[] = ['type' => $chunk[1] === 'flow' ? 'flow' : 'example', 'name' => $chunk[2]];
             }
         }
 
