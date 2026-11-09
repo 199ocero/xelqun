@@ -20,6 +20,8 @@ class DemoPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        $isWorkspace = $panel->getId() === 'workspace';
+
         $panel
             ->renderHook(RenderHook::SidebarEnd, 'demo/sidebar-card', fn (): array => [
                 'docsUrl' => $this->docsUrl(),
@@ -33,18 +35,29 @@ class DemoPlugin implements Plugin
                 'inboxUrl' => route('demo.inbox'),
             ])
             ->navigationItems([
+                $isWorkspace
+                    ? NavigationItem::make('Back to the store')
+                        ->icon('shopping-cart')
+                        ->group('Showcase')
+                        ->sort(80)
+                        ->url(fn (): string => route('xelqun-panels.admin.pages.home'))
+                    : NavigationItem::make('Tenancy')
+                        ->icon('users')
+                        ->group('Showcase')
+                        ->sort(80)
+                        ->url(fn (): string => route('xelqun-panels.workspace.tenant.redirect')),
                 NavigationItem::make('Documentation')
                     ->icon('file-text')
                     ->group('Showcase')
                     ->sort(90)
-                    ->url(fn (): string => $this->docsUrl()),
+                    ->url(fn (): string => $this->docsUrl($isWorkspace ? '/panels/tenancy' : '/panels')),
             ]);
     }
 
     public function boot(Panel $panel): void {}
 
-    private function docsUrl(): string
+    private function docsUrl(string $path = '/panels'): string
     {
-        return request()->getScheme().'://'.config('xelqun.site_domain').'/panels';
+        return request()->getScheme().'://'.config('xelqun.site_domain').$path;
     }
 }

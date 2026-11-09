@@ -80,4 +80,4 @@ $panel->userMenuItems([NavigationItem::make('Billing')->url(fn (): string => rou
 
 `breadcrumbs(false)` removes them.
 
-[See the sidebar in the demo](demo:/), and [top navigation](demo:/workspace).
+[See the sidebar in the demo](demo:/).

@@ -78,7 +78,7 @@ New records join the tenant on their own, and it never comes from the browser. A
 
 A switcher moves between tenants, in the sidebar or, with `topNavigation()`, the top bar.
 
-<!-- screenshot: tenancy | The tenant switcher open in the top bar -->
+<!-- screenshot: tenancy | The tenant switcher open in the sidebar, on a team's dashboard -->
 
 ```php
 $panel->tenantRegistration(RegisterTeam::class)->tenantProfile(EditTeam::class);
@@ -131,4 +131,28 @@ The switcher lists 20 tenants, always with the current one, and a search box fin
 > [!NOTE]
 > Notifications belong to the user, not the tenant. Tenant billing isn't built in.
 
-[See it in the demo](demo:/workspace).
+## In the demo
+
+[The demo's workspace](demo:/workspace) is a second panel, made multi-tenant by `tenant()`. It looks like the admin panel and has the switcher at the top of the sidebar. The demo account is in three teams: Acme Studio, Harbor Support and Orbit Labs. Each has its own projects, tasks, notes and members, and some staff are in two teams.
+
+None of its resources has team code. Switch teams and watch what follows:
+
+- The tables, search and the dashboard's numbers only count the current team.
+- A task's project and assignee lists only offer this team's projects and members.
+- A new project or note lands in the current team.
+- `/workspace/{team}` for a team you aren't in is a 404.
+
+Members show how a many-to-many owner works. Users join a team through `team_user`, so the resource names `teams()`, the relationship it belongs by:
+
+```php
+class MemberResource extends Resource
+{
+    protected static string $model = User::class;
+
+    protected static ?string $tenantOwnershipRelationship = 'teams';
+}
+```
+
+With that resource in the panel, `User` is kept to the team too, which is what limits the assignee list.
+
+Sign up for your own account and you land on the page to start a team, with nothing in it but you.

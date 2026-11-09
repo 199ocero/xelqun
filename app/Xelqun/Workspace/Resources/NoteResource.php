@@ -21,6 +21,8 @@ class NoteResource extends Resource
 
     protected static ?string $navigationIcon = 'file-text';
 
+    protected static int $navigationSort = 4;
+
     public static function form(): array
     {
         return [

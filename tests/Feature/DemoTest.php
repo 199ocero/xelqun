@@ -4,6 +4,7 @@ use App\Demo\DemoAppearance;
 use App\Docs\DocsRepository;
 use App\Models\DemoMail;
 use App\Models\Product;
+use App\Models\Team;
 use App\Models\User;
 use App\Xelqun\Admin\Resources\UserResource;
 use Illuminate\Console\Scheduling\Schedule;
@@ -341,3 +342,49 @@ it('only takes a neutral as the gray, and a color as the primary', function (arr
 it('has no checklist or appearance page any more', function (string $path): void {
     $this->actingAs(demoUser())->get(DEMO_URL.$path)->assertNotFound();
 })->with(['/feature-checklist', '/appearance']);
+
+it('keeps each team\'s projects, tasks and notes in its own workspace', function (): void {
+    $this->actingAs(demoUser());
+
+    $this->get(DEMO_URL.'/workspace/acme/projects')->assertOk()->assertSee('Brand refresh')->assertDontSee('Billing migration');
+    $this->get(DEMO_URL.'/workspace/orbit/tasks')->assertOk()->assertSee('Billing migration')->assertDontSee('Brand refresh');
+    $this->get(DEMO_URL.'/workspace/acme/notes')->assertOk()->assertSee('Studio style guide')->assertDontSee('Release checklist');
+});
+
+it('only lists a team\'s own members', function (): void {
+    [$member, $outsider] = [User::query()->findOrFail(2)->name, User::query()->findOrFail(7)->name];
+
+    $this->actingAs(demoUser());
+
+    $this->get(DEMO_URL.'/workspace/acme/members')->assertOk()->assertSee($member)->assertDontSee($outsider);
+});
+
+it('counts only the team\'s own records on its dashboard', function (): void {
+    $harbor = Team::query()->where('slug', 'harbor')->firstOrFail();
+    $openTasks = $harbor->tasks()->where('status', '!=', 'done')->count();
+
+    $this->actingAs(demoUser());
+
+    $this->get(DEMO_URL.'/workspace/harbor')->assertInertia(fn (Assert $page) => $page->loadDeferredProps(function (Assert $reload) use ($openTasks): void {
+        $stats = collect($reload->toArray()['props']['widgets'][0]['data']['stats'])->pluck('value', 'label');
+
+        expect($stats['Members'])->toBe('5')
+            ->and($stats['Open tasks'])->toBe((string) $openTasks);
+    }));
+});
+
+it('keeps a visitor out of a team they are not in', function (): void {
+    $this->actingAs(User::factory()->create());
+
+    expect($this->get(DEMO_URL.'/workspace/acme/notes')->status())->toBeIn([403, 404]);
+});
+
+it('makes a visitor a member of the team they start', function (): void {
+    $visitor = User::factory()->create();
+
+    $this->actingAs($visitor)
+        ->post(DEMO_URL.'/workspace/new-tenant', ['data' => ['name' => 'Green team', 'slug' => 'green']])
+        ->assertRedirect();
+
+    expect($visitor->teams()->pluck('slug')->all())->toBe(['green']);
+});

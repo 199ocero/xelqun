@@ -12,7 +12,9 @@ use App\Models\Note;
 use App\Models\Order;
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\Project;
 use App\Models\StoreSetting;
+use App\Models\Task;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -49,6 +51,49 @@ class DemoSeeder extends Seeder
     private const array POST_TITLES = ['Writing forms in PHP', 'Why we keep tables on the server', 'A tour of the panel shell', 'Tokens, and why the browser gets one', 'Designing a good empty state', 'Live fields without the chatter', 'What a policy should say', 'Soft deletes in practice', 'Tenancy in one afternoon', 'Motion that respects people', 'Theming with one color', 'Two-factor without a package'];
 
     private const array TOPICS = ['forms', 'tables', 'panels', 'security', 'design'];
+
+    /**
+     * The workspace's tenants. Staff are user ids, and the demo account (1) is added to each.
+     *
+     * @var array<string, array{slug: string, staff: list<int>, projects: list<array{string, string, string}>, notes: list<string>}>
+     */
+    private const array TEAMS = [
+        'Acme Studio' => [
+            'slug' => 'acme',
+            'staff' => [2, 3, 4, 5, 6],
+            'projects' => [
+                ['Bakery website redesign', 'Brightline Bakery', 'active'],
+                ['Brand refresh', 'Kite Insurance', 'active'],
+                ['Spring campaign', 'Fernway Hotels', 'planning'],
+                ['Launch landing page', 'Volt Bikes', 'on_hold'],
+                ['Menu photography', 'Brightline Bakery', 'done'],
+            ],
+            'notes' => ['Client kickoff checklist', 'Studio style guide', 'Invoice reminders'],
+        ],
+        'Harbor Support' => [
+            'slug' => 'harbor',
+            'staff' => [6, 11, 12, 13],
+            'projects' => [
+                ['Help center rewrite', 'Internal', 'active'],
+                ['Chatbot pilot', 'Internal', 'planning'],
+                ['Holiday staffing plan', 'Internal', 'active'],
+            ],
+            'notes' => ['Escalation rota', 'Tone of voice'],
+        ],
+        'Orbit Labs' => [
+            'slug' => 'orbit',
+            'staff' => [3, 7, 8, 9, 10],
+            'projects' => [
+                ['Mobile app 2.0', 'Internal', 'active'],
+                ['Billing migration', 'Internal', 'active'],
+                ['Public API', 'Partners', 'planning'],
+                ['Onboarding revamp', 'Internal', 'done'],
+            ],
+            'notes' => ['Release checklist', 'On-call handbook', 'Architecture decisions'],
+        ],
+    ];
+
+    private const array TASKS = ['Write the brief', 'Gather requirements', 'First draft', 'Review with the client', 'Fix review notes', 'Write tests', 'Plan the rollout', 'Update the docs', 'Final sign-off', 'Hand over', 'Budget check', 'Sketch the layout', 'Pick the copy', 'Set up analytics'];
 
     public function run(): void
     {
@@ -259,14 +304,44 @@ class DemoSeeder extends Seeder
         }
     }
 
+    /**
+     * Three teams that share some staff, so the same person shows on two of them
+     * with different tasks. The demo account is in all three.
+     */
     private function seedWorkspace(): void
     {
-        foreach (['Red team' => 'red', 'Blue team' => 'blue'] as $name => $slug) {
-            $team = Team::query()->create(['slug' => $slug, 'name' => $name]);
-            $team->users()->attach(1);
+        foreach (self::TEAMS as $name => $team) {
+            $record = Team::query()->create(['slug' => $team['slug'], 'name' => $name]);
+            $members = [1, ...$team['staff']];
+            $record->users()->attach($members);
 
-            foreach (['Kickoff', 'Roadmap', 'Retro'] as $title) {
-                Note::query()->create(['team_id' => $team->id, 'title' => "{$name}: {$title}", 'body' => fake()->sentence(10)]);
+            foreach ($team['projects'] as $index => [$project, $client, $status]) {
+                $project = Project::query()->create([
+                    'team_id' => $record->id,
+                    'name' => $project,
+                    'client' => $client,
+                    'status' => $status,
+                    'budget' => fake()->numberBetween(8, 120) * 500,
+                    'due_on' => today()->addWeeks(($index + 1) * 3 - 2),
+                ]);
+
+                foreach (fake()->randomElements(self::TASKS, fake()->numberBetween(4, 7)) as $title) {
+                    $taskStatus = $status === 'done' ? 'done' : fake()->randomElement(['todo', 'todo', 'doing', 'done']);
+
+                    Task::query()->create([
+                        'team_id' => $record->id,
+                        'project_id' => $project->id,
+                        'user_id' => fake()->optional(0.85)->randomElement($members),
+                        'title' => $title,
+                        'status' => $taskStatus,
+                        'priority' => fake()->randomElement(['low', 'medium', 'medium', 'high']),
+                        'due_on' => today()->addDays(fake()->numberBetween(-6, 30)),
+                    ]);
+                }
+            }
+
+            foreach ($team['notes'] as $title) {
+                Note::query()->create(['team_id' => $record->id, 'title' => $title, 'body' => fake()->sentence(14)]);
             }
         }
     }
