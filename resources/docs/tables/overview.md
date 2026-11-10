@@ -68,6 +68,8 @@ ModalTableSelect::make('category_id')
     ->tableConfiguration(CategoriesTable::class);
 ```
 
+<!-- example: form-modal-table-select -->
+
 It needs `relationship()`, and the server checks each picked key against it. `multiple()` picks several, as on a select. The table's `query()` lists the records to pick from, and its `authorize()` decides who may open it. Its rows load when the modal opens, so the form costs no table query.
 
 Give the picker table a column named after the title attribute, `name` here, so a new pick shows its label.

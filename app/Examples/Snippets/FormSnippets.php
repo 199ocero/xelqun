@@ -2,6 +2,7 @@
 
 namespace App\Examples\Snippets;
 
+use App\Examples\Tables\CategoriesTable;
 use App\Models\Post;
 use App\Models\Product;
 use Closure;
@@ -48,6 +49,7 @@ use Xelqun\Forms\Layouts\Text;
 use Xelqun\Forms\Layouts\UnorderedList;
 use Xelqun\Forms\State\Get;
 use Xelqun\Forms\State\Set;
+use Xelqun\Tables\Forms\ModalTableSelect;
 
 /**
  * The preview of each docs page, matching the code on that page.
@@ -159,6 +161,11 @@ final class FormSnippets
             'tags-input' => fn (): array => [TagsInput::make('tags')->suggestions(['laravel', 'vue', 'inertia'])->default(['laravel'])],
             'key-value' => fn (): array => [
                 KeyValue::make('specs')->keyLabel('Spec')->valueLabel('Detail')->addActionLabel('Add spec')->default(['Weight' => '240 g', 'Warranty' => '2 years']),
+            ],
+            'modal-table-select' => fn (): array => [
+                ModalTableSelect::make('category_id')
+                    ->relationship('category', 'name')
+                    ->tableConfiguration(CategoriesTable::class),
             ],
             'morph-to-select' => fn (): array => [
                 MorphToSelect::make('commentable')->searchable()->types([

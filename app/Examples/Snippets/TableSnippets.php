@@ -76,6 +76,15 @@ final class TableSnippets
                 TextColumn::make('price')->money('USD'),
                 TextColumn::make('released_at')->date(),
             ]),
+            'heading' => $product([TextColumn::make('stock')], [
+                'configure' => fn (Table $table): Table => $small($table)->heading('Low stock')->description('Products with fewer than ten left.'),
+            ]),
+            'cursor-pagination' => $product([TextColumn::make('price')->money('USD')], [
+                'configure' => fn (Table $table): Table => $small($table)->paginationMode('cursor'),
+            ]),
+            'deferred-loading' => $product([TextColumn::make('price')->money('USD')], [
+                'configure' => fn (Table $table): Table => $small($table)->deferLoading(),
+            ]),
             'text-description' => fn (): array => [
                 'query' => $products,
                 'configure' => $small,

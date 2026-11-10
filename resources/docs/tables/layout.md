@@ -39,3 +39,5 @@ protected function boot(): void
     $this->heading('Low stock')->description('Products with fewer than ten left.');
 }
 ```
+
+<!-- example: table-heading -->

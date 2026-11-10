@@ -45,6 +45,8 @@ protected function boot(): void
 
 Neither one counts the rows, so neither offers select all across pages.
 
+<!-- example: table-cursor-pagination -->
+
 > [!WARNING]
 > Cursor pagination reads plain columns. A sort through a relation, or on `counts()` or `sum()`, fails with it. Use the default mode for a table that sorts that way.
 
@@ -58,3 +60,5 @@ protected function boot(): void
     $this->deferLoading();
 }
 ```
+
+<!-- example: table-deferred-loading -->

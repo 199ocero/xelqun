@@ -3,6 +3,7 @@
 namespace App\Examples\Snippets;
 
 use App\Models\Comment;
+use App\Models\Product;
 use Xelqun\Forms\Form;
 
 /**
@@ -13,7 +14,11 @@ class SnippetForm extends Form
 {
     public function model(): ?string
     {
-        return $this->context['snippet'] === 'morph-to-select' ? Comment::class : null;
+        return match ($this->context['snippet']) {
+            'morph-to-select' => Comment::class,
+            'modal-table-select' => Product::class,
+            default => null,
+        };
     }
 
     public function schema(): array
