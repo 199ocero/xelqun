@@ -13,7 +13,7 @@ php artisan make:xelqun-panel Workspace
 $panel->id('workspace')->path('workspace');
 ```
 
-<!-- screenshot: top-navigation | The demo's second panel, with its navigation across the top -->
+<!-- screenshot: top-navigation | The demo's second panel, a workspace for each team, at /workspace -->
 
 Two panels can't share an id, or the same path on the same domain.
 
