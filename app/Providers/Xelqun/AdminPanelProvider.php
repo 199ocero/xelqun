@@ -5,6 +5,7 @@ namespace App\Providers\Xelqun;
 use App\Demo\DemoAppearance;
 use App\Demo\DemoLoginForm;
 use App\Demo\DemoPlugin;
+use App\Xelqun\Admin\Pages\Carriers;
 use App\Xelqun\Admin\Pages\Components;
 use App\Xelqun\Admin\Pages\Home;
 use App\Xelqun\Admin\Widgets\CategoryTiles;
@@ -50,7 +51,7 @@ class AdminPanelProvider extends PanelProvider
             ->emailAuthentication()
             ->databaseNotifications()
             ->databaseNotificationsPolling('30s')
-            ->pages([Home::class, Components::class])
+            ->pages([Home::class, Components::class, Carriers::class])
             ->discoverResources(in: app_path('Xelqun/Admin/Resources'), for: 'App\\Xelqun\\Admin\\Resources')
             ->widgets([StoreStats::class, OrdersChart::class, OrdersByType::class, ProductsByCategory::class, PendingProducts::class, RecentProducts::class, LowStock::class, CategoryTiles::class])
             ->navigationGroups([

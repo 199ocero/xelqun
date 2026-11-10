@@ -38,6 +38,8 @@ public function columns(): array
 }
 ```
 
+[See it in the demo](demo:/carriers), with rows from an array.
+
 ## What the closure gets
 
 It asks for any of these by name:

@@ -220,7 +220,7 @@ class OrderResource extends Resource
 
     public static function configureTable(Table $table): void
     {
-        $table->defaultSort('delivery_date', 'desc')->paginationPageOptions([10, 25, 50])->poll('30s');
+        $table->defaultSort('delivery_date', 'desc')->paginationPageOptions([10, 25, 50])->groups(['type'])->poll('30s');
     }
 
     public static function getTabs(): array

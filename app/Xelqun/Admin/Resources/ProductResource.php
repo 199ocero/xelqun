@@ -24,6 +24,7 @@ use Xelqun\Forms\Layouts\Tab;
 use Xelqun\Forms\Layouts\Tabs;
 use Xelqun\Panels\Actions\ExportAction;
 use Xelqun\Panels\Actions\ImportAction;
+use Xelqun\Panels\Actions\ImportColumn;
 use Xelqun\Panels\Infolists\ColorEntry;
 use Xelqun\Panels\Infolists\IconEntry;
 use Xelqun\Panels\Infolists\ImageEntry;
@@ -65,7 +66,21 @@ class ProductResource extends Resource
 
     public static function getHeaderActions(): array
     {
-        return [ExportAction::for(static::class), ImportAction::for(static::class)];
+        return [ExportAction::for(static::class), ImportAction::for(static::class)->queue()];
+    }
+
+    public static function getImportColumns(): array
+    {
+        return [
+            ImportColumn::make('name')->guesses(['product', 'product name', 'title'])->requiredMapping(),
+            ImportColumn::make('sku')->label('SKU')->guesses(['item code', 'code'])->requiredMapping(),
+            ImportColumn::make('category_id')->label('Category ID'),
+            ImportColumn::make('brand_id')->label('Brand ID'),
+            ImportColumn::make('price')->guesses(['cost'])->rules(['numeric', 'min:0']),
+            ImportColumn::make('stock')->guesses(['quantity', 'qty'])->rules(['integer', 'min:0']),
+            'status',
+            'released_at',
+        ];
     }
 
     public static function getTabs(): array

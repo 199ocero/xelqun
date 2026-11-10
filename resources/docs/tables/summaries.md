@@ -25,7 +25,7 @@ A summary covers every row of the search and filters, not just this page, and it
 
 ## Each group's summary
 
-On a [grouped](/tables/grouping) table, each group on the page gets its own summary line under its last row, beside the line for all rows.
+On a [grouped](/tables/grouping) table, each group on the page gets its own summary line under its last row, beside the line for all rows. [Group the demo's orders by type](demo:/orders) to see it.
 
 > [!NOTE]
 > A group through a relation, such as `category.name`, gets no line of its own, and neither does any group on a page with more than 50 groups.
