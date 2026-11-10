@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c7686a5fc242674316b5562379e75be",
+    "content-hash": "3f7c8da405518068b45c5cbbf4ae98e0",
     "packages": [
         {
             "name": "brick/math",
@@ -6749,16 +6749,16 @@
         },
         {
             "name": "xelqun/tables",
-            "version": "v0.7.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/199ocero/xelqun-tables.git",
-                "reference": "b68be24479b3202c2fb01d197e5183782fbb479d"
+                "reference": "2cc06b165193347469b13473086711e2a828e595"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/199ocero/xelqun-tables/zipball/b68be24479b3202c2fb01d197e5183782fbb479d",
-                "reference": "b68be24479b3202c2fb01d197e5183782fbb479d",
+                "url": "https://api.github.com/repos/199ocero/xelqun-tables/zipball/2cc06b165193347469b13473086711e2a828e595",
+                "reference": "2cc06b165193347469b13473086711e2a828e595",
                 "shasum": ""
             },
             "require": {
@@ -6814,9 +6814,9 @@
             ],
             "support": {
                 "issues": "https://github.com/199ocero/xelqun-tables/issues",
-                "source": "https://github.com/199ocero/xelqun-tables/tree/v0.7.0"
+                "source": "https://github.com/199ocero/xelqun-tables/tree/v0.7.1"
             },
-            "time": "2026-11-09T23:22:36+00:00"
+            "time": "2026-11-10T00:43:44+00:00"
         }
     ],
     "packages-dev": [
