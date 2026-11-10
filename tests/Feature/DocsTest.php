@@ -95,6 +95,12 @@ it('shows the packages and their real page counts on the landing page', function
             ->where('packages.0.pages', count(app(DocsRepository::class)->pages('forms'))));
 });
 
+it('gives the landing page a canonical address and structured data', function (): void {
+    $this->get('/')
+        ->assertSee('"@type":"SoftwareSourceCode"', escape: false)
+        ->assertInertia(fn (Assert $page) => $page->where('canonical', url('/')));
+});
+
 it('shows the repository star count', function (): void {
     Http::fake(['api.github.com/repos/199ocero/xelqun' => Http::response(['stargazers_count' => 1234])]);
 

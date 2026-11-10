@@ -334,11 +334,523 @@ body {
     opacity: 0.18;
 }
 
-/* The product preview melts into the page, so the search box can sit on top of it. */
-.home-preview-fade {
-    mask-image: linear-gradient(
-        to bottom,
-        #000 calc(100% - 9rem),
-        transparent calc(100% - 1rem)
-    );
+/*
+ * The landing page's package stack. A flat plane is tilted, and each layer gets
+ * its thickness from stacked shadows, which point straight down once tilted.
+ */
+.iso-plane {
+    transform: rotateX(56deg) rotateZ(45deg);
+    transform-style: preserve-3d;
+}
+
+.iso-tile {
+    --iso-side: color-mix(in oklab, var(--xq-foreground) 13%, var(--xq-card));
+    --iso-shade: rgb(0 0 0 / 0.1);
+    position: absolute;
+    border: 1px solid var(--xq-border);
+    border-radius: 1.5rem;
+    background: var(--iso-top, var(--xq-card));
+    box-shadow:
+        1px 1px 0 var(--iso-side),
+        2px 2px 0 var(--iso-side),
+        3px 3px 0 var(--iso-side),
+        4px 4px 0 var(--iso-side),
+        5px 5px 0 var(--iso-side),
+        6px 6px 0 var(--iso-side),
+        7px 7px 0 var(--iso-side),
+        8px 8px 0 var(--iso-side),
+        9px 9px 0 var(--iso-side),
+        10px 10px 0 var(--iso-side),
+        22px 22px 32px var(--iso-shade);
+}
+
+:root.dark .iso-tile {
+    --iso-side: color-mix(in oklab, #000 45%, var(--xq-card));
+    --iso-shade: rgb(0 0 0 / 0.35);
+}
+
+/* A dot that travels along a hero wire. Both numbers are in pathLength units. */
+.iso-pulse {
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 0 200;
+    animation: iso-pulse 2.8s linear infinite;
+}
+
+@keyframes iso-pulse {
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+/* The stacked packages always sit on a dark band, whatever the theme. */
+.iso-layer {
+    --iso-top: #1c1c20;
+    --iso-side: color-mix(in oklab, var(--tint) 30%, #0d0d10);
+    --iso-shade: rgb(0 0 0 / 0.55);
+    border-color: color-mix(in oklab, var(--tint) 45%, transparent);
+    translate: 0 0 var(--lift);
+    animation: iso-layer 5s ease-in-out infinite;
+}
+
+@keyframes iso-layer {
+    50% {
+        translate: 0 0 calc(var(--lift) * 1.5);
+    }
+}
+
+/* Joins one "How it works" step to the next, with a dot running along it like the hero's wires. */
+.home-track {
+    --home-cycle: 4.8s;
+    height: 2px;
+    background: var(--xq-input);
+}
+
+.home-track::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--xq-primary);
+    box-shadow: 0 0 0 4px
+        color-mix(in oklab, var(--xq-primary) 20%, transparent);
+    translate: -50% -50%;
+    animation: home-track var(--home-cycle) linear infinite;
+}
+
+@keyframes home-track {
+    0% {
+        left: 0;
+        opacity: 0;
+    }
+
+    6% {
+        opacity: 1;
+    }
+
+    80% {
+        left: 100%;
+        opacity: 1;
+    }
+
+    88%,
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+/*
+ * The SVG scenes of the "How it works" steps. Boxes take their faces from these,
+ * and the darker sides are mixed from the card, so both themes work.
+ */
+.iso-face-top,
+.iso-face-left,
+.iso-face-right {
+    stroke: var(--face-edge, var(--xq-border));
+    stroke-width: 0.75;
+    stroke-linejoin: round;
+}
+
+.iso-face-top {
+    fill: var(--face-top, var(--xq-card));
+}
+
+.iso-face-left {
+    fill: var(--face-left, color-mix(in oklab, #000 6%, var(--xq-card)));
+}
+
+.iso-face-right {
+    fill: var(--face-right, color-mix(in oklab, #000 13%, var(--xq-card)));
+}
+
+.iso-primary {
+    --face-top: var(--xq-primary);
+    --face-left: color-mix(in oklab, #000 18%, var(--xq-primary));
+    --face-right: color-mix(in oklab, #000 34%, var(--xq-primary));
+    --face-edge: transparent;
+}
+
+.iso-tinted {
+    --face-top: color-mix(in oklab, var(--xq-primary) 9%, var(--xq-card));
+}
+
+.code-kw {
+    fill: var(--xq-primary);
+}
+
+.code-fn {
+    fill: #8b5cf6;
+}
+
+.code-str {
+    fill: #f59e0b;
+}
+
+.code-muted {
+    fill: color-mix(in oklab, var(--xq-foreground) 20%, transparent);
+}
+
+/* Step 1: the class types itself out, and the php block hovers. */
+.code-line {
+    transform-box: fill-box;
+    transform-origin: 0 50%;
+    animation: code-line 6s var(--xq-ease-out) infinite backwards;
+    animation-delay: calc(var(--i) * 0.35s);
+}
+
+@keyframes code-line {
+    0% {
+        opacity: 0;
+        scale: 0 1;
+    }
+
+    8%,
+    78% {
+        opacity: 1;
+        scale: 1 1;
+    }
+
+    88%,
+    100% {
+        opacity: 0;
+        scale: 1 1;
+    }
+}
+
+.code-caret {
+    animation: code-caret 1s steps(1) infinite;
+}
+
+@keyframes code-caret {
+    50% {
+        opacity: 0;
+    }
+}
+
+.php-badge {
+    animation: php-badge 4s ease-in-out infinite;
+}
+
+@keyframes php-badge {
+    50% {
+        translate: 0 -9px;
+    }
+}
+
+.php-shadow {
+    fill: #000;
+    opacity: 0.1;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: php-shadow 4s ease-in-out infinite;
+}
+
+@keyframes php-shadow {
+    50% {
+        opacity: 0.05;
+        scale: 0.8;
+    }
+}
+
+/* Step 2: a cube rides the conveyor, and each stop flashes as it passes. */
+.pipe-token {
+    animation: pipe-token 4s linear infinite;
+}
+
+@keyframes pipe-token {
+    0% {
+        opacity: 0;
+        translate: 0 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+        translate: 121px 70px;
+    }
+
+    92%,
+    100% {
+        opacity: 0;
+        translate: 121px 70px;
+    }
+}
+
+.pipe-lit {
+    opacity: 0;
+    animation: pipe-lit 4s ease-out infinite;
+}
+
+@keyframes pipe-lit {
+    0%,
+    6% {
+        opacity: 1;
+    }
+
+    35%,
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Step 3: the panel's parts drop into place, then the chart and rows fill in. */
+.ui-layer {
+    animation: ui-layer 6s var(--xq-ease-out) infinite backwards;
+    animation-delay: calc(var(--i) * 0.35s);
+}
+
+@keyframes ui-layer {
+    0% {
+        opacity: 0;
+        translate: 0 -36px;
+    }
+
+    12%,
+    80% {
+        opacity: 1;
+        translate: 0 0;
+    }
+
+    90%,
+    100% {
+        opacity: 0;
+        translate: 0 -24px;
+    }
+}
+
+.ui-bar {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: ui-bar 6s var(--xq-ease-out) infinite backwards;
+    animation-delay: calc(0.9s + var(--i) * 0.1s);
+}
+
+@keyframes ui-bar {
+    0% {
+        scale: 1 0;
+    }
+
+    10%,
+    100% {
+        scale: 1 1;
+    }
+}
+
+.ui-row {
+    transform-box: fill-box;
+    transform-origin: 0 50%;
+    animation: ui-row 6s var(--xq-ease-out) infinite backwards;
+    animation-delay: calc(1.2s + var(--i) * 0.12s);
+}
+
+@keyframes ui-row {
+    0% {
+        opacity: 0;
+        scale: 0 1;
+    }
+
+    10%,
+    100% {
+        opacity: 1;
+        scale: 1 1;
+    }
+}
+
+/* The hero scene. Its cube lands at 85% of a 4s cycle, and the panel answers then. */
+.hero-orbit {
+    opacity: 0.35;
+    stroke-dasharray: 1.5 3.5;
+    animation: hero-orbit 8s linear infinite;
+}
+
+@keyframes hero-orbit {
+    to {
+        stroke-dashoffset: -50;
+    }
+}
+
+.hero-orbit-dot {
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 0 100;
+    animation: hero-orbit-dot 6s linear infinite;
+}
+
+@keyframes hero-orbit-dot {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+.core-ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: core-ripple 2s var(--xq-ease-out) infinite;
+}
+
+@keyframes core-ripple {
+    from {
+        opacity: 0.45;
+        scale: 1;
+    }
+
+    to {
+        opacity: 0;
+        scale: 2;
+    }
+}
+
+.hero-fly {
+    animation: hero-fly 4s ease-in-out infinite;
+}
+
+@keyframes hero-fly {
+    0% {
+        opacity: 0;
+        translate: 0 6px;
+    }
+
+    10% {
+        opacity: 1;
+        translate: 0 -16px;
+    }
+
+    50% {
+        translate: 96px -62px;
+    }
+
+    85% {
+        opacity: 1;
+        translate: 186px 31px;
+    }
+
+    92%,
+    100% {
+        opacity: 0;
+        translate: 186px 31px;
+    }
+}
+
+.hero-flash {
+    opacity: 0;
+    animation: hero-flash 4s ease-out infinite;
+}
+
+@keyframes hero-flash {
+    0% {
+        opacity: 0.4;
+    }
+
+    30%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.hero-toast {
+    animation: hero-toast 4s var(--xq-ease-out) infinite backwards;
+}
+
+@keyframes hero-toast {
+    0% {
+        opacity: 0;
+        translate: 0 10px;
+    }
+
+    10%,
+    50% {
+        opacity: 1;
+        translate: 0 0;
+    }
+
+    62%,
+    100% {
+        opacity: 0;
+        translate: 0 -6px;
+    }
+}
+
+.hero-toggle {
+    fill: color-mix(in oklab, var(--xq-foreground) 20%, transparent);
+    animation: hero-toggle 4s ease-in-out infinite;
+}
+
+@keyframes hero-toggle {
+    50%,
+    90% {
+        fill: var(--xq-primary);
+    }
+}
+
+.hero-knob {
+    animation: hero-knob 4s ease-in-out infinite;
+}
+
+@keyframes hero-knob {
+    50%,
+    90% {
+        translate: 6px 0;
+    }
+}
+
+.hero-donut {
+    stroke-dasharray: 72 100;
+    stroke-linecap: round;
+    animation: hero-donut 4s var(--xq-ease-out) infinite;
+}
+
+@keyframes hero-donut {
+    0% {
+        stroke-dasharray: 0 100;
+    }
+
+    40%,
+    100% {
+        stroke-dasharray: 72 100;
+    }
+}
+
+.hero-label {
+    animation: php-badge 5s ease-in-out infinite;
+}
+
+/* The hero settles in one line after another. */
+.home-rise {
+    animation: home-rise 0.9s var(--xq-ease-out) both;
+    animation-delay: calc(var(--rise, 0) * 90ms);
+}
+
+@keyframes home-rise {
+    from {
+        opacity: 0;
+        filter: blur(6px);
+        translate: 0 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .iso-layer,
+    .home-rise {
+        animation: none;
+    }
+
+    .iso-scene * {
+        animation: none;
+    }
+
+    .iso-pulse,
+    .home-track::after {
+        display: none;
+    }
 }

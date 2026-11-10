@@ -22,6 +22,22 @@ class DocsController extends Controller
                 ])
                 ->values()
                 ->all(),
+            'canonical' => url('/'),
+            'jsonLd' => [
+                '@context' => 'https://schema.org',
+                '@graph' => [
+                    ['@type' => 'WebSite', 'name' => 'Xelqun', 'url' => url('/')],
+                    [
+                        '@type' => 'SoftwareSourceCode',
+                        'name' => 'Xelqun',
+                        'description' => 'Forms, tables and admin panels for Laravel, defined in PHP and rendered with Inertia and Vue.',
+                        'url' => url('/'),
+                        'codeRepository' => config('xelqun.github_url'),
+                        'programmingLanguage' => ['PHP', 'Vue'],
+                        'runtimePlatform' => 'Laravel',
+                    ],
+                ],
+            ],
         ]);
     }
 

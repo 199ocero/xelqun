@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import {
-    ArrowUp,
-    FileText,
-    LayoutDashboard,
-    Search,
-    Sparkles,
-    Table,
-} from 'lucide-vue-next';
+import { ArrowRight, ArrowUpRight } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import DocsSearch from '@/components/docs/DocsSearch.vue';
 import GithubStars from '@/components/docs/GithubStars.vue';
 import ThemeToggle from '@/components/docs/ThemeToggle.vue';
 import XelqunMark from '@/components/docs/XelqunMark.vue';
-import ProductPreview from '@/components/home/ProductPreview.vue';
+import HeroScene from '@/components/home/HeroScene.vue';
+import LayerStack from '@/components/home/LayerStack.vue';
+import StepCodeScene from '@/components/home/StepCodeScene.vue';
+import StepInterfaceScene from '@/components/home/StepInterfaceScene.vue';
+import StepPipelineScene from '@/components/home/StepPipelineScene.vue';
 
 defineProps<{
     packages: { label: string; tagline: string; url: string; pages: number }[];
+    canonical: string;
 }>();
 
 const page = usePage();
@@ -28,6 +26,32 @@ const links = computed(
             shareImage: string;
         },
 );
+
+/** The same three stops as the hero diagram: PHP in, Xelqun in the middle, Vue out. Each has its own scene. */
+const steps = [
+    {
+        scene: StepCodeScene,
+        title: 'Write a PHP class',
+        body: 'List the fields, columns and pages you need. That class is the whole definition.',
+    },
+    {
+        scene: StepPipelineScene,
+        title: 'Xelqun does the plumbing',
+        body: 'Every submission is validated, checked against your policies and saved to Eloquent.',
+    },
+    {
+        scene: StepInterfaceScene,
+        title: 'Vue draws the screen',
+        body: 'Inertia hands it to ready-made Vue components, so most days you write no Vue at all.',
+    },
+];
+
+/** Each package's color, shared by its layer in the stack and its dot in the list. */
+const tints: Record<string, string> = {
+    Forms: '#8b5cf6',
+    Tables: '#f43f5e',
+    Panels: '#3b82f6',
+};
 
 const description =
     'Xelqun lets you define forms, tables and admin panels in PHP, and renders them with Inertia and Vue. A Filament-inspired stack for Laravel.';
@@ -44,6 +68,12 @@ function onKeydown(event: KeyboardEvent): void {
 onMounted(() => window.addEventListener('keydown', onKeydown));
 onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
 
+const primaryButton =
+    'inline-flex h-12 items-center rounded-full bg-xq-primary px-7 text-base font-medium text-xq-primary-foreground shadow-lg shadow-xq-primary/25 transition-[scale,opacity] duration-(--xq-duration-fast) hover:opacity-90 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:ring-offset-2 focus-visible:ring-offset-xq-background focus-visible:outline-none active:scale-[0.97]';
+const outlineButton =
+    'inline-flex h-12 items-center rounded-full border border-xq-input bg-xq-card/60 px-7 text-base font-medium transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-nav-hover focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none active:scale-[0.97]';
+const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
+
 const pillButton =
     'inline-flex items-center justify-center rounded-full bg-xq-foreground font-medium text-xq-background transition-[scale,opacity] duration-(--xq-duration-fast) hover:opacity-90 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:ring-offset-2 focus-visible:ring-offset-xq-background focus-visible:outline-none active:scale-[0.97]';
 </script>
@@ -58,6 +88,9 @@ const pillButton =
                 name="description"
                 :content="description"
             />
+            <link head-key="canonical" rel="canonical" :href="canonical" />
+            <meta head-key="og:type" property="og:type" content="website" />
+            <meta head-key="og:url" property="og:url" :content="canonical" />
             <meta head-key="og:title" property="og:title" content="Xelqun" />
             <meta
                 head-key="og:description"
@@ -68,6 +101,11 @@ const pillButton =
                 head-key="og:image"
                 property="og:image"
                 :content="links.shareImage"
+            />
+            <meta
+                head-key="twitter:card"
+                name="twitter:card"
+                content="summary_large_image"
             />
         </Head>
 
@@ -85,13 +123,6 @@ const pillButton =
                     aria-label="Main"
                     class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 text-sm text-xq-muted-foreground md:flex"
                 >
-                    <Link
-                        href="/"
-                        class="font-medium text-xq-foreground"
-                        aria-current="page"
-                    >
-                        Home
-                    </Link>
                     <Link
                         href="/introduction"
                         prefetch
@@ -122,113 +153,247 @@ const pillButton =
             </header>
 
             <main data-xq-page>
-                <section
-                    class="mx-auto max-w-4xl pt-16 pb-12 text-center sm:pt-24 sm:pb-16"
-                >
+                <section class="pt-16 text-center sm:pt-24">
                     <p
-                        class="inline-flex items-center gap-2 text-sm font-medium"
+                        class="home-rise inline-flex items-center gap-2 rounded-full border border-xq-border bg-xq-card/70 py-1 pr-3 pl-3.5 text-sm font-medium shadow-xs"
                     >
-                        <Sparkles
-                            class="size-4 text-xq-primary"
-                            aria-hidden="true"
-                        />
-                        Forms, tables and panels for Laravel
+                        Open source admin panels for Laravel
+                        <span :class="badgeDot" aria-hidden="true"></span>
                     </p>
                     <h1
-                        class="mt-4 text-[2.75rem] leading-[1.05] font-medium tracking-[-0.04em] text-balance sm:text-7xl"
+                        class="home-rise mx-auto mt-6 max-w-4xl text-[2.75rem] leading-[1.05] font-medium tracking-[-0.04em] text-balance sm:text-7xl"
+                        style="--rise: 1"
                     >
-                        Build admin panels in PHP, render them in Vue
+                        Write it in PHP.
+                        <span class="text-xq-primary">Ship it in Vue.</span>
                     </h1>
                     <p
-                        class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-xq-muted-foreground"
+                        class="home-rise mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-pretty text-xq-muted-foreground"
+                        style="--rise: 2"
                     >
-                        Define forms, tables and full admin panels in PHP.
-                        Xelqun renders them with Inertia and Vue, with auth,
-                        CRUD and dashboards included.
+                        Describe forms, tables and whole admin panels in plain
+                        PHP. Xelqun turns them into an Inertia and Vue app, with
+                        auth, CRUD and dashboards built in.
                     </p>
                     <div
-                        class="mt-9 flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
+                        class="home-rise mt-9 flex flex-wrap items-center justify-center gap-3"
+                        style="--rise: 3"
                     >
                         <a
                             :href="links.demo"
-                            :class="[
-                                pillButton,
-                                'h-13 px-7 text-base shadow-lg',
-                            ]"
+                            :class="[primaryButton, 'group gap-2']"
                         >
-                            Open the live demo
+                            Try the live demo
+                            <ArrowRight
+                                class="size-4.5 transition-transform duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:translate-x-0.5"
+                                aria-hidden="true"
+                            />
                         </a>
                         <Link
                             href="/introduction"
-                            class="inline-flex h-13 items-center rounded-full px-6 text-base font-medium transition-colors duration-(--xq-duration-fast) hover:bg-xq-nav-hover"
+                            prefetch
+                            :class="outlineButton"
                         >
                             Read the docs
                         </Link>
                     </div>
+
+                    <HeroScene
+                        class="home-rise mx-auto mt-10 w-full max-w-5xl"
+                        style="--rise: 4"
+                        aria-hidden="true"
+                    />
                 </section>
 
-                <section aria-label="What's in Xelqun" class="relative pb-10">
-                    <ProductPreview
-                        :packages="packages"
-                        :demo-url="links.demo"
-                        :github-url="links.github"
-                    />
-
-                    <div
-                        class="absolute inset-x-0 bottom-12 z-10 mx-auto w-full max-w-3xl px-4"
-                    >
-                        <button
-                            type="button"
-                            class="group w-full cursor-pointer rounded-xq-xl border border-xq-border bg-xq-card p-3 text-left shadow-xl transition-[border-color,scale] duration-(--xq-duration-base) ease-(--xq-ease-out) hover:border-xq-input focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none active:scale-[0.995]"
-                            @click="searchOpen = true"
+                <section
+                    aria-labelledby="how-it-works"
+                    class="scroll-mt-24 py-16 sm:py-24"
+                >
+                    <div class="mx-auto max-w-2xl text-center">
+                        <p
+                            class="inline-flex items-center gap-2 rounded-full border border-xq-border bg-xq-card/70 py-1 pr-3 pl-3.5 text-sm font-medium shadow-xs"
                         >
+                            How it works
+                            <span :class="badgeDot" aria-hidden="true"></span>
+                        </p>
+                        <h2
+                            id="how-it-works"
+                            class="mt-5 scroll-mt-24 text-4xl font-medium tracking-[-0.03em] text-balance sm:text-5xl"
+                        >
+                            One class in, a working screen out.
+                        </h2>
+                        <p
+                            class="mt-4 text-lg leading-relaxed text-pretty text-xq-muted-foreground"
+                        >
+                            You say what a page holds. Xelqun takes it the rest
+                            of the way, from the request to the pixels.
+                        </p>
+                    </div>
+
+                    <ol class="mt-12 grid gap-12 md:grid-cols-3 md:gap-0">
+                        <li
+                            v-for="(step, index) in steps"
+                            :key="step.title"
+                            class="relative flex flex-col items-center px-4 text-center"
+                        >
+                            <component
+                                :is="step.scene"
+                                class="h-48 w-full max-w-72"
+                                aria-hidden="true"
+                            />
                             <span
-                                class="block px-1 pt-1 pb-6 text-base text-xq-muted-foreground"
+                                v-if="index < steps.length - 1"
+                                class="home-track absolute top-24 -right-6 hidden w-12 md:block"
+                                aria-hidden="true"
+                            ></span>
+                            <span
+                                class="mt-2 text-xs font-medium tracking-wide text-xq-muted-foreground uppercase"
                             >
-                                Search fields, columns and more…
+                                Step {{ index + 1 }}
                             </span>
-                            <span class="flex items-center justify-between">
+                            <h3 class="mt-1.5 text-lg font-semibold">
+                                {{ step.title }}
+                            </h3>
+                            <p
+                                class="mt-1.5 max-w-xs text-sm leading-relaxed text-pretty text-xq-muted-foreground"
+                            >
+                                {{ step.body }}
+                            </p>
+                        </li>
+                    </ol>
+                </section>
+
+                <section
+                    aria-labelledby="packages"
+                    class="overflow-hidden rounded-[2rem] bg-[#0c0c0e] px-6 py-16 text-white ring-1 ring-white/10 sm:px-12 sm:py-20"
+                >
+                    <div class="grid items-center gap-10 lg:grid-cols-2">
+                        <LayerStack
+                            :tints="packages.map((item) => tints[item.label])"
+                        />
+                        <div>
+                            <p
+                                class="inline-flex items-center gap-2 rounded-full bg-white/8 py-1 pr-3 pl-3.5 text-sm font-medium"
+                            >
+                                Three packages
                                 <span
-                                    class="flex gap-0.5 rounded-xq-md bg-xq-nav-hover p-1 text-xq-muted-foreground"
+                                    :class="badgeDot"
                                     aria-hidden="true"
+                                ></span>
+                            </p>
+                            <h2
+                                id="packages"
+                                class="mt-5 text-4xl font-medium tracking-[-0.03em] text-balance sm:text-5xl"
+                            >
+                                Take one package, or the whole stack.
+                            </h2>
+                            <p
+                                class="mt-4 text-lg leading-relaxed text-pretty text-white/65"
+                            >
+                                Forms works on its own. Tables builds on forms,
+                                and panels brings both together into a complete
+                                admin.
+                            </p>
+                            <ul
+                                class="mt-8 divide-y divide-white/12 border-y border-white/12"
+                            >
+                                <li
+                                    v-for="item in [...packages].reverse()"
+                                    :key="item.url"
                                 >
-                                    <span
-                                        class="flex size-7 items-center justify-center rounded-xq-sm bg-xq-card text-xq-foreground shadow-xs"
+                                    <Link
+                                        :href="item.url"
+                                        prefetch
+                                        class="group flex items-start gap-3.5 py-4 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none"
                                     >
-                                        <Search class="size-3.5" />
-                                    </span>
-                                    <span
-                                        class="flex size-7 items-center justify-center"
-                                    >
-                                        <FileText class="size-3.5" />
-                                    </span>
-                                    <span
-                                        class="flex size-7 items-center justify-center"
-                                    >
-                                        <Table class="size-3.5" />
-                                    </span>
-                                    <span
-                                        class="flex size-7 items-center justify-center"
-                                    >
-                                        <LayoutDashboard class="size-3.5" />
-                                    </span>
-                                </span>
-                                <span
-                                    class="flex items-center gap-2 text-xs text-xq-muted-foreground"
-                                >
-                                    <kbd class="font-sans">⌘K</kbd>
-                                    <span
-                                        class="flex size-9 items-center justify-center rounded-xq-md bg-xq-nav-hover transition-[scale] duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:scale-105"
-                                        aria-hidden="true"
-                                    >
-                                        <ArrowUp class="size-4" />
-                                    </span>
-                                </span>
-                            </span>
-                        </button>
+                                        <span
+                                            class="mt-1.5 size-2.5 shrink-0 rotate-12 rounded-[3px]"
+                                            :style="{
+                                                backgroundColor:
+                                                    tints[item.label],
+                                            }"
+                                            aria-hidden="true"
+                                        ></span>
+                                        <span class="min-w-0 flex-1">
+                                            <span class="block font-medium">
+                                                {{ item.label }}
+                                            </span>
+                                            <span
+                                                class="block text-sm text-white/60"
+                                            >
+                                                {{ item.tagline }}
+                                            </span>
+                                        </span>
+                                        <ArrowUpRight
+                                            class="mt-1 size-4 shrink-0 text-white/50 transition-transform duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
+                                            aria-hidden="true"
+                                        />
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section
+                    aria-labelledby="get-started"
+                    class="flex flex-col items-center gap-6 py-20 text-center sm:flex-row sm:justify-between sm:py-24 sm:text-left"
+                >
+                    <h2
+                        id="get-started"
+                        class="text-3xl font-medium tracking-[-0.03em] text-balance sm:text-4xl"
+                    >
+                        Your first panel is one class away.
+                    </h2>
+                    <div class="flex shrink-0 flex-wrap justify-center gap-3">
+                        <Link
+                            href="/introduction/installation"
+                            prefetch
+                            :class="[primaryButton, 'group gap-2']"
+                        >
+                            Get started
+                            <ArrowRight
+                                class="size-4.5 transition-transform duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:translate-x-0.5"
+                                aria-hidden="true"
+                            />
+                        </Link>
+                        <a :href="links.github" :class="outlineButton">
+                            GitHub
+                        </a>
                     </div>
                 </section>
             </main>
+
+            <footer
+                class="flex flex-col items-center gap-4 border-t border-xq-border py-8 text-sm text-xq-muted-foreground sm:flex-row sm:justify-between"
+            >
+                <p class="flex items-center gap-2">
+                    <XelqunMark class="size-5" />
+                    Xelqun is open source under the MIT license.
+                </p>
+                <nav aria-label="Footer" class="flex flex-wrap gap-x-6 gap-y-2">
+                    <Link
+                        href="/introduction"
+                        class="transition-colors duration-(--xq-duration-fast) hover:text-xq-foreground"
+                    >
+                        Docs
+                    </Link>
+                    <Link
+                        v-for="item in packages"
+                        :key="item.url"
+                        :href="item.url"
+                        class="transition-colors duration-(--xq-duration-fast) hover:text-xq-foreground"
+                    >
+                        {{ item.label }}
+                    </Link>
+                    <a
+                        :href="links.github"
+                        class="transition-colors duration-(--xq-duration-fast) hover:text-xq-foreground"
+                    >
+                        GitHub
+                    </a>
+                </nav>
+            </footer>
         </div>
 
         <DocsSearch v-model:open="searchOpen" />
