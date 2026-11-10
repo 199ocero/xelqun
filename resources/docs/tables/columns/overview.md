@@ -34,6 +34,17 @@ A dot reaches through a relationship. Eager load it in `query()` to avoid extra 
 TextColumn::make('category.name')->label('Category');
 ```
 
+## Related totals
+
+`counts()` loads how many related records each row has, and `sum()` adds up a related column. Both load with the rows, in the same query. Name the column after the result.
+
+```php
+TextColumn::make('orders_count')->counts('orders')->sortable();
+TextColumn::make('orders_sum_total')->sum('orders', 'total')->money('USD')->sortable();
+```
+
+They sort with no closure of their own.
+
 ## Working out a value
 
 `state()` works out the cell's value, instead of reading it from the record.
@@ -48,6 +59,15 @@ IconColumn::make('verified')
 
 ```php
 TextColumn::make('sku')->formatStateUsing(fn (string $state): string => strtoupper($state));
+```
+
+## Empty values and hover text
+
+`default()` stands in when the record has nothing there. A closure gets `$record`. `tooltip()` shows text on hover, and a closure gets `$record` and `$state`.
+
+```php
+TextColumn::make('country')->default('Unknown');
+IconColumn::make('is_featured')->boolean()->tooltip(fn (bool $state): string => $state ? 'On the home page' : 'Not featured');
 ```
 
 ## Links
@@ -68,6 +88,49 @@ A URL outside http(s), mailto, tel or this site is dropped.
 TextColumn::make('status')
     ->badge()
     ->color(fn (string $state): string => $state === 'active' ? 'success' : 'gray');
+```
+
+## Width and alignment
+
+| Method         | What it does                                                            |
+| -------------- | ----------------------------------------------------------------------- |
+| `alignment()`  | `start`, `center` or `end`, for the heading, the cells and the summary. |
+| `width()`      | Any CSS width, such as `'8rem'` or `'20%'`.                             |
+| `grow()`       | Takes the room the other columns leave.                                 |
+| `wrapHeader()` | Lets a long heading run onto more lines.                                |
+
+```php
+TextColumn::make('name')->grow();
+TextColumn::make('stock')->alignment('end')->width('6rem');
+```
+
+## Column groups
+
+`ColumnGroup` puts one heading over neighbouring columns, above their own headings. It goes in `columns()` beside the other columns.
+
+```php
+use Xelqun\Tables\Columns\ColumnGroup;
+
+public function columns(): array
+{
+    return [
+        TextColumn::make('name'),
+        ColumnGroup::make('Inventory', [
+            TextColumn::make('sku')->label('SKU'),
+            TextColumn::make('stock')->numeric()->alignment('end'),
+        ]),
+    ];
+}
+```
+
+<!-- example: table-column-groups -->
+
+## Search
+
+`searchable()` adds a column to the search above the table. `isIndividual: true` also gives it a search box of its own, under its heading, and `isGlobal: false` keeps it out of the search above. See [search and sorting](/tables/search-and-sorting).
+
+```php
+TextColumn::make('sku')->searchable(isIndividual: true, isGlobal: false);
 ```
 
 ## Enums

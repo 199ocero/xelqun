@@ -13,16 +13,16 @@ Until 1.0, a minor version can break existing code. Each package's changelog lis
 
 | Package                                                                    | Version | PHP  | Laravel | Inertia | Vue  | Tailwind CSS |
 | -------------------------------------------------------------------------- | ------- | ---- | ------- | ------- | ---- | ------------ |
-| [Forms](https://github.com/199ocero/xelqun-forms/blob/main/CHANGELOG.md)   | 0.8     | 8.4+ | 13      | 3       | 3.5+ | 4            |
-| [Tables](https://github.com/199ocero/xelqun-tables/blob/main/CHANGELOG.md) | 0.6     | 8.4+ | 13      | 3       | 3.5+ | 4            |
-| [Panels](https://github.com/199ocero/xelqun-panels/blob/main/CHANGELOG.md) | 0.4     | 8.4+ | 13      | 3       | 3.5+ | 4            |
+| [Forms](https://github.com/199ocero/xelqun-forms/blob/main/CHANGELOG.md)   | 0.9     | 8.4+ | 13      | 3       | 3.5+ | 4            |
+| [Tables](https://github.com/199ocero/xelqun-tables/blob/main/CHANGELOG.md) | 0.7     | 8.4+ | 13      | 3       | 3.5+ | 4            |
+| [Panels](https://github.com/199ocero/xelqun-panels/blob/main/CHANGELOG.md) | 0.5     | 8.4+ | 13      | 3       | 3.5+ | 4            |
 
 ## Versions that go together
 
 The packages move at their own pace, so their version numbers differ. Each one states what it needs.
 
-- Tables needs Forms 0.8.
-- Panels needs Forms 0.8 and Tables 0.6.1.
+- Tables needs Forms 0.9.
+- Panels needs Forms 0.9 and Tables 0.7.
 
 Composer and npm work this out for you when you upgrade.
 

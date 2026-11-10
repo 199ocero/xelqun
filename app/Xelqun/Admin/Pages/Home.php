@@ -4,8 +4,11 @@ namespace App\Xelqun\Admin\Pages;
 
 use App\Models\Product;
 use App\Xelqun\Admin\Resources\ProductResource;
+use App\Xelqun\Admin\Widgets\LatestOrders;
 use Xelqun\Actions\Action;
+use Xelqun\Forms\Components\Select;
 use Xelqun\Notifications\Notification;
+use Xelqun\Notifications\NotificationAction;
 use Xelqun\Panels\Notifications\DatabaseNotification;
 use Xelqun\Panels\Pages\Dashboard;
 
@@ -40,6 +43,18 @@ class Home extends Dashboard
         return "{$drafts} products need your OK.";
     }
 
+    public function filters(): array
+    {
+        return [
+            Select::make('status')->label('Products')->options(['all' => 'All', 'active' => 'Live', 'draft' => 'Drafts'])->default('all'),
+        ];
+    }
+
+    protected function getFooterWidgets(): array
+    {
+        return [LatestOrders::class];
+    }
+
     public function headerActions(): array
     {
         return [
@@ -57,6 +72,8 @@ class Home extends Dashboard
                     ->body('Sales are up this week.')
                     ->success()
                     ->url(ProductResource::getUrl())
+                    ->icon('chart-column')
+                    ->actions([NotificationAction::make('products')->label('See products')->url(ProductResource::getUrl())])
                     ->sendToDatabase(auth()->user())),
         ];
     }

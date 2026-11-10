@@ -59,3 +59,33 @@ public function recordUrl(Model $record): ?string
     return route('products.show', $record);
 }
 ```
+
+`recordAction()` names a record action for the row click to open instead, such as a modal. `recordUrl()` wins when both give an answer.
+
+```php
+public function recordAction(Model $record): ?string
+{
+    return 'rename';
+}
+```
+
+## Keeping the modal open
+
+`$action->halt()` stops the action and keeps its modal open, so the viewer can fix what they typed. What the action wrote is rolled back, and notifications sent so far still show.
+
+```php
+use Xelqun\Actions\Action;
+use Xelqun\Notifications\Notification;
+
+Action::make('rename')
+    ->authorize('update')
+    ->schema([TextInput::make('name')->required()])
+    ->action(function (array $data, Product $record, Action $action) {
+        if (Product::where('name', $data['name'])->exists()) {
+            Notification::make()->title('That name is taken')->danger()->send();
+            $action->halt();
+        }
+
+        $record->update($data);
+    });
+```

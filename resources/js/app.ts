@@ -1,6 +1,7 @@
 import { createInertiaApp } from '@inertiajs/vue3';
 import { createXelqunForms } from '@xelqun/forms';
 import { panelsPlugin } from '@xelqun/panels';
+import { tablesPlugin } from '@xelqun/tables';
 import { MessageSquare, Newspaper } from 'lucide-vue-next';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -10,7 +11,7 @@ void createInertiaApp({
     withApp: (app) => {
         app.use(
             createXelqunForms({
-                plugins: [panelsPlugin()],
+                plugins: [panelsPlugin(), tablesPlugin()],
                 icons: {
                     'message-square': MessageSquare,
                     newspaper: Newspaper,

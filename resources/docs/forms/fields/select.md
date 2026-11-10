@@ -42,23 +42,43 @@ Select::make('technologies')->multiple()->options([...]);
 
 The state is then a list, so a model needs an array cast. `reorderable()` lets people change the order of what they picked.
 
+`minItems()` and `maxItems()` set how many can be picked, and the server checks both.
+
+```php
+Select::make('technologies')->multiple()->minItems(1)->maxItems(3)->options([...]);
+```
+
 ## Searching
 
-`searchable()` filters options as you type. A select with more than 100 options shows a search box anyway, and any list draws only its first 100 matches, so type to find the rest.
+`searchable()` filters options as you type. A select with more than 100 options shows a search box anyway, and any list draws only its first 100 options, so type to find the rest. `optionsLimit()` changes both numbers.
 
 ```php
 Select::make('author_id')->options(User::pluck('name', 'id'))->searchable();
 ```
 
-| Method                     | What it does                                   |
-| -------------------------- | ---------------------------------------------- |
-| `searchDebounce()`         | Milliseconds to wait after the last keystroke. |
-| `searchLimit()`            | How many results to show.                      |
-| `searchPrompt()`           | Shown before the user types.                   |
-| `searchingMessage()`       | Shown while a search runs.                     |
-| `noSearchResultsMessage()` | Shown when a search finds nothing.             |
-| `noOptionsMessage()`       | Shown when the field has no options at all.    |
-| `loadingMessage()`         | Shown while the options load.                  |
+| Method                     | What it does                                                               |
+| -------------------------- | -------------------------------------------------------------------------- |
+| `searchDebounce()`         | Milliseconds to wait after the last keystroke.                             |
+| `optionsLimit()`           | How many options draw, and how many a search finds: 100 and 50 by default. |
+| `searchLimit()`            | How many results to show.                                                  |
+| `searchPrompt()`           | Shown before the user types.                                               |
+| `searchingMessage()`       | Shown while a search runs.                                                 |
+| `noSearchResultsMessage()` | Shown when a search finds nothing.                                         |
+| `noOptionsMessage()`       | Shown when the field has no options at all.                                |
+| `loadingMessage()`         | Shown while the options load.                                              |
+
+## Labels as HTML
+
+`allowHtml()` draws option labels as HTML. The server cleans each label the way it cleans a [rich editor's](/forms/fields/rich-editor) content, and search and the chosen value use the label's text.
+
+```php
+Select::make('assignee_id')
+    ->allowHtml()
+    ->options([
+        1 => '<strong>Ada Lovelace</strong> <em>Admin</em>',
+        2 => '<strong>Alan Turing</strong> <em>Member</em>',
+    ]);
+```
 
 ## Relationships
 

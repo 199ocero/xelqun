@@ -44,6 +44,18 @@ Action::make('publish')->authorize('update');
 Action::make('refund')->authorize(fn (): bool => auth()->user()->isManager());
 ```
 
+A refused action is hidden. `authorizationTooltip()` shows it disabled instead, with the policy's message as its tooltip. A refusal with no message still hides it, and the server still refuses the click. A closure can return a `Response` to give that message.
+
+```php
+use Illuminate\Auth\Access\Response;
+
+Action::make('refund')
+    ->authorize(fn (Order $record): Response => $record->paid_at !== null
+        ? Response::allow()
+        : Response::deny('Only paid orders can be refunded.'))
+    ->authorizationTooltip();
+```
+
 ## What an action can do
 
 `action()` runs inside a transaction. It gets `$data`, `$get`, `$set` and `$record`.
@@ -63,6 +75,20 @@ Action::make('invoice')->authorize(true)->url(fn (): string => route('invoice'),
 
 Throw a `ValidationException` to send an error back to the form.
 
+`before()` and `after()` run around `action()`, in the same transaction and with the same arguments. `after()` also gets `$result`, what `action()` returned.
+
+```php
+use Xelqun\Notifications\Notification;
+
+Action::make('ship')
+    ->authorize('update')
+    ->before(fn (Order $record) => $record->update(['status' => 'packing']))
+    ->action(fn (Order $record) => $record->ship())
+    ->after(fn (Order $record) => Notification::make()->title("Order {$record->id} shipped")->send());
+```
+
+To stop part way, see [halting an action](/forms/actions/modals#halting-an-action).
+
 ## How it looks
 
 | Method                                      | What it does                                             |
@@ -71,7 +97,40 @@ Throw a `ValidationException` to send an error back to the form.
 | `button()`                                  | Shows a button, which is the default.                    |
 | `link()`                                    | Shows a link.                                            |
 | `iconButton()`                              | Shows only the icon. The label stays for screen readers. |
+| `outlined()`                                | Draws a border in the action's color instead of a fill.  |
+| `size()`                                    | `sm`, `md` or `lg`. Small unless you choose another.     |
+| `badge()`, `badgeColor()`                   | A count or short word in the button's corner.            |
 | `disabled()`, `hidden()`, `visible()`       | Follow a boolean or a closure.                           |
+
+```php
+Action::make('inbox')
+    ->authorize(true)
+    ->icon('inbox')
+    ->outlined()
+    ->size('md')
+    ->badge(fn (): int => Order::where('status', 'new')->count())
+    ->badgeColor('danger')
+    ->url(fn (): string => route('inbox'));
+```
+
+## Keyboard shortcuts
+
+`keyBindings()` clicks the button from the keyboard. `mod` is Command on a Mac and Ctrl elsewhere. Combine `ctrl`, `meta`, `shift` and `alt` with one key.
+
+```php
+Action::make('save')->authorize(true)->keyBindings(['mod+s'])->action(fn () => null);
+```
+
+## Rate limiting
+
+`rateLimit()` lets one user, or one address when signed out, run the action that many times a minute. Past that, the request gets a 429 and the form says to wait.
+
+```php
+Action::make('resend')
+    ->authorize('update')
+    ->rateLimit(5)
+    ->action(fn (Order $record) => Mail::to($record->email)->send(new OrderReceipt($record)));
+```
 
 ## After it runs
 

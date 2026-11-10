@@ -13,7 +13,7 @@ use Xelqun\Forms\Components\TextInput;
  */
 class SnippetActions extends ActionSet
 {
-    public const array SNIPPETS = ['modals', 'grouping'];
+    public const array SNIPPETS = ['modals', 'slide-over', 'grouping'];
 
     public function actions(): array
     {
@@ -38,6 +38,20 @@ class SnippetActions extends ActionSet
                         Textarea::make('message')->required(),
                     ])
                     ->successNotificationTitle('Thanks! Nothing was sent, this is a preview.')
+                    ->action(fn () => null),
+            ],
+            'slide-over' => [
+                Action::make('edit_customer')
+                    ->authorize(true)
+                    ->icon('pencil')
+                    ->slideOver()
+                    ->fillForm(['name' => 'Ada Lovelace', 'email' => 'ada@example.com'])
+                    ->schema([
+                        TextInput::make('name')->required(),
+                        TextInput::make('email')->email()->required(),
+                        Textarea::make('notes')->rows(6),
+                    ])
+                    ->successNotificationTitle('Nothing was saved, this is a preview.')
                     ->action(fn () => null),
             ],
             default => [

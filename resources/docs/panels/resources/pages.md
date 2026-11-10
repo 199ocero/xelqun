@@ -26,7 +26,20 @@ public static function getPages(): array
 
 <!-- screenshot: resource-form | The create page of a resource -->
 
-Leave a key out to remove that page.
+Leave a key out to remove that page. Add one of your own for a [page of the resource's own](/panels/resources/custom-pages#pages-of-a-resources-own).
+
+## Create & create another
+
+The create page has a "Create & create another" button, which saves and opens a fresh form. Turn it off on your own `CreateRecord`:
+
+```php
+use Xelqun\Panels\Resources\Pages\CreateRecord;
+
+class CreateOrder extends CreateRecord
+{
+    protected static bool $canCreateAnother = false;
+}
+```
 
 ## Header actions
 

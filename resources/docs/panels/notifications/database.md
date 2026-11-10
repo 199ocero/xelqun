@@ -30,4 +30,22 @@ This works from a job, an observer or a webhook too. `getUrl()` finds the panel 
 $panel->databaseNotificationsPolling('60s');
 ```
 
-[Try it in the demo](demo:/): press "Send me a notification".
+## Icons and actions
+
+The bell shows a notification's `icon()`, and those of its actions that link somewhere.
+
+```php
+use Xelqun\Notifications\NotificationAction;
+
+DatabaseNotification::make()
+    ->title('Your weekly report is ready')
+    ->icon('chart-column')
+    ->actions([NotificationAction::make('report')->label('See the report')->url(route('reports'))])
+    ->sendToDatabase($user);
+```
+
+An action that runs code shows in the toast only. Its token has expired by the time anyone opens the bell.
+
+[Try it in the demo](demo:/): press "Send me a notification", then open the bell for its icon and its "See products" link.
+
+<!-- screenshot: notification-actions | Notifications in the bell, with an icon and a link action -->

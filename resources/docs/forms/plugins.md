@@ -72,6 +72,7 @@ Implement a contract from `Xelqun\Forms\Contracts`, and the matching endpoint st
 | -------------------- | ------------------------------------------------ |
 | `HasSearchResults`   | The search endpoint                              |
 | `AcceptsUploads`     | The upload endpoint and storage on save          |
+| `NamesStoredFiles`   | Original file names, as `FileUpload` keeps them  |
 | `EmbedsUploads`      | The same, for uploads kept inside a field's text |
 | `ContainsRows`       | Rows with their own components                   |
 | `PersistsItself`     | Saving somewhere other than a column             |

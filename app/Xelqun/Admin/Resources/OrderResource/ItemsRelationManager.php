@@ -2,7 +2,9 @@
 
 namespace App\Xelqun\Admin\Resources\OrderResource;
 
+use App\Models\Order;
 use App\Xelqun\Admin\Resources\OrderItemResource;
+use Illuminate\Database\Eloquent\Model;
 use Xelqun\Forms\Components\TextInput;
 use Xelqun\Panels\Resources\RelationManager;
 use Xelqun\Tables\Columns\TextColumn;
@@ -14,6 +16,14 @@ class ItemsRelationManager extends RelationManager
     protected static ?string $title = 'Line items';
 
     protected static ?string $relatedResource = OrderItemResource::class;
+
+    /**
+     * @param  Order  $owner
+     */
+    public static function getBadge(Model $owner): int
+    {
+        return $owner->items()->count();
+    }
 
     public static function form(): array
     {

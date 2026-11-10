@@ -432,6 +432,8 @@ web, EnterPanel:{id}
             └── {record}/edit          edit page,    PUT {record} saves it
 ```
 
+The panel's own `middleware()` joins the first line, `authMiddleware()` follows `Authenticate`, and `tenantMiddleware()` follows `IdentifyTenant`. `tenantRoutePrefix()` adds a segment before `{tenant}`, and `tenantDomain()` moves it into the host.
+
 A nested resource lives under its parent, as in `authors/{parentRecord}/posts`.
 
 The page class is the controller. A list route points straight at the `ListRecords` class, and the resource it's for is passed as a route default. That's how one `ListRecords` class serves every resource.

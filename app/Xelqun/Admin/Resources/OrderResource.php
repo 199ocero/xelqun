@@ -25,6 +25,7 @@ use Xelqun\Panels\Actions\ViewAction;
 use Xelqun\Panels\Infolists\IconEntry;
 use Xelqun\Panels\Infolists\RepeatableEntry;
 use Xelqun\Panels\Infolists\TextEntry;
+use Xelqun\Panels\Navigation\NavigationItem;
 use Xelqun\Panels\Resources\Resource;
 use Xelqun\Panels\Resources\Tab;
 use Xelqun\Panels\Tables\TrashedFilter;
@@ -67,6 +68,21 @@ class OrderResource extends Resource
     public static function getGloballySearchableAttributes(): array
     {
         return ['customer_name', 'email', 'company'];
+    }
+
+    public static function getNavigationBadgeColor(): string
+    {
+        return 'warning';
+    }
+
+    public static function getNavigationBadgeTooltip(): string
+    {
+        return 'Every order';
+    }
+
+    public static function getGlobalSearchResultActions(Model $record): array
+    {
+        return [NavigationItem::make('Edit')->url(static::getUrl('edit', ['record' => $record]))];
     }
 
     public static function getGlobalSearchResultDetails(Model $record): array

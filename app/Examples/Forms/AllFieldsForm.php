@@ -29,11 +29,11 @@ class AllFieldsForm extends Form
                     ->mask('(999) 999-9999')
                     ->stripCharacters(['(', ')', ' ', '-'])
                     ->prefixIcon('phone')
-                    ->hint('Masked while you type, stored as digits.'),
+                    ->helperText('Masked while you type, stored as digits.'),
                 TextInput::make('secret')->label('API secret')->password()->revealable(),
                 TextInput::make('api_key')->label('API key')->default('xq_live_8f3a')->copyable()->readOnly(),
-                TextInput::make('car')->datalist(['BMW', 'Ford', 'Porsche'])->hint('Suggestions, not a fixed list.'),
-                TextInput::make('code')->length(6)->trim()->hint('Exactly six characters.'),
+                TextInput::make('car')->datalist(['BMW', 'Ford', 'Porsche'])->helperText('Suggestions, not a fixed list.'),
+                TextInput::make('code')->length(6)->trim()->helperText('Exactly six characters.'),
                 TextInput::make('email')->email()->suffixIcon('mail'),
             ]),
 
@@ -44,11 +44,11 @@ class AllFieldsForm extends Form
                     ->minutesStep(15)
                     ->timezone('Asia/Manila')
                     ->displayFormat('D, j M Y')
-                    ->hint('Shown in Manila, stored in UTC.'),
+                    ->helperText('Shown in Manila, stored in UTC.'),
                 DatePicker::make('review_on')
                     ->label('Review day')
                     ->disabledDates([now()->addDay()->format('Y-m-d')])
-                    ->hint('Tomorrow is taken.'),
+                    ->helperText('Tomorrow is taken.'),
                 TimePicker::make('opens_at')->label('Opens at')->seconds(false)->minDate('08:00')->maxDate('18:00'),
             ]),
 
@@ -63,7 +63,7 @@ class AllFieldsForm extends Form
                     ->multiple()
                     ->reorderable()
                     ->options(['vue' => 'Vue', 'laravel' => 'Laravel', 'inertia' => 'Inertia'])
-                    ->hint('Move picked items with their arrows.'),
+                    ->helperText('Move picked items with their arrows.'),
                 Select::make('newsletter')->boolean(placeholder: 'Would you like the newsletter?'),
                 ToggleButtons::make('status')
                     ->options(['draft' => 'Draft', 'published' => 'Published', 'archived' => 'Archived'])

@@ -21,3 +21,5 @@ ActionGroup::make([
 <!-- example: actions-grouping -->
 
 An action in a group takes every option an action does, including modals. `authorize('update')` needs a policy for the record's model, or the action is hidden, and a group with no visible actions is hidden too.
+
+A group takes `badge()`, `badgeColor()` and `size()` too, as an action does.

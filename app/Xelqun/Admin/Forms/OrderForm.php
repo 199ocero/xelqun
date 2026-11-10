@@ -160,7 +160,7 @@ class OrderForm extends Form
                         ->label('Spec sheet')
                         ->directory('demo/orders')
                         ->maxSize(4096)
-                        ->hint('Optional. Uploaded right away, saved with the order.')
+                        ->helperText('Optional. Uploaded right away, saved with the order.')
                         ->columnSpanFull(),
                     FileUpload::make('photos')
                         ->label('Photos')
@@ -171,7 +171,7 @@ class OrderForm extends Form
                         ->reorderable()
                         ->openable()
                         ->downloadable()
-                        ->hint('Up to four. Each one is a row in its own table.')
+                        ->helperText('Up to four. Each one is a row in its own table.')
                         ->columnSpanFull(),
                     Repeater::make('extras')
                         ->relationship()
@@ -194,7 +194,7 @@ class OrderForm extends Form
                     ->readOnly()
                     ->inlineLabel()
                     ->extraAttributes(['data-testid' => 'grand-total'])
-                    ->hint('Calculated in your browser, recalculated on the server.'),
+                    ->helperText('Calculated in your browser, recalculated on the server.'),
             ]),
         ];
     }

@@ -90,6 +90,24 @@ FileUpload::make('banner')
 | `visibility()`         | Sets the file's visibility on the disk.                            |
 | `storeFiles(false)`    | Leaves files on the temporary disk, for you to handle.             |
 
+## File names
+
+A stored file gets a random name. `preserveFilenames()` stores it under its original name instead, cleaned of anything unsafe, with a random suffix when the name is already taken on the disk.
+
+`storeFileNamesIn()` saves the original names in another field, such as a [hidden](/forms/fields/hidden) one, and the upload shows them. It holds a string, or `path => name` for `multiple()`.
+
+```php
+use Xelqun\Forms\Components\Hidden;
+
+FileUpload::make('attachments')
+    ->multiple()
+    ->storeFileNamesIn('attachment_names');
+
+Hidden::make('attachment_names');
+```
+
+A plugin upload field gets both by implementing the `NamesStoredFiles` contract. The `HandlesUploads` trait has its methods.
+
 ## A row for each file
 
 `relationship()` keeps each file as a row of a `HasMany` or `MorphMany`.

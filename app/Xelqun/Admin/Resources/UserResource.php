@@ -51,7 +51,7 @@ class UserResource extends Resource
                     ->password()
                     ->revealable()
                     ->required(fn (string $operation): bool => $operation === 'create')
-                    ->hint('Leave blank to keep the current one.')
+                    ->helperText('Leave blank to keep the current one.')
                     ->autocomplete('new-password'),
             ]),
         ];

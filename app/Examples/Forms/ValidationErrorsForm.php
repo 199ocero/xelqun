@@ -31,7 +31,7 @@ class ValidationErrorsForm extends Form
                         ->minLength(3)
                         ->alphaDash()
                         ->validationMessages(['min' => 'Pick a :attribute of at least :min characters.'])
-                        ->hint('Letters, numbers, dashes. At least 3 characters.'),
+                        ->helperText('Letters, numbers, dashes. At least 3 characters.'),
                     TextInput::make('email')
                         ->email()
                         ->default('not-an-email')
@@ -53,7 +53,7 @@ class ValidationErrorsForm extends Form
                                 $fail('Coupons start with “XQ-”.');
                             }
                         }])
-                        ->hint('A custom closure rule.'),
+                        ->helperText('A custom closure rule.'),
                     Checkbox::make('terms')->label('I accept the terms')->required(),
                 ]),
             ]),

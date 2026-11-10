@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: Every field starts with make(), and shares labels, hints, validation, defaults and visibility rules.
+description: Every field starts with make(), and shares labels, hints, helper text, validation, defaults and visibility rules.
 ---
 
 A field is one input in a form. You create it with `make()`, passing the name of the attribute it holds, then chain the options you want.
@@ -11,7 +11,7 @@ use Xelqun\Forms\Components\TextInput;
 TextInput::make('name')
     ->label('Full name')
     ->placeholder('Ada Lovelace')
-    ->hint('As it appears on your ID.')
+    ->helperText('As it appears on your ID.')
     ->required();
 ```
 
@@ -53,10 +53,58 @@ A label comes from the field's name in title case, so `first_name` reads as "Fir
 TextInput::make('email')
     ->label('Work email')
     ->placeholder('you@company.com')
-    ->hint('We only use this to sign you in.');
+    ->helperText('We only use this to sign you in.');
 ```
 
+`helperText()` sits under the field, and screen readers read it with the field. `hint()` is a short note beside the label, at the end of its row.
+
+```php
+use Illuminate\Support\Str;
+use Xelqun\Actions\Action;
+use Xelqun\Forms\State\Set;
+
+TextInput::make('password')
+    ->password()
+    ->hint('Case sensitive')
+    ->hintColor('warning')
+    ->hintIcon('info', tooltip: 'Ask an admin to reset it.')
+    ->helperText('At least twelve characters.')
+    ->markAsRequired();
+
+TextInput::make('api_key')
+    ->hintAction(
+        Action::make('generate')
+            ->authorize(true)
+            ->link()
+            ->action(fn (Set $set) => $set('api_key', Str::random(32))),
+    );
+```
+
+<!-- example: form-hints -->
+
+| Method             | What it does                                                                      |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `hint()`           | Short text beside the label.                                                      |
+| `hintIcon()`       | An icon beside the label, with an optional tooltip.                               |
+| `hintColor()`      | The hint's color: `neutral`, `primary`, `danger`, `info`, `success` or `warning`. |
+| `hintAction()`     | An [action](/forms/actions/overview) at the end of the label's row.               |
+| `helperText()`     | Help under the field.                                                             |
+| `markAsRequired()` | Shows or hides the asterisk, whatever the rules say. It changes no validation.    |
+
 `hiddenLabel()` hides the label on screen, and screen readers still announce it. `inlineLabel()` puts it beside the field.
+
+> [!NOTE]
+> Before 0.9, `hint()` was the text under the field. That is `helperText()` now.
+
+## Attributes on the input
+
+`extraInputAttributes()` puts HTML attributes on the input itself, on a text input or textarea.
+
+```php
+TextInput::make('code')->extraInputAttributes(['autocomplete' => 'one-time-code', 'spellcheck' => 'false']);
+```
+
+The attributes reach the page as given, so never build an attribute name from user input.
 
 ## Default values
 

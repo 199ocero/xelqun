@@ -36,7 +36,7 @@ class WizardForm extends Form
                         TextInput::make('email')->email()->required()->liveValidation(),
                         TextInput::make('username')
                             ->required()
-                            ->hint('Taken: admin. Only the server knows that.')
+                            ->helperText('Taken: admin. Only the server knows that.')
                             ->rule(fn (string $attribute, mixed $value, Closure $fail) => $value === 'admin' ? $fail('That username is taken.') : null),
                     ]),
                 Step::make('Plan')
@@ -48,7 +48,7 @@ class WizardForm extends Form
                             ->minValue(2)
                             ->requiredWhen(When::eq('plan', 'team'))
                             ->visibleWhen(When::eq('plan', 'team')),
-                        TextInput::make('coupon')->hint('Filled in by the first step.'),
+                        TextInput::make('coupon')->helperText('Filled in by the first step.'),
                     ]),
                 Step::make('Confirm')
                     ->schema([Checkbox::make('terms')->label('I accept the terms')->required()]),

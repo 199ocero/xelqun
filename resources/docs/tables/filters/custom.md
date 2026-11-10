@@ -32,3 +32,27 @@ Filter::make('delivery')
 ```
 
 Because they're real fields, a filter can depend on another. Pick a year, and the months follow from the server.
+
+## While the filter is off
+
+`apply()` only runs while a filter is active. A filter class of your own can override `applyWhenInactive()` to narrow the query while it's off, such as hiding archived rows until the viewer asks for them.
+
+```php
+use Illuminate\Database\Eloquent\Builder;
+use Xelqun\Tables\Filters\Filter;
+
+class ArchivedFilter extends Filter
+{
+    public function apply(Builder $query, array $data): void
+    {
+        $query->where('status', 'archived');
+    }
+
+    public function applyWhenInactive(Builder $query): void
+    {
+        $query->where('status', '!=', 'archived');
+    }
+}
+```
+
+`ArchivedFilter::make('archived')` then goes in `filters()` like any other. A [ternary filter](/tables/filters/ternary#your-own-queries) does the same with `queries(blank:)`.

@@ -52,15 +52,18 @@ public function content(): array
 
 ## What you can set
 
-| Method                                            | What it does                  |
-| ------------------------------------------------- | ----------------------------- |
-| `getHeading()`, `getSubheading()`, `getEyebrow()` | The text at the top.          |
-| `getBreadcrumbs()`                                | The breadcrumbs.              |
-| `getTabs()`                                       | Tabs above the content.       |
-| `getSubNavigation()`                              | Tabs across the page.         |
-| `canAccess()`                                     | Who may open it.              |
-| `getNavigationBadge()`                            | A count in the sidebar.       |
-| `shouldRegisterNavigation()`                      | Whether it joins the sidebar. |
+| Method                                                     | What it does                                                            |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `getHeading()`, `getSubheading()`, `getEyebrow()`          | The text at the top.                                                    |
+| `getBreadcrumbs()`                                         | The breadcrumbs.                                                        |
+| `getTabs()`                                                | Tabs above the content.                                                 |
+| `getSubNavigation()`                                       | Tabs across the page.                                                   |
+| `canAccess()`                                              | Who may open it.                                                        |
+| `getNavigationBadge()`                                     | A count in the sidebar.                                                 |
+| `getNavigationBadgeColor()`, `getNavigationBadgeTooltip()` | The badge's color and tooltip.                                          |
+| `shouldRegisterNavigation()`                               | Whether it joins the sidebar.                                           |
+| `filters()`                                                | Fields above its [widgets](/panels/widgets/overview#dashboard-filters). |
+| `getWidgets()`, `getFooterWidgets()`                       | Widgets above and below the content.                                    |
 
 ## Your own Vue page
 

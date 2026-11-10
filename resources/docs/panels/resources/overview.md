@@ -67,7 +67,7 @@ public static function getEloquentQuery(): Builder
 
 ## Navigation
 
-`$navigationIcon`, `$navigationGroup` and `$navigationSort` place it in the sidebar. `getNavigationBadge()` shows a count.
+`$navigationIcon`, `$navigationGroup`, `$navigationParentItem` and `$navigationSort` place it in the sidebar. `getNavigationBadge()` shows a count, with `getNavigationBadgeColor()` and `getNavigationBadgeTooltip()` to dress it. `shouldRegisterNavigation()` returning `false` leaves the resource out. See [navigation](/panels/navigation#badges-children-and-hiding).
 
 ```php
 public static function getNavigationBadge(): int

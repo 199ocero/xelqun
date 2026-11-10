@@ -17,4 +17,12 @@ $panel->profile(CustomProfileForm::class);
 
 Two-factor is set up here too. See [two-factor](/panels/auth/two-factor).
 
-[See it in the demo](demo:/profile). The shared demo account can't be changed, so register your own to try it.
+## Verifying a new email address
+
+```php
+$panel->profile()->emailChangeVerification();
+```
+
+A new email address then waits until someone opens the link sent to it, and the old address is told about the change. Until then, the account keeps the old one.
+
+[See it in the demo](demo:/profile). The shared demo account can't be changed, so register your own to try it: change its email, and the link arrives in the demo's inbox.

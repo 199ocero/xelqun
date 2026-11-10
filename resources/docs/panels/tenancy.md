@@ -131,6 +131,47 @@ The switcher lists 20 tenants, always with the current one, and a search box fin
 > [!NOTE]
 > Notifications belong to the user, not the tenant. Tenant billing isn't built in.
 
+## The tenant menu
+
+`tenantMenuItems()` adds links to the switcher's menu, above Settings and Add new. Use a closure for a route's URL, so it's built inside the tenant.
+
+```php
+use Xelqun\Panels\Navigation\NavigationItem;
+
+$panel->tenantMenuItems([
+    NavigationItem::make('Billing')->icon('credit-card')->url(fn (): string => route('billing')),
+]);
+```
+
+<!-- screenshot: tenant-menu | The tenant menu with an extra Team members link -->
+
+## The tenant in the URL
+
+By default the tenant comes straight after the panel's path, as in `/admin/acme`. `tenantRoutePrefix()` puts a segment before it:
+
+```php
+$panel->tenantRoutePrefix('team'); // /admin/team/acme
+```
+
+`tenantDomain()` finds the tenant in the host instead, and the path no longer carries it:
+
+```php
+$panel->tenantDomain('{tenant}.example.com'); // acme.example.com/admin
+```
+
+> [!WARNING]
+> With `tenantDomain()`, the session cookie has to reach every subdomain, or each tenant asks people to sign in again. Set `SESSION_DOMAIN=.example.com`.
+
+## Middleware inside a tenant
+
+`tenantMiddleware()` adds middleware to the routes inside a tenant. It runs once the tenant is known, so `app(Panels::class)->tenant()` already returns it.
+
+```php
+$panel->tenantMiddleware([SetTeamLocale::class]);
+```
+
+For middleware on the whole panel, see [middleware](/panels/multiple-panels#middleware).
+
 ## In the demo
 
 [The demo's workspace](demo:/workspace) is a second panel, made multi-tenant by `tenant()`. It looks like the admin panel and has the switcher at the top of the sidebar. The demo account is in three teams: Acme Studio, Harbor Support and Orbit Labs. Each has its own projects, tasks, notes and members, and some staff are in two teams.
@@ -154,5 +195,7 @@ class MemberResource extends Resource
 ```
 
 With that resource in the panel, `User` is kept to the team too, which is what limits the assignee list.
+
+The switcher's menu has a Team members link from `tenantMenuItems()`, which goes to the current team's members.
 
 Sign up for your own account and you land on the page to start a team, with nothing in it but you.

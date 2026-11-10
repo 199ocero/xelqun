@@ -55,6 +55,32 @@ Rows only carry what the columns declare, so nothing else on the model reaches t
 - **Summaries and groups.** Totals over every row, and a heading for each group.
 - **Layouts.** A grid of cards, stripes, polling and column toggles.
 
+## Picking records in a form
+
+`ModalTableSelect` is a [form field](/forms/fields/select) that tables brings. It picks related records from a table in a modal, with the table's search, filters and pages, instead of a dropdown.
+
+```php
+use App\Tables\CategoriesTable;
+use Xelqun\Tables\Forms\ModalTableSelect;
+
+ModalTableSelect::make('category_id')
+    ->relationship('category', 'name')
+    ->tableConfiguration(CategoriesTable::class);
+```
+
+It needs `relationship()`, and the server checks each picked key against it. `multiple()` picks several, as on a select. The table's `query()` lists the records to pick from, and its `authorize()` decides who may open it. Its rows load when the modal opens, so the form costs no table query.
+
+Give the picker table a column named after the title attribute, `name` here, so a new pick shows its label.
+
+The field's Vue component comes with `tablesPlugin()`. The installer doesn't add it, so register it in your entry file beside the forms plugin.
+
+```ts
+import { createXelqunForms } from '@xelqun/forms';
+import { tablesPlugin } from '@xelqun/tables';
+
+app.use(createXelqunForms({ plugins: [tablesPlugin()] }));
+```
+
 > [!TIP]
 > [Open the demo](demo:/products) to see every kind of column and filter in a real admin panel.
 

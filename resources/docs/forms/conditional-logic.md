@@ -53,7 +53,7 @@ TextInput::make('reason')->visibleWhen(
 
 ## Text that follows a condition
 
-`label()`, `hint()` and `placeholder()` take text chosen by a condition. Both strings are sent to the browser, so neither should hold anything people may not see.
+`label()`, `hint()`, `helperText()` and `placeholder()` take text chosen by a condition. Both strings are sent to the browser, so neither should hold anything people may not see.
 
 ## Rules that need the server
 

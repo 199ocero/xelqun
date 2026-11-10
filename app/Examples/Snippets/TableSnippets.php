@@ -18,6 +18,7 @@ use Xelqun\Panels\Tables\TrashedFilter;
 use Xelqun\Tables\Actions\BulkAction;
 use Xelqun\Tables\Columns\CheckboxColumn;
 use Xelqun\Tables\Columns\ColorColumn;
+use Xelqun\Tables\Columns\ColumnGroup;
 use Xelqun\Tables\Columns\IconColumn;
 use Xelqun\Tables\Columns\ImageColumn;
 use Xelqun\Tables\Columns\SelectColumn;
@@ -31,6 +32,7 @@ use Xelqun\Tables\Filters\Filter;
 use Xelqun\Tables\Filters\QueryBuilder;
 use Xelqun\Tables\Filters\SelectFilter;
 use Xelqun\Tables\Filters\TernaryFilter;
+use Xelqun\Tables\Group;
 use Xelqun\Tables\Summarizers\Average;
 use Xelqun\Tables\Summarizers\Count;
 use Xelqun\Tables\Summarizers\Range;
@@ -74,6 +76,34 @@ final class TableSnippets
                 TextColumn::make('price')->money('USD'),
                 TextColumn::make('released_at')->date(),
             ]),
+            'text-description' => fn (): array => [
+                'query' => $products,
+                'configure' => $small,
+                'columns' => [
+                    TextColumn::make('name')->searchable()->sortable()->description(fn (Product $record): string => $record->sku),
+                    TextColumn::make('restock_at')->date()->placeholder('Not planned'),
+                ],
+            ],
+            'text-limit' => fn (): array => [
+                'query' => fn (): Builder => Comment::query(),
+                'columns' => [
+                    TextColumn::make('name'),
+                    TextColumn::make('body')->limit(40),
+                    TextColumn::make('status')->badge()->tooltip('Approved comments show on the site'),
+                ],
+            ],
+            'text-copyable' => $product([
+                TextColumn::make('sku')->label('SKU')->copyable()->copyMessage('SKU copied')->copyMessageDuration(1500),
+            ]),
+            'text-list' => $product([
+                TextColumn::make('keywords')->bulleted()->limitList(2)->expandableLimitedList(),
+            ]),
+            'column-groups' => $product([
+                ColumnGroup::make('Inventory', [
+                    TextColumn::make('sku')->label('SKU'),
+                    TextColumn::make('stock')->numeric()->alignment('end'),
+                ]),
+            ]),
             'icon' => $product([
                 IconColumn::make('is_featured')->label('Featured')->boolean(),
                 IconColumn::make('status')
@@ -106,6 +136,10 @@ final class TableSnippets
             'filters' => $product([TextColumn::make('status')->badge()], ['filters' => [
                 SelectFilter::make('status')->options(['draft' => 'Draft', 'active' => 'Active', 'archived' => 'Archived']),
                 Filter::make('in_stock')->query(fn (Builder $query) => $query->where('stock', '>', 0)),
+            ]]),
+            'filter-chips' => $product([TextColumn::make('status')->badge(), IconColumn::make('is_featured')->label('Featured')->boolean()], ['filters' => [
+                SelectFilter::make('status')->options(['draft' => 'Draft', 'active' => 'Active', 'archived' => 'Archived'])->default('active'),
+                TernaryFilter::make('is_featured')->label('Featured')->default(true),
             ]]),
             'filter-select' => $product([TextColumn::make('category.name')->label('Category')], ['filters' => [
                 SelectFilter::make('category')->relationship('category', 'name'),
@@ -165,6 +199,10 @@ final class TableSnippets
                 'configure' => fn (Table $table): Table => $table->defaultGroup('status'),
                 'columns' => [TextColumn::make('name'), TextColumn::make('status')->badge()],
             ],
+            'groups' => $product([
+                TextColumn::make('category.name')->label('Category'),
+                TextColumn::make('status')->badge(),
+            ], ['configure' => fn (Table $table): Table => $small($table)->groups(['status', Group::make('category.name')->label('Category')->collapsible()])]),
             'reordering' => fn (): array => [
                 'query' => fn (): Builder => Category::query(),
                 'configure' => fn (Table $table): Table => $table->defaultSort('sort')->reorderable('sort', true),
@@ -180,6 +218,16 @@ final class TableSnippets
                 'query' => fn (): Builder => Comment::query()->whereRaw('1 = 0'),
                 'configure' => fn (Table $table): Table => $table->emptyState('No comments yet', 'New comments show up here.'),
                 'columns' => [TextColumn::make('name')],
+            ],
+            'empty-state-actions' => fn (): array => [
+                'query' => fn (): Builder => Comment::query()->whereRaw('1 = 0'),
+                'configure' => fn (Table $table): Table => $table->emptyState('No comments yet', 'New comments show up here.', 'inbox'),
+                'columns' => [TextColumn::make('name')],
+                'emptyStateActions' => [
+                    Action::make('create')->authorize(true)->schema([TextInput::make('name')->required()])
+                        ->successNotificationTitle('Nothing was saved, this is a preview.')
+                        ->action($preview()),
+                ],
             ],
             'polling' => $product([TextColumn::make('stock')], ['configure' => fn (Table $table): Table => $small($table)->poll('10s')]),
             'column-toggles' => $product([

@@ -54,4 +54,9 @@ class SnippetTable extends Table
     {
         return $this->snippet()['bulkActions'] ?? [];
     }
+
+    public function emptyStateActions(): array
+    {
+        return $this->snippet()['emptyStateActions'] ?? [];
+    }
 }

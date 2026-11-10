@@ -31,7 +31,7 @@ class BasicFieldsForm extends Form
                 ->schema([
                     TextInput::make('name')->placeholder('Ada Lovelace')->required(),
                     TextInput::make('email')->email()->placeholder('ada@example.com'),
-                    TextInput::make('password')->password()->hint('At least 8 characters.')->minLength(8),
+                    TextInput::make('password')->password()->helperText('At least 8 characters.')->minLength(8),
                     TextInput::make('budget')->numeric()->prefix('$')->suffix('USD')->minValue(0)->placeholder('2500'),
                     Textarea::make('bio')->rows(3)->placeholder('A few words about yourself…')->columnSpanFull(),
                 ]),

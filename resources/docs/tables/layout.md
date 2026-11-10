@@ -1,6 +1,6 @@
 ---
 title: Content grid and stripes
-description: Show rows as cards, or shade every other row.
+description: Show rows as cards, shade every other row, and put a heading above the table.
 ---
 
 ## Cards
@@ -28,3 +28,14 @@ protected function boot(): void
 ```
 
 <!-- example: table-striped -->
+
+## Heading
+
+`heading()` puts a title above the table, as on a dashboard, and `description()` puts smaller text under it.
+
+```php
+protected function boot(): void
+{
+    $this->heading('Low stock')->description('Products with fewer than ten left.');
+}
+```

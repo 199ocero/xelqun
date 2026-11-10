@@ -33,7 +33,7 @@ class ConditionalFieldsForm extends Form
                     ->requiredWhen(When::eq('type', 'business')),
                 TextInput::make('vat_number')
                     ->label('VAT number')
-                    ->hint('Required for EU businesses.')
+                    ->helperText('Required for EU businesses.')
                     ->visibleWhen(When::eq('type', 'business'))
                     ->requiredWhen(When::and(When::eq('type', 'business'), When::in('region', ['eu']))),
                 Select::make('region')
@@ -54,7 +54,7 @@ class ConditionalFieldsForm extends Form
             ]),
 
             Section::make('About you')->columns(2)->schema([
-                TextInput::make('age')->integer()->minValue(0)->hint('Try a number over 17.'),
+                TextInput::make('age')->integer()->minValue(0)->helperText('Try a number over 17.'),
                 Toggle::make('wants_wine')
                     ->label('Add a bottle of wine')
                     ->visibleWhen(When::gte('age', 18)),
@@ -69,10 +69,10 @@ class ConditionalFieldsForm extends Form
                 TextInput::make('contact_email')
                     ->email()
                     ->disabledWhen(When::eq('use_account_email', true))
-                    ->hint('Disabled while “Use my account email” is on. Disabled values are never submitted.'),
+                    ->helperText('Disabled while “Use my account email” is on. Disabled values are never submitted.'),
                 TextInput::make('nickname')
                     ->hiddenWhen(When::filled('name'))
-                    ->hint('Hidden as soon as a name is filled.'),
+                    ->helperText('Hidden as soon as a name is filled.'),
             ]),
         ];
     }

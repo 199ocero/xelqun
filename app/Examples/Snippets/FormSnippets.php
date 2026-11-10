@@ -5,6 +5,8 @@ namespace App\Examples\Snippets;
 use App\Models\Post;
 use App\Models\Product;
 use Closure;
+use Illuminate\Support\Str;
+use Xelqun\Actions\Action;
 use Xelqun\Forms\Components\Checkbox;
 use Xelqun\Forms\Components\CheckboxList;
 use Xelqun\Forms\Components\CodeEditor;
@@ -44,6 +46,8 @@ use Xelqun\Forms\Layouts\Tab;
 use Xelqun\Forms\Layouts\Tabs;
 use Xelqun\Forms\Layouts\Text;
 use Xelqun\Forms\Layouts\UnorderedList;
+use Xelqun\Forms\State\Get;
+use Xelqun\Forms\State\Set;
 
 /**
  * The preview of each docs page, matching the code on that page.
@@ -67,9 +71,25 @@ final class FormSnippets
                 TextInput::make('total')->computed('sum(items.*.subtotal)')->disabled(),
             ],
             'field-options' => fn (): array => [
-                TextInput::make('name')->label('Full name')->placeholder('Ada Lovelace')->hint('As it appears on your ID.')->required(),
+                TextInput::make('name')->label('Full name')->placeholder('Ada Lovelace')->helperText('As it appears on your ID.')->required(),
                 TextInput::make('reference')->default('ORD-1042')->readOnly(),
                 TextInput::make('slug')->default('summer-sale')->disabled(),
+            ],
+            'hints' => fn (): array => [
+                TextInput::make('password')
+                    ->password()
+                    ->hint('Case sensitive')
+                    ->hintColor('warning')
+                    ->hintIcon('info', tooltip: 'Ask an admin to reset it.')
+                    ->helperText('At least twelve characters.')
+                    ->markAsRequired(),
+                TextInput::make('api_key')
+                    ->hintAction(
+                        Action::make('generate')
+                            ->authorize(true)
+                            ->link()
+                            ->action(fn (Set $set) => $set('api_key', Str::random(32))),
+                    ),
             ],
             'text-input' => fn (): array => [
                 TextInput::make('name')->required()->maxLength(255),
@@ -105,6 +125,13 @@ final class FormSnippets
             ],
             'toggle' => fn (): array => [
                 Toggle::make('is_visible')->label('Visible to customers')->description('Hidden products stay in reports.')->default(true),
+            ],
+            'toggle-icons' => fn (): array => [
+                Toggle::make('is_published')
+                    ->onIcon('check')
+                    ->offIcon('x')
+                    ->onColor('success')
+                    ->offColor('danger'),
             ],
             'toggle-buttons' => fn (): array => [
                 ToggleButtons::make('status')
@@ -175,11 +202,55 @@ final class FormSnippets
                     TextInput::make('billing_city'),
                 ]),
             ],
+            'section-extras' => fn (): array => [
+                Section::make('Shipping')->columns(2)->schema([
+                    TextInput::make('shipping_street'),
+                    TextInput::make('shipping_city')->default('Manila'),
+                ]),
+                Section::make('Billing')
+                    ->icon('credit-card')
+                    ->afterHeader(Text::make('Optional')->badge()->color('gray'))
+                    ->footer([
+                        Action::make('copy_shipping')
+                            ->authorize(true)
+                            ->link()
+                            ->label('Same as shipping')
+                            ->action(fn (Get $get, Set $set) => $set('billing_city', $get('shipping_city'))),
+                    ])
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('billing_street'),
+                        TextInput::make('billing_city'),
+                    ]),
+            ],
+            'section-aside' => fn (): array => [
+                Section::make('Profile')
+                    ->description('Shown on your public page.')
+                    ->aside()
+                    ->schema([
+                        TextInput::make('display_name'),
+                        Textarea::make('bio')->rows(3),
+                    ]),
+            ],
             'tabs' => fn (): array => [
                 Tabs::make('Details')->tabs([
                     Tab::make('General')->schema([TextInput::make('name')]),
                     Tab::make('Pricing')->columns(2)->schema([TextInput::make('price')->numeric(), TextInput::make('stock')->integer()]),
                     Tab::make('Notes')->schema([Textarea::make('notes')]),
+                ]),
+            ],
+            'tabs-icons' => fn (): array => [
+                Tabs::make('Details')->tabs([
+                    Tab::make('General')->icon('settings')->schema([TextInput::make('name')]),
+                    Tab::make('Pricing')->icon('dollar-sign')->schema([TextInput::make('price')->numeric()]),
+                    Tab::make('Reviews')->icon('star')->badge(3)->badgeColor('warning')->schema([Textarea::make('reply')]),
+                ]),
+            ],
+            'tabs-vertical' => fn (): array => [
+                Tabs::make('Settings')->vertical()->contained()->tabs([
+                    Tab::make('Profile')->schema([TextInput::make('name'), TextInput::make('email')->email()]),
+                    Tab::make('Notifications')->schema([Toggle::make('email_updates'), Toggle::make('weekly_digest')]),
+                    Tab::make('Security')->schema([TextInput::make('password')->password()]),
                 ]),
             ],
             'callouts' => fn (): array => [

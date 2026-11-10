@@ -30,6 +30,16 @@ Without a domain, a panel answers on every host. With one, it only answers on th
 > [!NOTE]
 > This is how the demo runs: [its panel](demo:/) sits at the root of its own domain, beside the docs you're reading.
 
+## Middleware
+
+`middleware()` adds middleware to every route of the panel, sign in included, such as one that sets the locale. It runs once the panel is known. `authMiddleware()` adds it only to the routes behind sign in, after the user is checked.
+
+```php
+$panel->middleware([SetLocale::class])->authMiddleware([LogActivity::class]);
+```
+
+A panel with tenants also has [`tenantMiddleware()`](/panels/tenancy#middleware-inside-a-tenant).
+
 ## Separate logins
 
 `authGuard()` gives a panel its own session guard, and `authPasswordBroker()` its own password broker.

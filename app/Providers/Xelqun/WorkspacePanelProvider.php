@@ -14,6 +14,7 @@ use App\Xelqun\Workspace\TeamForm;
 use App\Xelqun\Workspace\Widgets\DueSoon;
 use App\Xelqun\Workspace\Widgets\TasksByStatus;
 use App\Xelqun\Workspace\Widgets\TeamStats;
+use Xelqun\Panels\Navigation\NavigationItem;
 use Xelqun\Panels\Pages\Dashboard;
 use Xelqun\Panels\Panel;
 use Xelqun\Panels\PanelProvider;
@@ -49,6 +50,9 @@ class WorkspacePanelProvider extends PanelProvider
             ->tenant(Team::class, slugAttribute: 'slug')
             ->tenantRegistration(TeamForm::class)
             ->tenantProfile(TeamForm::class)
+            ->tenantMenuItems([
+                NavigationItem::make('Team members')->icon('users')->url(fn (): string => MemberResource::getUrl()),
+            ])
             ->pages([Dashboard::class])
             ->resources([ProjectResource::class, TaskResource::class, MemberResource::class, NoteResource::class])
             ->widgets([TeamStats::class, TasksByStatus::class, DueSoon::class])

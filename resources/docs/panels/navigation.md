@@ -11,7 +11,21 @@ description: Groups, items, clusters, the sidebar card, the user menu and top na
 $panel->navigationGroups(['Shop', 'Catalog', 'Blog']);
 ```
 
+Pass a `NavigationGroup` to give one an icon, or to let the viewer fold it. A folded group stays folded on the next visit, and `collapsed()` starts it folded.
+
+```php
+use Xelqun\Panels\Navigation\NavigationGroup;
+
+$panel->navigationGroups([
+    NavigationGroup::make('Shop')->icon('shopping-cart'),
+    NavigationGroup::make('Catalog')->icon('package')->collapsible(),
+    NavigationGroup::make('Blog')->collapsed(),
+]);
+```
+
 <!-- screenshot: sidebar | The sidebar, with groups, badges, and a card from a render hook -->
+
+<!-- screenshot: navigation-groups | Navigation groups with icons, and a collapsible group folded away -->
 
 ## Items
 
@@ -26,11 +40,44 @@ $panel->navigationItems([
         ->group('Help')
         ->sort(2)
         ->badge('New')
+        ->badgeColor('success')
+        ->badgeTooltip('Updated this week')
         ->url(fn (): string => route('docs')),
 ]);
 ```
 
-An icon is a Lucide name, and it has to be [registered](/panels/resources/overview#icons) to show.
+An icon is a Lucide name, and it has to be [registered](/panels/resources/overview#icons) to show. A badge color is `primary`, `danger`, `info`, `success`, `warning` or `gray`, and without one the badge is plain text.
+
+## Badges, children and hiding
+
+Pages and resources set the same things with methods and properties:
+
+```php
+public static function getNavigationBadge(): int
+{
+    return static::getEloquentQuery()->where('status', 'new')->count();
+}
+
+public static function getNavigationBadgeColor(): string
+{
+    return 'warning';
+}
+
+public static function getNavigationBadgeTooltip(): string
+{
+    return 'New orders';
+}
+```
+
+`$navigationParentItem` puts an item under another of its group, by that item's label. The child shows while either of them is open. On a `NavigationItem`, it's `parentItem()`.
+
+```php
+protected static ?string $navigationGroup = 'Shop';
+
+protected static ?string $navigationParentItem = 'Orders';
+```
+
+`shouldRegisterNavigation()` returning `false` leaves a page or resource out of the sidebar. Its pages still work, for those who may open them.
 
 ## Clusters
 
@@ -80,4 +127,4 @@ $panel->userMenuItems([NavigationItem::make('Billing')->url(fn (): string => rou
 
 `breadcrumbs(false)` removes them.
 
-[See the sidebar in the demo](demo:/).
+[See the sidebar in the demo](demo:/): its groups have icons, Showcase folds away, and the Orders badge has a color and a tooltip.

@@ -19,7 +19,7 @@ class EditorsForm extends Form
         return [
             RichEditor::make('article')
                 ->required()
-                ->hint('Try pasting a <script>: the result panel shows what the server kept.')
+                ->helperText('Try pasting a <script>: the result panel shows what the server kept.')
                 ->default('<h2>Hello</h2><p>This is <strong>rich</strong> text.</p>'),
 
             MarkdownEditor::make('notes')->default("## Notes\n\nThe **preview** comes from the server."),

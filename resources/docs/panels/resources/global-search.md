@@ -27,9 +27,31 @@ public static function getGlobalSearchResultDetails(Model $record): array
 
 Return `[]` to keep a resource out.
 
-Search runs through `getEloquentQuery()`, skips a resource the user can't `viewAny`, and checks `view` on each record, showing up to 5 per resource. Results link to the view page.
+## Result actions
+
+`getGlobalSearchResultActions()` adds links under a result, such as one to edit the record. Each is a `NavigationItem` with a `url()`.
+
+```php
+use Illuminate\Database\Eloquent\Model;
+use Xelqun\Panels\Navigation\NavigationItem;
+
+public static function getGlobalSearchResultActions(Model $record): array
+{
+    return [NavigationItem::make('Edit')->url(static::getUrl('edit', ['record' => $record]))];
+}
+```
+
+<!-- screenshot: global-search-actions | A search result with an Edit link under it -->
+
+## Which results show
+
+Search runs through `getEloquentQuery()`, skips a resource the user can't `viewAny`, and checks `view` on each record, showing up to 5 per resource. Results link to the view page. `$globalSearchResultsLimit` changes how many a resource gives.
+
+```php
+protected static int $globalSearchResultsLimit = 10;
+```
 
 > [!NOTE]
-> A policy that refuses more than the first 20 matches can hide later ones.
+> The policy sees four times the limit, so one that refuses more than that, 20 matches by default, can hide later ones.
 
-`$panel->globalSearch(false)` removes it. [Try it in the demo](demo:/products): press ⌘K.
+`$panel->globalSearch(false)` removes it. [Try it in the demo](demo:/products): press ⌘K and search for a customer, whose orders have an Edit link.

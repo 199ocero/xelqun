@@ -18,6 +18,8 @@ The installer adds both npm packages, `@xelqun/tables` and `@xelqun/forms`, and 
 @import '@xelqun/forms/style.css';
 ```
 
+To use [ModalTableSelect](/tables#picking-records-in-a-form) in a form, add `tablesPlugin()` from `@xelqun/tables` to the plugins of `createXelqunForms()`.
+
 Rebuild your frontend with `npm run build` or `npm run dev`, and you're ready for [your first table](/tables/your-first-table).
 
 > [!NOTE]

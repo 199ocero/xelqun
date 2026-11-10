@@ -19,7 +19,7 @@ app.use(
 
 ## Writing a field's Vue component
 
-`useField()` binds the component to the form, and `XqFieldWrapper` gives it the label, hint and error.
+`useField()` binds the component to the form, and `XqFieldWrapper` gives it the label, hint, helper text and error.
 
 ```vue
 <script setup lang="ts">
@@ -43,6 +43,11 @@ const { value, error, required, disabled, id } = useField<number | null>(
     </XqFieldWrapper>
 </template>
 ```
+
+`useField()` also returns `hint`, the note beside the label, and `helperText`, the text under the field. `describedBy` is the id for `aria-describedby`: the error's when there is one, otherwise the helper text's, which ends in `-helper`. `showsRequired` says whether the label shows an asterisk, which `markAsRequired()` can change.
+
+> [!NOTE]
+> Before 0.9, the text under a field was `hint`. A plugin field that shows it should read `helperText` now.
 
 ## Commands
 
