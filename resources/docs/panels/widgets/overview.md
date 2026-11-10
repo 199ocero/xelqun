@@ -71,8 +71,6 @@ protected function getStats(): array
 
 The values stay in the URL, so a filtered dashboard can be shared. They're checked by the fields' rules, and a value that fails falls back to the field's default.
 
-<!-- screenshot: dashboard-filters | A filter above the dashboard, and a stat that reads it -->
-
 ## Footer widgets
 
 `getFooterWidgets()` puts widgets below a page's content. On a dashboard, that's below the others.

@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Xelqun\Admin\Resources\ProductResource;
 use App\Xelqun\Admin\Widgets\LatestOrders;
 use Xelqun\Actions\Action;
-use Xelqun\Forms\Components\Select;
 use Xelqun\Notifications\Notification;
 use Xelqun\Notifications\NotificationAction;
 use Xelqun\Panels\Notifications\DatabaseNotification;
@@ -41,13 +40,6 @@ class Home extends Dashboard
         $drafts = Product::query()->where('status', 'draft')->count();
 
         return "{$drafts} products need your OK.";
-    }
-
-    public function filters(): array
-    {
-        return [
-            Select::make('status')->label('Products')->options(['all' => 'All', 'active' => 'Live', 'draft' => 'Drafts'])->default('all'),
-        ];
     }
 
     protected function getFooterWidgets(): array
