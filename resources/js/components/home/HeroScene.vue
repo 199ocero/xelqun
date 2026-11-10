@@ -5,9 +5,9 @@ import { isoFloor } from '@/lib/iso';
 /**
  * The whole story in one picture: a PHP class and Eloquent feed the Xelqun core,
  * and a finished piece flies over to the admin panel. The cube lands at 3.4s of
- * its 4s cycle, which is when the panel flashes and the toast appears.
+ * its 7s cycle, which is when the panel flashes and the toast appears.
  */
-const LANDS_AT = '3.4s';
+const LANDS_AT = '5.95s';
 
 /** The class on the editor, as colored bars that type themselves out. */
 const lines = [
@@ -27,8 +27,8 @@ const partX = (line: (typeof lines)[number], index: number): number =>
 /** Floor paths into the core and out to the panel, each with a pulse running along it. */
 const wires = [
     { path: 'M -50 70 H -25 V 45', delay: '0s' },
-    { path: 'M 30 82 V 45', delay: '-1.2s' },
-    { path: 'M 45 -15 H 58 V -60 H 70', delay: '-0.6s' },
+    { path: 'M 30 82 V 45', delay: '-2s' },
+    { path: 'M 45 -15 H 58 V -60 H 70', delay: '-1s' },
 ];
 
 /** One disc of the database, seen from the front. */
@@ -46,13 +46,13 @@ const bars = [10, 18, 13, 22, 16, 20];
 
 const labels = [
     { text: 'ProductResource.php', x: -105, y: -42, width: 84, delay: '0s' },
-    { text: '/admin/products', x: 178, y: -50, width: 68, delay: '-1.6s' },
-    { text: 'Eloquent', x: -100, y: 52, width: 42, delay: '-3.2s' },
+    { text: '/admin/products', x: 178, y: -50, width: 68, delay: '-2.7s' },
+    { text: 'Eloquent', x: -100, y: 52, width: 42, delay: '-5.3s' },
 ];
 </script>
 
 <template>
-    <svg viewBox="-215 -114 475 192" fill="none" class="iso-scene">
+    <svg viewBox="-262 -114 524 192" fill="none" class="iso-scene">
         <g :transform="isoFloor(0)">
             <rect
                 class="php-shadow"

@@ -374,7 +374,7 @@ body {
     stroke-width: 4;
     stroke-linecap: round;
     stroke-dasharray: 0 200;
-    animation: iso-pulse 2.8s linear infinite;
+    animation: iso-pulse 4.5s linear infinite;
 }
 
 @keyframes iso-pulse {
@@ -667,24 +667,17 @@ body {
     }
 }
 
-/* The hero scene. Its cube lands at 85% of a 4s cycle, and the panel answers then. */
+/* The hero scene. Its cube lands at 85% of a 7s cycle, and the panel answers then. */
 .hero-orbit {
     opacity: 0.35;
     stroke-dasharray: 1.5 3.5;
-    animation: hero-orbit 8s linear infinite;
-}
-
-@keyframes hero-orbit {
-    to {
-        stroke-dashoffset: -50;
-    }
 }
 
 .hero-orbit-dot {
     stroke-width: 4;
     stroke-linecap: round;
     stroke-dasharray: 0 100;
-    animation: hero-orbit-dot 6s linear infinite;
+    animation: hero-orbit-dot 12s linear infinite;
 }
 
 @keyframes hero-orbit-dot {
@@ -696,7 +689,7 @@ body {
 .core-ripple {
     transform-box: fill-box;
     transform-origin: center;
-    animation: core-ripple 2s var(--xq-ease-out) infinite;
+    animation: core-ripple 3.5s var(--xq-ease-out) infinite;
 }
 
 @keyframes core-ripple {
@@ -712,7 +705,7 @@ body {
 }
 
 .hero-fly {
-    animation: hero-fly 4s ease-in-out infinite;
+    animation: hero-fly 7s ease-in-out infinite;
 }
 
 @keyframes hero-fly {
@@ -744,7 +737,7 @@ body {
 
 .hero-flash {
     opacity: 0;
-    animation: hero-flash 4s ease-out infinite;
+    animation: hero-flash 7s ease-out infinite;
 }
 
 @keyframes hero-flash {
@@ -759,7 +752,7 @@ body {
 }
 
 .hero-toast {
-    animation: hero-toast 4s var(--xq-ease-out) infinite backwards;
+    animation: hero-toast 7s var(--xq-ease-out) infinite backwards;
 }
 
 @keyframes hero-toast {
@@ -783,7 +776,7 @@ body {
 
 .hero-toggle {
     fill: color-mix(in oklab, var(--xq-foreground) 20%, transparent);
-    animation: hero-toggle 4s ease-in-out infinite;
+    animation: hero-toggle 7s ease-in-out infinite;
 }
 
 @keyframes hero-toggle {
@@ -794,7 +787,7 @@ body {
 }
 
 .hero-knob {
-    animation: hero-knob 4s ease-in-out infinite;
+    animation: hero-knob 7s ease-in-out infinite;
 }
 
 @keyframes hero-knob {
@@ -807,7 +800,7 @@ body {
 .hero-donut {
     stroke-dasharray: 72 100;
     stroke-linecap: round;
-    animation: hero-donut 4s var(--xq-ease-out) infinite;
+    animation: hero-donut 7s var(--xq-ease-out) infinite;
 }
 
 @keyframes hero-donut {
@@ -822,7 +815,7 @@ body {
 }
 
 .hero-label {
-    animation: php-badge 5s ease-in-out infinite;
+    animation: php-badge 8s ease-in-out infinite;
 }
 
 /* The hero settles in one line after another. */

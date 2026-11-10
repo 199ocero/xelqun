@@ -199,7 +199,7 @@ const pillButton =
                     </div>
 
                     <HeroScene
-                        class="home-rise mx-auto mt-10 w-full max-w-5xl"
+                        class="home-rise mx-auto mt-10 w-full max-w-4xl"
                         style="--rise: 4"
                         aria-hidden="true"
                     />
