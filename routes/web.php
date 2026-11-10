@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DemoAppearanceController;
 use App\Http\Controllers\DemoInboxController;
+use App\Http\Controllers\DemoLogoController;
 use App\Http\Controllers\DocsController;
 use App\Http\Controllers\DocsSearchController;
 use App\Http\Controllers\ExampleController;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::domain(config('xelqun.demo_domain'))->group(function (): void {
     Route::get('inbox', DemoInboxController::class)->name('demo.inbox');
     Route::post('_demo/appearance', DemoAppearanceController::class)->middleware('throttle:60,1')->name('demo.appearance');
+    Route::get('_demo/logo/{theme}/{color}.svg', DemoLogoController::class)->whereIn('theme', ['light', 'dark'])->where('color', '[0-9a-f]{6}')->name('demo.logo');
 });
 
 // Both hosts: the docs embed these, and so does the Components page of the demo.

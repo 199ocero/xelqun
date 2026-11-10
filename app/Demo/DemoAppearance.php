@@ -26,6 +26,17 @@ final class DemoAppearance
     }
 
     /**
+     * The logo, painted in the primary color the visitor picked.
+     */
+    public static function logoUrl(string $theme): string
+    {
+        $primary = self::colors()['primary'];
+        $hex = $primary instanceof Color ? $primary->value : $primary;
+
+        return route('demo.logo', ['theme' => $theme, 'color' => strtolower(ltrim($hex, '#'))], false);
+    }
+
+    /**
      * @return list<string>
      */
     public static function grayNames(): array

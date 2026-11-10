@@ -331,6 +331,17 @@ it('goes back to the default primary', function (): void {
     expect(DemoAppearance::colors()['primary'])->toBe('#0071e3');
 });
 
+it('paints the logo in the primary the visitor picked', function (): void {
+    $this->withSession(['demo.primary' => 'Rose']);
+    $url = DemoAppearance::logoUrl('light');
+    $fill = Color::solidFor(Color::Rose->value)['fill'];
+
+    expect($url)->toBe('/_demo/logo/light/'.ltrim(strtolower(Color::Rose->value), '#').'.svg');
+
+    $this->get(DEMO_URL.$url)->assertOk()->assertHeader('Content-Type', 'image/svg+xml')->assertSee("fill=\"{$fill}\"", false);
+    $this->get(DEMO_URL.'/_demo/logo/light/red;}.svg')->assertNotFound();
+});
+
 it('only takes a neutral as the gray, and a color as the primary', function (array $choice, string $field): void {
     $this->post(DEMO_URL.'/_demo/appearance', $choice)->assertSessionHasErrors($field);
 })->with([
