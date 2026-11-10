@@ -299,7 +299,7 @@ it('documents every package class', function (): void {
         'tables/src/Filters' => ['BaseFilter', 'TableFiltersForm'],
         'tables/src/Filters/Constraints' => ['Constraint'],
         'tables/src/Summarizers' => ['Summarizer'],
-        'panels/src/Actions' => ['ChoosesRelatedRecord'],
+        'panels/src/Actions' => ['ChoosesRelatedRecord', 'ImportRecords'],
         'panels/src/Infolists' => ['Entry'],
         'panels/src/Widgets' => ['Stat', 'Tile', 'Widget', 'PanelWidget', 'HasWidgetSettings'],
     ];

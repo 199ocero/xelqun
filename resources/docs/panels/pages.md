@@ -15,7 +15,7 @@ class Reports extends Page
 {
     protected static ?string $navigationIcon = 'chart-column';
 
-    public function headerActions(): array
+    public function getHeaderActions(): array
     {
         return [Action::make('export')->authorize('export')->action(fn () => null)];
     }

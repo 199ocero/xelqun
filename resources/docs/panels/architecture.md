@@ -248,7 +248,7 @@ private function toData(): array
     return [
         'title' => $this->getHeading(),
         'breadcrumbs' => $this->getBreadcrumbs(),
-        'headerActions' => $this->headerActions() === [] ? null : PageActionSet::for($this)->toSchema(),
+        'headerActions' => $this->getHeaderActions() === [] ? null : PageActionSet::for($this)->toSchema(),
         'content' => array_map(fn (Table|ActionSet|FormContent $item): array => match (true) {
             $item instanceof Table => [
                 'type' => 'table',

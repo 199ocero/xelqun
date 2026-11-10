@@ -59,7 +59,7 @@ TextEntry::make('sku')->copyable()->placeholder('No SKU yet');
 
 ## Hints and inline labels
 
-Every entry takes `hint()`, a short note beside the label, and `inlineLabel()`, which puts the label beside the value instead of above it.
+Every entry takes `hint()`, a short note beside the label, and `inlineLabel()`, which puts the label beside the value instead of above it. Both take a closure, which gets `$record`.
 
 ```php
 TextEntry::make('email')->hint('Used for receipts')->inlineLabel();

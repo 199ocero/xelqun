@@ -18,4 +18,4 @@ public static function getPages(): array
 
 It edits what `getSingularRecord()` returns, which by default is the first record, or a new one until it's saved.
 
-[See it in the demo](demo:/store-settings).
+[See it in the demo](demo:/settings/store-settings).

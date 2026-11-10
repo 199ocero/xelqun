@@ -117,6 +117,7 @@ return [
                     'overview' => 'Overview',
                     'installation' => 'Installation',
                     'your-first-table' => 'Your first table',
+                    'custom-data' => 'Custom data',
                     'production' => 'Before going to production',
                 ],
                 'Columns' => [
@@ -236,6 +237,7 @@ return [
                     'theming/logos' => 'Logos and favicon',
                     'theming/dark-mode' => 'Dark mode',
                     'theming/animations' => 'Animations',
+                    'theming/css-hooks' => 'CSS hooks',
                 ],
                 'Extending' => [
                     'plugins' => 'Plugins',

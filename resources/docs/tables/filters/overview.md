@@ -31,7 +31,7 @@ The URL keeps the active filters, so a shared link shows the same rows.
 
 ## Shared options
 
-`label()` changes the name. `default()` sets the value before the viewer changes anything. `hidden()` removes the filter.
+`label()` changes the name. `default()` sets the value before the viewer changes anything. `hidden()` removes the filter, and `visible()` is its opposite.
 
 ```php
 SelectFilter::make('status')->options($statuses)->default('active');

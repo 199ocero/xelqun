@@ -22,3 +22,10 @@ A summary covers every row of the search and filters, not just this page, and it
 | `Average`  | The mean                      |
 | `Count`    | The number of rows            |
 | `Range`    | The lowest and highest values |
+
+## Each group's summary
+
+On a [grouped](/tables/grouping) table, each group on the page gets its own summary line under its last row, beside the line for all rows.
+
+> [!NOTE]
+> A group through a relation, such as `category.name`, gets no line of its own, and neither does any group on a page with more than 50 groups.

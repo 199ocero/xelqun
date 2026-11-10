@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f7c8da405518068b45c5cbbf4ae98e0",
+    "content-hash": "8ff662c40901c6566789a569861a571c",
     "packages": [
         {
             "name": "brick/math",
@@ -6599,16 +6599,16 @@
         },
         {
             "name": "xelqun/forms",
-            "version": "v0.9.0",
+            "version": "v0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/199ocero/xelqun-forms.git",
-                "reference": "a8595108d67377d92219148a5ee73aadca2379d6"
+                "reference": "eb819d3d57746fddaaf5ffdd8b9ba6d3e8992384"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/199ocero/xelqun-forms/zipball/a8595108d67377d92219148a5ee73aadca2379d6",
-                "reference": "a8595108d67377d92219148a5ee73aadca2379d6",
+                "url": "https://api.github.com/repos/199ocero/xelqun-forms/zipball/eb819d3d57746fddaaf5ffdd8b9ba6d3e8992384",
+                "reference": "eb819d3d57746fddaaf5ffdd8b9ba6d3e8992384",
                 "shasum": ""
             },
             "require": {
@@ -6637,7 +6637,7 @@
                     ]
                 },
                 "branch-alias": {
-                    "dev-main": "0.9.x-dev"
+                    "dev-main": "0.10.x-dev"
                 }
             },
             "autoload": {
@@ -6668,22 +6668,22 @@
             ],
             "support": {
                 "issues": "https://github.com/199ocero/xelqun-forms/issues",
-                "source": "https://github.com/199ocero/xelqun-forms/tree/v0.9.0"
+                "source": "https://github.com/199ocero/xelqun-forms/tree/v0.10.0"
             },
-            "time": "2026-11-09T15:22:12+00:00"
+            "time": "2026-11-10T04:17:54+00:00"
         },
         {
             "name": "xelqun/panels",
-            "version": "v0.5.0",
+            "version": "v0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/199ocero/xelqun-panels.git",
-                "reference": "8dc9cae7f0ff5f4c6fb1dff90c8b300a607975b3"
+                "reference": "adfa0f97f266cba7fa80db5437da069873439ec9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/199ocero/xelqun-panels/zipball/8dc9cae7f0ff5f4c6fb1dff90c8b300a607975b3",
-                "reference": "8dc9cae7f0ff5f4c6fb1dff90c8b300a607975b3",
+                "url": "https://api.github.com/repos/199ocero/xelqun-panels/zipball/adfa0f97f266cba7fa80db5437da069873439ec9",
+                "reference": "adfa0f97f266cba7fa80db5437da069873439ec9",
                 "shasum": ""
             },
             "require": {
@@ -6696,8 +6696,8 @@
                 "illuminate/view": "^13.0",
                 "inertiajs/inertia-laravel": "^3.0",
                 "php": "^8.4",
-                "xelqun/forms": "^0.9",
-                "xelqun/tables": "^0.7"
+                "xelqun/forms": "^0.10",
+                "xelqun/tables": "^0.8"
             },
             "require-dev": {
                 "larastan/larastan": "^3.9",
@@ -6714,7 +6714,7 @@
                     ]
                 },
                 "branch-alias": {
-                    "dev-main": "0.5.x-dev"
+                    "dev-main": "0.6.x-dev"
                 }
             },
             "autoload": {
@@ -6743,22 +6743,22 @@
             ],
             "support": {
                 "issues": "https://github.com/199ocero/xelqun-panels/issues",
-                "source": "https://github.com/199ocero/xelqun-panels/tree/v0.5.0"
+                "source": "https://github.com/199ocero/xelqun-panels/tree/v0.6.0"
             },
-            "time": "2026-11-09T23:57:32+00:00"
+            "time": "2026-11-10T06:14:02+00:00"
         },
         {
             "name": "xelqun/tables",
-            "version": "v0.7.1",
+            "version": "v0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/199ocero/xelqun-tables.git",
-                "reference": "2cc06b165193347469b13473086711e2a828e595"
+                "reference": "c40b09b962dd3e0fdd33a97db7ea7712b5ec0f30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/199ocero/xelqun-tables/zipball/2cc06b165193347469b13473086711e2a828e595",
-                "reference": "2cc06b165193347469b13473086711e2a828e595",
+                "url": "https://api.github.com/repos/199ocero/xelqun-tables/zipball/c40b09b962dd3e0fdd33a97db7ea7712b5ec0f30",
+                "reference": "c40b09b962dd3e0fdd33a97db7ea7712b5ec0f30",
                 "shasum": ""
             },
             "require": {
@@ -6768,7 +6768,7 @@
                 "illuminate/http": "^13.0",
                 "illuminate/support": "^13.0",
                 "php": "^8.4",
-                "xelqun/forms": "^0.9"
+                "xelqun/forms": "^0.10"
             },
             "require-dev": {
                 "larastan/larastan": "^3.9",
@@ -6785,7 +6785,7 @@
                     ]
                 },
                 "branch-alias": {
-                    "dev-main": "0.7.x-dev"
+                    "dev-main": "0.8.x-dev"
                 }
             },
             "autoload": {
@@ -6814,9 +6814,9 @@
             ],
             "support": {
                 "issues": "https://github.com/199ocero/xelqun-tables/issues",
-                "source": "https://github.com/199ocero/xelqun-tables/tree/v0.7.1"
+                "source": "https://github.com/199ocero/xelqun-tables/tree/v0.8.0"
             },
-            "time": "2026-11-10T00:43:44+00:00"
+            "time": "2026-11-10T04:57:15+00:00"
         }
     ],
     "packages-dev": [

@@ -175,7 +175,7 @@ it('only imports classes that exist', function (): void {
 
 it('only calls methods that exist', function (): void {
     $known = knownMethods();
-    $laravel = ['where', 'whereNotNull', 'orWhere', 'whereDate', 'whereKey', 'whereBelongsTo', 'when', 'orderBy', 'with', 'count', 'pluck', 'all', 'update', 'create', 'fresh', 'send', 'to', 'id', 'user', 'can', 'addYear', 'hourly', 'decimal', 'timestamps', 'is', 'assertOk', 'throws', 'toBe', 'isManager', 'isAdmin', 'ship', 'teams', 'users', 'assertJsonPath', 'assertRedirect', 'actingAs', 'post', 'toBeTrue', 'toBeNull', 'belongsTo', 'belongsToMany', 'attach', 'name', 'foreignId', 'constrained', 'cascadeOnDelete', 'primary', 'chunkById', 'archive', 'singletonIf', 'defaults', 'route', 'parameter', 'firstOrFail', 'toBase', 'getCountForPagination', 'paginate', 'getCollection', 'map', 'mapWithKeys', 'currentPage', 'total'];
+    $laravel = ['where', 'whereNotNull', 'orWhere', 'whereDate', 'whereKey', 'whereBelongsTo', 'when', 'orderBy', 'with', 'count', 'pluck', 'all', 'update', 'create', 'fresh', 'send', 'to', 'id', 'user', 'can', 'addYear', 'hourly', 'decimal', 'timestamps', 'is', 'assertOk', 'throws', 'toBe', 'isManager', 'isAdmin', 'ship', 'teams', 'users', 'assertJsonPath', 'assertRedirect', 'actingAs', 'post', 'toBeTrue', 'toBeNull', 'belongsTo', 'belongsToMany', 'attach', 'name', 'foreignId', 'constrained', 'cascadeOnDelete', 'primary', 'chunkById', 'archive', 'singletonIf', 'defaults', 'route', 'parameter', 'firstOrFail', 'toBase', 'getCountForPagination', 'paginate', 'getCollection', 'map', 'mapWithKeys', 'currentPage', 'total', 'keyBy'];
     $unknown = [];
 
     foreach (docsSources() as $path => $markdown) {

@@ -96,8 +96,13 @@ class Settings extends Cluster
 protected static ?string $cluster = Settings::class;
 ```
 
-> [!NOTE]
-> Members keep their own URLs, with no shared prefix.
+Members' URLs start with the cluster's slug, so a page `Billing` in `Settings` is at `/admin/settings/billing`. The slug is the class name in kebab case. Set `$slug` to change it:
+
+```php
+protected static ?string $slug = 'preferences';
+```
+
+A page or resource outside the cluster can't use its slug. The panel refuses it when the routes load.
 
 ## The sidebar card
 

@@ -23,15 +23,15 @@ Xelqun follows [Filament](https://filamentphp.com), for Inertia and Vue. This co
 | ------------------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | All column types, custom columns     | Yes    | Descriptions, placeholders, limits, line clamps, copy, lists, numeric, since and time zones. Editable columns are read-only until `authorize()` says otherwise. |
 | Select, ternary and custom filters   | Yes    | Removable chips for active filters, live filters, and ternary labels, `nullable()` and `queries()`.                                                             |
-| Query builder                        | Partly | Rules match all or any. No nested groups.                                                                                                                       |
+| Query builder                        | Yes    | Groups of rules, nested up to `maxNestingDepth()`, and `maxRules()`.                                                                                            |
 | Filter layout                        | Partly | Filters open in one panel, with chips for the active ones. No layout above the table.                                                                           |
 | Actions and bulk actions             | Yes    | `authorizeIndividualRecords()`, selectable rows and `recordAction()`.                                                                                           |
-| Summaries                            | Partly | Sum, average, count and range. No custom scopes or per-group lines.                                                                                             |
+| Summaries                            | Partly | Sum, average, count and range, for all rows and for each group. No custom scopes.                                                                               |
 | Grouping rows                        | Yes    | `groups()` the viewer picks from, collapsible.                                                                                                                  |
 | Layout                               | Partly | `contentGrid()`, `striped()`. No `Split` or `Stack` inside a row.                                                                                               |
 | Reordering rows                      | Partly | Up and down buttons, not drag and drop.                                                                                                                         |
 | Column toggles, polling, empty state | Yes    | An empty state takes an icon and actions.                                                                                                                       |
-| Custom data                          | No     | A table needs an Eloquent query.                                                                                                                                |
+| Custom data                          | Yes    | `records()`, with each row an `ArrayRecord`. Summaries, the query builder and groups need a query.                                                              |
 
 ## Forms, infolists and actions
 
@@ -42,7 +42,7 @@ Xelqun follows [Filament](https://filamentphp.com), for Inertia and Vue. This co
 | Unsaved changes alerts             | Yes    | `unsavedChangesAlerts()`.                                                                                                                  |
 | All entries, custom entries        | Yes    | With the text column's options, plus `hint()`, `inlineLabel()`, `html()`, `markdown()`, `prefix()` and `suffix()`.                         |
 | Modals, grouping, CRUD actions     | Yes    | Slide-overs, nested modals, wizard steps, `halt()` and `cancel()`. Replicate, restore and force delete. Saves always run in a transaction. |
-| Import                             | Partly | CSV, up to 1,000 rows in the request. No queue or column mapping.                                                                          |
+| Import                             | Partly | CSV with `ImportColumn` header guesses and rules, and `queue()`. No column picker or failed-rows file.                                     |
 | Export                             | Partly | CSV of the list and tab. No queue, XLSX, or table filters.                                                                                 |
 
 ## Notifications and widgets
@@ -57,20 +57,20 @@ Xelqun follows [Filament](https://filamentphp.com), for Inertia and Vue. This co
 
 ## Panels
 
-| Filament                                      | Xelqun | Notes                                                                                         |
-| --------------------------------------------- | ------ | --------------------------------------------------------------------------------------------- |
-| Panel configuration                           | Yes    | Brand, logo, favicon, colors, font, width, dark mode, `middleware()` and `authMiddleware()`.  |
-| Navigation, user menu, top and sub navigation | Yes    | Group icons and folding, child items, badge colors and tooltips.                              |
-| Domains                                       | Yes    | `domain()`.                                                                                   |
-| Clusters                                      | Partly | Members keep their own URLs, with no shared prefix.                                           |
-| Authentication flows                          | Yes    | Email change verification included.                                                           |
-| Multi-factor authentication                   | Partly | App, email and recovery codes. App setup has no QR code.                                      |
-| Multi-tenancy                                 | Partly | Tenant middleware, menu items, a route prefix or a domain. No tenant billing.                 |
-| Colors and icons                              | Yes    | The same color names and defaults, apart from a blue primary. Lucide, by name, not Heroicons. |
-| CSS hooks                                     | Partly | `data-xq-*` attributes and `--xq-*` tokens.                                                   |
-| Render hooks                                  | Partly | Eight places, for Vue components.                                                             |
-| Plugins                                       | Yes    |                                                                                               |
-| Testing helpers                               | Partly | `InteractsWithPanels`, with forms' and tables' own helpers.                                   |
+| Filament                                      | Xelqun | Notes                                                                                              |
+| --------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------- |
+| Panel configuration                           | Yes    | Brand, logo, favicon, colors, font, width, dark mode, `middleware()` and `authMiddleware()`.       |
+| Navigation, user menu, top and sub navigation | Yes    | Group icons and folding, child items, badge colors and tooltips.                                   |
+| Domains                                       | Yes    | `domain()`.                                                                                        |
+| Clusters                                      | Yes    | Members' URLs start with the cluster's slug.                                                       |
+| Authentication flows                          | Yes    | Email change verification included.                                                                |
+| Multi-factor authentication                   | Partly | App, email and recovery codes. App setup has no QR code.                                           |
+| Multi-tenancy                                 | Partly | Tenant middleware, menu items, a route prefix or a domain. No tenant billing.                      |
+| Colors and icons                              | Yes    | The same color names and defaults, apart from a blue primary. Lucide, by name, not Heroicons.      |
+| CSS hooks                                     | Yes    | Documented `--xq-*` tokens and `data-xq-*` attributes. See [CSS hooks](/panels/theming/css-hooks). |
+| Render hooks                                  | Partly | Eight places, for Vue components.                                                                  |
+| Plugins                                       | Yes    |                                                                                                    |
+| Testing helpers                               | Partly | `InteractsWithPanels`, with forms' and tables' own helpers.                                        |
 
 ## Where Xelqun goes further
 

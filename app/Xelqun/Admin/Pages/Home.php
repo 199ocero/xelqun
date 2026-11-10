@@ -47,7 +47,7 @@ class Home extends Dashboard
         return [LatestOrders::class];
     }
 
-    public function headerActions(): array
+    public function getHeaderActions(): array
     {
         return [
             Action::make('ping')

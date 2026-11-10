@@ -46,5 +46,27 @@ $this->queryTable(ProductsTable::make(['team' => 1]), [
 ]);
 ```
 
-> [!NOTE]
-> Rules match all or any. Nested groups aren't supported yet.
+## Groups of rules
+
+Pick "Group of rules" as a rule's column to hold rules of its own, with their own "match any" switch. That builds a filter such as price over 15 and (name has Lamp or name has Sofa).
+
+```php
+QueryBuilder::make('rules')
+    ->constraints([...])
+    ->maxNestingDepth(2)
+    ->maxRules(20);
+```
+
+| Method              | Does                                                                       |
+| ------------------- | -------------------------------------------------------------------------- |
+| `maxNestingDepth()` | How deep groups go. 3 by default. 1 allows no groups.                      |
+| `maxRules()`        | The most rules across every group. A filter past it is ignored as a whole. |
+
+In state, a group is a rule whose `constraint` is `QueryBuilder::GROUP`, with its own `rules` and `match_any`:
+
+```php
+['constraint' => QueryBuilder::GROUP, 'match_any' => true, 'rules' => [
+    ['constraint' => 'name', 'operator' => 'contains', 'value' => 'Lamp'],
+    ['constraint' => 'name', 'operator' => 'contains', 'value' => 'Sofa'],
+]]
+```
