@@ -17,6 +17,8 @@ $panel->id('workspace')->path('workspace');
 
 Two panels can't share an id, or the same path on the same domain.
 
+The `make:` commands put new resources, pages and widgets in the `Admin` panel. Pass `--panel=Workspace` to put them in this one.
+
 ## A panel on its own domain
 
 `domain()` puts a panel on its own host. With `path('')` it sits at the root of that domain.

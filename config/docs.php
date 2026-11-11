@@ -99,6 +99,7 @@ return [
                     'plugins' => 'Plugins',
                     'custom-components' => 'Custom components',
                     'translations' => 'Translations',
+                    'commands' => 'Commands',
                     'testing' => 'Testing',
                 ],
                 'Under the hood' => [
@@ -158,6 +159,7 @@ return [
                 ],
                 'Extending' => [
                     'plugins' => 'Plugins',
+                    'commands' => 'Commands',
                     'testing' => 'Testing',
                     'limits' => 'Current limits',
                 ],
