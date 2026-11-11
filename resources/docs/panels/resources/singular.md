@@ -16,6 +16,6 @@ public static function getPages(): array
 
 <!-- screenshot: singular-resource | A settings page editing one record, with no list -->
 
-It edits what `getSingularRecord()` returns, which by default is the first record, or a new one until it's saved.
+It edits what `getSingularRecord()` returns, which by default is the first record, or a new one until it's saved. Until then the page asks the policy for `create`, and after that for `update`.
 
 [See it in the demo](demo:/settings/store-settings).

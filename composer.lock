@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97f2b8014151a31fcc554a6765e60eab",
+    "content-hash": "d90365f8bfa1852f679e60dce4427564",
     "packages": [
         {
             "name": "brick/math",
@@ -6674,16 +6674,16 @@
         },
         {
             "name": "xelqun/panels",
-            "version": "v0.6.1",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/199ocero/xelqun-panels.git",
-                "reference": "6bbfc67abd4584256348bd34618d19c174c69d9d"
+                "reference": "458990c668627c09e012e7eba166163f150a28e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/199ocero/xelqun-panels/zipball/6bbfc67abd4584256348bd34618d19c174c69d9d",
-                "reference": "6bbfc67abd4584256348bd34618d19c174c69d9d",
+                "url": "https://api.github.com/repos/199ocero/xelqun-panels/zipball/458990c668627c09e012e7eba166163f150a28e4",
+                "reference": "458990c668627c09e012e7eba166163f150a28e4",
                 "shasum": ""
             },
             "require": {
@@ -6714,7 +6714,7 @@
                     ]
                 },
                 "branch-alias": {
-                    "dev-main": "0.6.x-dev"
+                    "dev-main": "0.7.x-dev"
                 }
             },
             "autoload": {
@@ -6743,9 +6743,9 @@
             ],
             "support": {
                 "issues": "https://github.com/199ocero/xelqun-panels/issues",
-                "source": "https://github.com/199ocero/xelqun-panels/tree/v0.6.1"
+                "source": "https://github.com/199ocero/xelqun-panels/tree/v0.7.0"
             },
-            "time": "2026-11-10T06:53:18+00:00"
+            "time": "2026-11-11T12:36:19+00:00"
         },
         {
             "name": "xelqun/tables",

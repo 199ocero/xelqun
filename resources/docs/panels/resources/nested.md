@@ -22,6 +22,10 @@ class OrderItemResource extends Resource
 
 It leaves the sidebar, the New menu and search, and only reaches the parent's related records. A parent out of reach is a 404 for everything under it, and new records join the parent whatever the browser sends.
 
+Its pages need `view` on the parent, and then this resource's own policy decides. Unlike a relation manager, the parent's `update` isn't asked, so someone can add an item to an order they can't edit.
+
+Only one level of nesting is supported. A resource nested under a nested resource fails when the routes register.
+
 To get there, point a relation manager's `$relatedResource` at it, and its rows and New button link to the nested pages.
 
 [See it in the demo](demo:/orders/1/order-items).

@@ -41,4 +41,14 @@ class PostPolicy
     {
         return true;
     }
+
+    public function associate(User $user): bool
+    {
+        return true;
+    }
+
+    public function dissociate(User $user, Post $post): bool
+    {
+        return true;
+    }
 }

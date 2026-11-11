@@ -31,4 +31,14 @@ class TagPolicy
     {
         return true;
     }
+
+    public function attach(User $user): bool
+    {
+        return true;
+    }
+
+    public function detach(User $user, Tag $tag): bool
+    {
+        return true;
+    }
 }

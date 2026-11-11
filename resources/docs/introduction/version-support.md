@@ -15,7 +15,7 @@ Until 1.0, a minor version can break existing code. Each package's changelog lis
 | -------------------------------------------------------------------------- | ------- | ---- | ------- | ------- | ---- | ------------ |
 | [Forms](https://github.com/199ocero/xelqun-forms/blob/main/CHANGELOG.md)   | 0.10    | 8.4+ | 13      | 3       | 3.5+ | 4            |
 | [Tables](https://github.com/199ocero/xelqun-tables/blob/main/CHANGELOG.md) | 0.8     | 8.4+ | 13      | 3       | 3.5+ | 4            |
-| [Panels](https://github.com/199ocero/xelqun-panels/blob/main/CHANGELOG.md) | 0.6     | 8.4+ | 13      | 3       | 3.5+ | 4            |
+| [Panels](https://github.com/199ocero/xelqun-panels/blob/main/CHANGELOG.md) | 0.7     | 8.4+ | 13      | 3       | 3.5+ | 4            |
 
 ## Versions that go together
 

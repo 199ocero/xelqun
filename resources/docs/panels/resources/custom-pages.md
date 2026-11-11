@@ -35,11 +35,6 @@ class OrderActivity extends ResourcePage
 {
     protected static ?string $routePath = '{record}/activity';
 
-    public function isAccessible(): bool
-    {
-        return $this->resource::can('view', $this->record);
-    }
-
     public function content(): array
     {
         return [OrderActivityTable::make()];
@@ -56,8 +51,7 @@ public static function getPages(): array
 
 `getUrl('activity', ['record' => $order])` links to it.
 
-> [!WARNING]
-> A page of your own is open to everyone the panel lets in until its `isAccessible()` says otherwise. Ask the resource's policy, as above.
+A page of your own asks the resource's policy for `view` on its record, or `viewAny` when it has none. Override `isAccessible()` to change that.
 
 > [!NOTE]
 > Upgrading from 0.4: before 0.5, an extra key in `getPages()` was quietly left without a route. Now every one gets a route, so a page you'd put there becomes reachable. Give it an `isAccessible()`.

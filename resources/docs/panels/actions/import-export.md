@@ -17,7 +17,7 @@ public static function getHeaderActions(): array
 
 ## Export
 
-Export downloads the list as CSV, inside `getEloquentQuery()` and the current tab, using the table's columns. Override `getExportColumns()` to change them. Any cell that a spreadsheet would run as a formula is kept as text.
+Export downloads the list as CSV, inside `getEloquentQuery()` and the current tab, using the table's columns. Override `getExportColumns()` to change them. A column the table shows is written as the table formats it, so `money()`, `date()` and `formatStateUsing()` apply. The download asks the same as the export button: the action's `authorize()`, whether it's shown and enabled, and `viewAny`. Any cell that a spreadsheet would run as a formula is kept as text.
 
 ## Import
 

@@ -1,6 +1,6 @@
 ---
 title: Login
-description: A login page for each panel, limited to 5 tries a minute, with a form you can swap.
+description: A login page for each panel, limited to 5 tries a minute per account, with a form you can swap.
 ---
 
 ```php
@@ -9,7 +9,7 @@ $panel->login();
 
 <!-- screenshot: login | The login page, with the credentials filled in -->
 
-Without it, guests are refused. Auth is built in, per panel, on Laravel's own `Auth`, `Password` and `RateLimiter`, so Fortify isn't needed.
+Without it, guests are refused. Auth is built in, per panel, on Laravel's own `Auth`, `Password` and `RateLimiter`, so Fortify isn't needed. Each account gets 5 tries a minute, and each address 20 across all accounts.
 
 ## Changing the form
 

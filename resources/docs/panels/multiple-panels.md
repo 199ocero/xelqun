@@ -38,6 +38,8 @@ Without a domain, a panel answers on every host. With one, it only answers on th
 $panel->middleware([SetLocale::class])->authMiddleware([LogActivity::class]);
 ```
 
+They also run on the requests a panel's forms and tables make, under `/_xelqun/`. Those routes have no route parameters, so a middleware that reads one has to allow for that, and one that answers by itself, such as with a redirect, refuses the request.
+
 A panel with tenants also has [`tenantMiddleware()`](/panels/tenancy#middleware-inside-a-tenant).
 
 ## Separate logins
