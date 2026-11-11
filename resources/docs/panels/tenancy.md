@@ -27,10 +27,12 @@ class User extends Authenticatable implements HasTenants, PanelUser
 
     public function canAccessTenant(Model $tenant): bool
     {
-        return $this->teams()->whereKey($tenant)->exists();
+        return $tenant instanceof Team && $this->teams()->whereKey($tenant)->exists();
     }
 }
 ```
+
+Check the tenant's class in `canAccessTenant()`, not only its key. With two tenant panels on different models, a team and an organization can share an id, and a key check alone would let a member of team 3 into organization 3.
 
 ## A minimal setup
 
