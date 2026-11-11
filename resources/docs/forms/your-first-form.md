@@ -24,7 +24,13 @@ class Order extends Model
 
 ## Define the form
 
-A form is a class with a `schema()` method.
+A form is a class with a `schema()` method. Start one with the generator:
+
+```bash
+php artisan make:xelqun-form OrderForm
+```
+
+It writes `app/Forms/OrderForm.php` for the `Order` model, with one field. Fill in the schema:
 
 ```php
 namespace App\Forms;

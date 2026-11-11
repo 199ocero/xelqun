@@ -6599,16 +6599,16 @@
         },
         {
             "name": "xelqun/forms",
-            "version": "v0.10.0",
+            "version": "v0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/199ocero/xelqun-forms.git",
-                "reference": "eb819d3d57746fddaaf5ffdd8b9ba6d3e8992384"
+                "reference": "a5e38249e9cb3898b58b84143f88bce009b9c10b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/199ocero/xelqun-forms/zipball/eb819d3d57746fddaaf5ffdd8b9ba6d3e8992384",
-                "reference": "eb819d3d57746fddaaf5ffdd8b9ba6d3e8992384",
+                "url": "https://api.github.com/repos/199ocero/xelqun-forms/zipball/a5e38249e9cb3898b58b84143f88bce009b9c10b",
+                "reference": "a5e38249e9cb3898b58b84143f88bce009b9c10b",
                 "shasum": ""
             },
             "require": {
@@ -6668,9 +6668,9 @@
             ],
             "support": {
                 "issues": "https://github.com/199ocero/xelqun-forms/issues",
-                "source": "https://github.com/199ocero/xelqun-forms/tree/v0.10.0"
+                "source": "https://github.com/199ocero/xelqun-forms/tree/v0.10.1"
             },
-            "time": "2026-11-10T04:17:54+00:00"
+            "time": "2026-11-11T14:24:35+00:00"
         },
         {
             "name": "xelqun/panels",
