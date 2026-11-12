@@ -3,7 +3,7 @@ title: Current limits
 description: What Xelqun Tables doesn't do yet.
 ---
 
-Xelqun is alpha, and a minor version can break existing code until 1.0. These are the known limits today.
+Xelqun is beta, so these may change before 1.0, as described in [version support](/introduction/version-support). These are the known limits today.
 
 ## Cells
 

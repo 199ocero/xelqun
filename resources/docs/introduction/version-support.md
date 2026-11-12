@@ -1,13 +1,18 @@
 ---
 title: Version support
-description: Which Xelqun versions are current, what they run on, and what alpha means for your code.
+description: Which Xelqun versions are current, what they run on, and what beta means for your code.
 ---
 
-## Alpha
+## Beta
 
-Xelqun is alpha. It works, and this site's demo runs on it, but it isn't stable yet.
+Xelqun is beta. It's ready to build on, and this site's demo runs on it, but it isn't 1.0 yet. Until then:
 
-Until 1.0, a minor version can break existing code. Each package's changelog lists every break, so read it before you upgrade.
+- **A patch release** (0.7.0 to 0.7.1) never breaks your code, except to fix a security issue, and the changelog says so when it does.
+- **A minor release** (0.7 to 0.8) can break code. Every break is listed under "Upgrading" in the package's changelog, with what to change, so read it before you upgrade.
+- Anything marked `@internal` can change in any release.
+- Fixes go to the latest minor only.
+
+From 1.0, only a major version breaks code.
 
 ## Current versions
 
