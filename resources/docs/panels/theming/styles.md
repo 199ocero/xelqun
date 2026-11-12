@@ -18,6 +18,8 @@ A style changes shape: corners, borders and shadows. Colors still come from [col
 | `Sharp`   | Square corners on everything, badges and chips included, and firmer borders               |
 | `Mono`    | Black, white and neutral grays only. Buttons, focus rings and links leave your colors out |
 
+<!-- screenshot: styles | The products list in the Sharp style, with square corners on buttons, badges and the search bar -->
+
 Mono is the one style that changes color, because black and white is the point of it. Charts keep their colors so the series stay apart.
 
 A closure runs on every request, so the style can come from a setting:

@@ -61,7 +61,7 @@ $panel->colors(fn (): array => ['primary' => Color::fromName(auth()->user()?->th
 
 `Color::options()` gives a Select its choices, and `isGray()` tells the grays apart. Anything that isn't a color is refused, because these end up in a style attribute.
 
-<!-- screenshot: colors | The demo's palette panel, with a base color and a gray to choose from -->
+<!-- screenshot: colors | The demo's palette panel, with a style, a primary color and a secondary gray to choose from -->
 
 ## Outside a panel
 
