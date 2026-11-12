@@ -73,9 +73,6 @@ const primaryButton =
 const outlineButton =
     'inline-flex h-12 items-center rounded-(--xq-button-radius) border border-xq-border border-b-xq-input bg-xq-raised px-7 text-base font-medium shadow-(--xq-button-shadow) transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-accent focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none active:scale-[0.97]';
 const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
-
-const navButton =
-    'inline-flex items-center justify-center rounded-(--xq-button-radius) border border-black/10 bg-xq-primary font-medium text-xq-primary-foreground shadow-(--xq-button-highlight) transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-primary/90 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:ring-offset-2 focus-visible:ring-offset-xq-background focus-visible:outline-none active:scale-[0.97]';
 </script>
 
 <template>
@@ -143,12 +140,6 @@ const navButton =
                 <div class="ml-auto flex items-center gap-1.5">
                     <GithubStars />
                     <ThemeToggle />
-                    <a
-                        :href="links.demo"
-                        :class="[navButton, 'h-10 px-5 text-sm']"
-                    >
-                        Open the demo
-                    </a>
                 </div>
             </header>
 
