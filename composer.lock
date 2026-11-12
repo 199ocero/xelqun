@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cfc13bfd9c2ed5965371987631f00b0",
+    "content-hash": "42893cc0d0abd3e015824718411b4328",
     "packages": [
         {
             "name": "brick/math",
@@ -6674,16 +6674,16 @@
         },
         {
             "name": "xelqun/panels",
-            "version": "v0.8.0",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/199ocero/xelqun-panels.git",
-                "reference": "b819bb8c8d0de2768cbf80ad058458f72d7f5e57"
+                "reference": "fabd6bf43859f0ae196616a22b059ce7550caefb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/199ocero/xelqun-panels/zipball/b819bb8c8d0de2768cbf80ad058458f72d7f5e57",
-                "reference": "b819bb8c8d0de2768cbf80ad058458f72d7f5e57",
+                "url": "https://api.github.com/repos/199ocero/xelqun-panels/zipball/fabd6bf43859f0ae196616a22b059ce7550caefb",
+                "reference": "fabd6bf43859f0ae196616a22b059ce7550caefb",
                 "shasum": ""
             },
             "require": {
@@ -6744,9 +6744,9 @@
             ],
             "support": {
                 "issues": "https://github.com/199ocero/xelqun-panels/issues",
-                "source": "https://github.com/199ocero/xelqun-panels/tree/v0.8.0"
+                "source": "https://github.com/199ocero/xelqun-panels/tree/v0.8.1"
             },
-            "time": "2026-11-12T11:22:09+00:00"
+            "time": "2026-11-12T14:40:06+00:00"
         },
         {
             "name": "xelqun/tables",
