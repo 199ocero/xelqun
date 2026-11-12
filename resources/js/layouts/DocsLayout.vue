@@ -131,7 +131,7 @@ onBeforeUnmount(() => {
                     <a
                         :href="demoUrl"
                         data-slot="xq-button"
-                        class="ml-1 hidden h-8 items-center bg-xq-primary px-3.5 text-[0.8125rem] font-medium text-xq-primary-foreground transition-[scale,filter] duration-(--xq-duration-fast) hover:brightness-110 active:scale-[0.97] sm:inline-flex"
+                        class="ml-1 hidden h-8 items-center rounded-[calc(var(--xq-button-radius)-2px)] border border-black/10 bg-xq-primary px-3.5 text-[0.8125rem] font-medium text-xq-primary-foreground shadow-(--xq-button-highlight) transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-primary/90 active:scale-[0.97] sm:inline-flex"
                     >
                         Demo
                     </a>

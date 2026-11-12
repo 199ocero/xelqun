@@ -22,7 +22,7 @@ const stars = computed(() =>
         target="_blank"
         rel="noopener"
         :aria-label="stars ? `GitHub, ${stars} stars` : 'GitHub'"
-        class="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-full px-2.5 text-[0.8125rem] font-medium text-xq-muted-foreground transition-[color,background-color,scale] duration-(--xq-duration-fast) hover:bg-xq-nav-hover hover:text-xq-foreground focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none active:scale-[0.97]"
+        class="inline-flex h-8 shrink-0 items-center gap-1.5 rounded-[calc(var(--xq-button-radius)-2px)] px-2.5 text-[0.8125rem] font-medium text-xq-muted-foreground transition-[color,background-color,scale] duration-(--xq-duration-fast) hover:bg-xq-nav-hover hover:text-xq-foreground focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none active:scale-[0.97]"
     >
         <Github class="size-4" aria-hidden="true" />
         <template v-if="stars">

@@ -69,13 +69,13 @@ onMounted(() => window.addEventListener('keydown', onKeydown));
 onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown));
 
 const primaryButton =
-    'inline-flex h-12 items-center rounded-full bg-xq-primary px-7 text-base font-medium text-xq-primary-foreground shadow-lg shadow-xq-primary/25 transition-[scale,opacity] duration-(--xq-duration-fast) hover:opacity-90 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:ring-offset-2 focus-visible:ring-offset-xq-background focus-visible:outline-none active:scale-[0.97]';
+    'inline-flex h-12 items-center rounded-(--xq-button-radius) border border-black/10 bg-xq-primary px-7 text-base font-medium text-xq-primary-foreground shadow-(--xq-button-highlight) transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-primary/90 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:ring-offset-2 focus-visible:ring-offset-xq-background focus-visible:outline-none active:scale-[0.97]';
 const outlineButton =
-    'inline-flex h-12 items-center rounded-full border border-xq-input bg-xq-card/60 px-7 text-base font-medium transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-nav-hover focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none active:scale-[0.97]';
+    'inline-flex h-12 items-center rounded-(--xq-button-radius) border border-xq-border border-b-xq-input bg-xq-raised px-7 text-base font-medium shadow-(--xq-button-shadow) transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-accent focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none active:scale-[0.97]';
 const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
 
-const pillButton =
-    'inline-flex items-center justify-center rounded-full bg-xq-foreground font-medium text-xq-background transition-[scale,opacity] duration-(--xq-duration-fast) hover:opacity-90 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:ring-offset-2 focus-visible:ring-offset-xq-background focus-visible:outline-none active:scale-[0.97]';
+const navButton =
+    'inline-flex items-center justify-center rounded-(--xq-button-radius) border border-black/10 bg-xq-primary font-medium text-xq-primary-foreground shadow-(--xq-button-highlight) transition-[scale,background-color] duration-(--xq-duration-fast) hover:bg-xq-primary/90 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:ring-offset-2 focus-visible:ring-offset-xq-background focus-visible:outline-none active:scale-[0.97]';
 </script>
 
 <template>
@@ -145,7 +145,7 @@ const pillButton =
                     <ThemeToggle />
                     <a
                         :href="links.demo"
-                        :class="[pillButton, 'h-10 px-5 text-sm']"
+                        :class="[navButton, 'h-10 px-5 text-sm']"
                     >
                         Open the demo
                     </a>
