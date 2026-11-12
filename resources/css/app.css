@@ -305,26 +305,6 @@ body {
     }
 }
 
-/* The soft wash of color behind the landing page. It's only decoration. */
-.site-glow {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-    background:
-        radial-gradient(42rem 22rem at 16% -4rem, #8fb4ff55, transparent 70%),
-        radial-gradient(40rem 20rem at 52% -6rem, #a6ecc855, transparent 70%),
-        radial-gradient(40rem 24rem at 86% -2rem, #ffc7a355, transparent 70%),
-        radial-gradient(36rem 18rem at 20% 100%, #ffc7a333, transparent 70%),
-        radial-gradient(40rem 18rem at 56% 100%, #a6ecc833, transparent 70%),
-        radial-gradient(36rem 18rem at 88% 100%, #c9b8ff33, transparent 70%);
-}
-
-:root.dark .site-glow {
-    opacity: 0.3;
-}
-
 /*
  * The landing page's package stack. A flat plane is tilted, and each layer gets
  * its thickness from stacked shadows, which point straight down once tilted.

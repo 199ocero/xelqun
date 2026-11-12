@@ -106,8 +106,6 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
             />
         </Head>
 
-        <div class="site-glow" aria-hidden="true"></div>
-
         <div class="relative mx-auto max-w-6xl px-4 pt-4 sm:px-6">
             <header
                 class="sticky top-4 z-20 flex h-14 items-center gap-2 rounded-full border border-xq-border bg-xq-card/80 pr-2 pl-5 backdrop-blur-md"
