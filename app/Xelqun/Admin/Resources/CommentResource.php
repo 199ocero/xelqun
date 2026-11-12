@@ -33,6 +33,7 @@ class CommentResource extends Resource
             MorphToSelect::make('commentable')
                 ->label('On')
                 ->columnSpanFull()
+                ->required()
                 ->searchable()
                 ->types([
                     Type::make(Post::class)->titleAttribute('title'),
