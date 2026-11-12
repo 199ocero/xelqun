@@ -315,7 +315,7 @@ Inertia looks for `xelqun/Panel` in your app's pages. The installer wrote a two-
 ```vue
 <!-- resources/js/pages/xelqun/Panel.vue (your app) -->
 <script lang="ts">
-import { XqPanelPage } from '@xelqun/panels';
+import { XqPanelPage } from "@xelqun/panels";
 
 export default XqPanelPage;
 </script>
@@ -340,8 +340,8 @@ The page uses `XqPanelLayout`, which draws the sidebar and topbar from `xelqunPa
 ```vue
 <!-- resources/js/pages/XqPanelPage.vue -->
 <script setup lang="ts">
-import { XqActions, XqForm } from '@xelqun/forms';
-import { XqTable } from '@xelqun/tables';
+import { XqActions, XqForm } from "@xelqun/forms";
+import { XqTable } from "@xelqun/tables";
 
 defineOptions({ layout: XqPanelLayout });
 </script>
@@ -548,7 +548,7 @@ The server renders `xelqun/Panel` or `xelqun/PanelAuth`. These are small files i
 
 ## Theming, render hooks and plugins
 
-- **Colors** become CSS variables, such as `--xq-panel-primary`. `app.blade.php` puts them on `<html>` and sets dark mode before the page paints, so there's no flash.
+- **Colors** become CSS variables, such as `--xq-color-primary`. `app.blade.php` puts them on `<html>` and sets dark mode before the page paints, so there's no flash.
 - **Render hooks** put a Vue component into a spot in the shell, such as `RenderHook::SidebarEnd`. The component is looked up in the forms registry.
 - **A plugin** implements `Plugin`. Its `register()` runs when you add it to the panel, and its `boot()` runs when the app boots.
 

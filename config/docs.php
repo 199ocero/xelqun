@@ -235,6 +235,7 @@ return [
                 ],
                 'Theming' => [
                     'theming/colors' => 'Colors',
+                    'theming/styles' => 'Styles',
                     'theming/fonts' => 'Fonts',
                     'theming/logos' => 'Logos and favicon',
                     'theming/dark-mode' => 'Dark mode',

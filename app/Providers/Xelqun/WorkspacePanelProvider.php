@@ -38,6 +38,7 @@ class WorkspacePanelProvider extends PanelProvider
             ->favicon('/favicon.svg')
             ->font('Inter')
             ->colors(fn (): array => DemoAppearance::colors())
+            ->themeSwitcher()
             ->maxContentWidth('7xl')
             ->darkMode()
             ->defaultThemeMode('system')
