@@ -39,7 +39,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Event::listen(MessageSending::class, CaptureDemoMail::class);
 
-        Inertia::disableSsr(fn (): bool => request()->getHost() === config('xelqun.demo_domain'));
+        // Inertia skips config('inertia.ssr.enabled') once this is set, so it's checked here too.
+        Inertia::disableSsr(fn (): bool => ! config('inertia.ssr.enabled') || request()->getHost() === config('xelqun.demo_domain'));
 
         config([
             'xelqun-forms.uploads.disk' => 'demo',
