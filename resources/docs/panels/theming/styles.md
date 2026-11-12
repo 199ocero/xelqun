@@ -36,4 +36,4 @@ Set `data-xq-preset` on `<html>` to `soft`, `sharp` or `mono`. Forms and tables 
 <html data-xq-preset="sharp"></html>
 ```
 
-[Try it in the demo](demo:/): open the user menu and pick a style.
+[Try it in the demo](demo:/): the palette button at the bottom right switches between the four styles.

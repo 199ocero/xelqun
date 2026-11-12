@@ -18,6 +18,7 @@ use Xelqun\Panels\Navigation\NavigationItem;
 use Xelqun\Panels\Pages\Dashboard;
 use Xelqun\Panels\Panel;
 use Xelqun\Panels\PanelProvider;
+use Xelqun\Panels\Support\Preset;
 
 /**
  * The same look as the admin panel, split between teams. tenant() is the only
@@ -38,7 +39,7 @@ class WorkspacePanelProvider extends PanelProvider
             ->favicon('/favicon.svg')
             ->font('Inter')
             ->colors(fn (): array => DemoAppearance::colors())
-            ->themeSwitcher()
+            ->preset(fn (): Preset => DemoAppearance::preset())
             ->maxContentWidth('7xl')
             ->darkMode()
             ->defaultThemeMode('system')

@@ -3,6 +3,7 @@
 namespace App\Demo;
 
 use Xelqun\Panels\Support\Colors\Color;
+use Xelqun\Panels\Support\Preset;
 
 /**
  * What a visitor picked for their own session. Grays and colors are kept apart,
@@ -23,6 +24,11 @@ final class DemoAppearance
             'primary' => Color::fromName(session('demo.primary')) ?? self::DEFAULT_PRIMARY,
             'gray' => Color::fromName(session('demo.gray')) ?? Color::Zinc,
         ];
+    }
+
+    public static function preset(): Preset
+    {
+        return Preset::tryFrom((string) session('demo.preset')) ?? Preset::Default;
     }
 
     /**
@@ -53,13 +59,15 @@ final class DemoAppearance
     }
 
     /**
-     * @return array{primary: string|null, gray: string, primaries: array<string, string>, grays: array<string, string>, defaultPrimary: string, updateUrl: string}
+     * @return array{preset: string, presets: list<string>, primary: string|null, gray: string, primaries: array<string, string>, grays: array<string, string>, defaultPrimary: string, updateUrl: string}
      */
     public static function props(): array
     {
         $swatches = fn (array $names): array => array_combine($names, array_map(fn (string $name): string => (string) Color::fromName($name)?->value, $names));
 
         return [
+            'preset' => self::preset()->value,
+            'presets' => array_column(Preset::cases(), 'value'),
             'primary' => session('demo.primary'),
             'gray' => session('demo.gray', Color::Zinc->name),
             'primaries' => $swatches(self::primaryNames()),

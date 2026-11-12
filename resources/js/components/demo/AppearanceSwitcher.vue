@@ -14,6 +14,8 @@ type Theme = 'light' | 'dark' | 'system';
 const THEME_KEY = 'xq-panel-theme';
 
 const props = defineProps<{
+    preset: string;
+    presets: string[];
     primary: string | null;
     gray: string;
     primaries: Record<string, string>;
@@ -29,6 +31,7 @@ const themes: { value: Theme; label: string; icon: typeof Sun }[] = [
 ];
 
 const theme = ref<Theme>('system');
+const preset = ref(props.preset);
 const primary = ref(props.primary);
 const gray = ref(props.gray);
 
@@ -78,13 +81,18 @@ function applyTheme(next: Theme): void {
 function save(): void {
     router.post(
         props.updateUrl,
-        { primary: primary.value, gray: gray.value },
+        { preset: preset.value, primary: primary.value, gray: gray.value },
         { preserveScroll: true, preserveState: true },
     );
 }
 
 function choosePrimary(name: string | null): void {
     primary.value = name;
+    save();
+}
+
+function choosePreset(name: string): void {
+    preset.value = name;
     save();
 }
 
@@ -161,11 +169,41 @@ const swatchClass =
                         <h3
                             class="text-xs font-medium text-xq-muted-foreground"
                         >
-                            Base color
+                            Style
                         </h3>
                         <div
                             role="radiogroup"
-                            aria-label="Base color"
+                            aria-label="Style"
+                            class="grid grid-cols-4 gap-0.5 rounded-xq-md bg-xq-nav-hover p-0.5"
+                        >
+                            <button
+                                v-for="option in presets"
+                                :key="option"
+                                type="button"
+                                role="radio"
+                                :aria-checked="preset === option"
+                                :class="[
+                                    'cursor-pointer rounded-xq-sm py-1.5 text-xs font-medium capitalize transition-[background-color,color] duration-(--xq-duration-fast)',
+                                    preset === option
+                                        ? 'bg-xq-card text-xq-foreground shadow-xs'
+                                        : 'text-xq-muted-foreground hover:text-xq-foreground',
+                                ]"
+                                @click="choosePreset(option)"
+                            >
+                                {{ option }}
+                            </button>
+                        </div>
+                    </section>
+
+                    <section class="grid gap-2">
+                        <h3
+                            class="text-xs font-medium text-xq-muted-foreground"
+                        >
+                            Primary
+                        </h3>
+                        <div
+                            role="radiogroup"
+                            aria-label="Primary"
                             class="flex flex-wrap gap-1.5"
                         >
                             <button
@@ -209,12 +247,12 @@ const swatchClass =
                         <h3
                             class="flex justify-between text-xs font-medium text-xq-muted-foreground"
                         >
-                            Gray
+                            Secondary
                             <span class="font-normal">{{ gray }}</span>
                         </h3>
                         <div
                             role="radiogroup"
-                            aria-label="Gray"
+                            aria-label="Secondary"
                             class="flex flex-wrap gap-1.5"
                         >
                             <button

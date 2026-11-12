@@ -17,6 +17,7 @@ use Illuminate\Validation\ValidationException;
 use Inertia\Testing\AssertableInertia as Assert;
 use Xelqun\Forms\Support\StatePath;
 use Xelqun\Panels\Support\Colors\Color;
+use Xelqun\Panels\Support\Preset;
 
 // Not RefreshDatabase: its outer transaction stops the reset turning off SQLite's foreign key checks.
 uses(DatabaseMigrations::class);
@@ -323,6 +324,14 @@ it('keeps a choice of colors for the visitor who made it', function (): void {
     expect(session('demo.primary'))->toBe('Rose')
         ->and(session('demo.gray'))->toBe('Stone')
         ->and(DemoAppearance::colors())->toBe(['primary' => Color::Rose, 'gray' => Color::Stone]);
+});
+
+it('keeps a style for the visitor who picked it', function (): void {
+    $this->post(DEMO_URL.'/_demo/appearance', ['preset' => 'sharp', 'gray' => 'Zinc'])->assertRedirect();
+
+    expect(DemoAppearance::preset())->toBe(Preset::Sharp);
+
+    $this->post(DEMO_URL.'/_demo/appearance', ['preset' => 'retro', 'gray' => 'Zinc'])->assertSessionHasErrors('preset');
 });
 
 it('goes back to the default primary', function (): void {

@@ -77,4 +77,4 @@ Forms and tables on their own read the same seeds. Set them on `:root` in your C
 
 Every surface, border, ring and text color follows in both themes. The rest are in [CSS hooks](/panels/theming/css-hooks).
 
-[Try it in the demo](demo:/): open the user menu for Style and Colors, or use the palette button at the bottom right.
+[Try it in the demo](demo:/): the palette button at the bottom right changes the theme, the style, the primary color and the secondary gray. The demo keeps your choice in your session, because its accounts are shared.

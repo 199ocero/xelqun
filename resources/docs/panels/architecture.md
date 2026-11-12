@@ -315,7 +315,7 @@ Inertia looks for `xelqun/Panel` in your app's pages. The installer wrote a two-
 ```vue
 <!-- resources/js/pages/xelqun/Panel.vue (your app) -->
 <script lang="ts">
-import { XqPanelPage } from "@xelqun/panels";
+import { XqPanelPage } from '@xelqun/panels';
 
 export default XqPanelPage;
 </script>
@@ -340,8 +340,8 @@ The page uses `XqPanelLayout`, which draws the sidebar and topbar from `xelqunPa
 ```vue
 <!-- resources/js/pages/XqPanelPage.vue -->
 <script setup lang="ts">
-import { XqActions, XqForm } from "@xelqun/forms";
-import { XqTable } from "@xelqun/tables";
+import { XqActions, XqForm } from '@xelqun/forms';
+import { XqTable } from '@xelqun/tables';
 
 defineOptions({ layout: XqPanelLayout });
 </script>

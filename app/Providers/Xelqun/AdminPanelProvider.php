@@ -19,6 +19,7 @@ use App\Xelqun\Admin\Widgets\StoreStats;
 use Xelqun\Panels\Navigation\NavigationGroup;
 use Xelqun\Panels\Panel;
 use Xelqun\Panels\PanelProvider;
+use Xelqun\Panels\Support\Preset;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -35,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon('/favicon.svg')
             ->font('Inter')
             ->colors(fn (): array => DemoAppearance::colors())
-            ->themeSwitcher()
+            ->preset(fn (): Preset => DemoAppearance::preset())
             ->maxContentWidth('7xl')
             ->darkMode()
             ->defaultThemeMode('system')

@@ -70,7 +70,7 @@ The panel works these out from `colors()`, so for most changes [colors](/panels/
 | `data-xq-path`       | Each form field, with its state path                                                    |
 
 ```css
-:root[data-xq-panel] [data-xq-widget="revenue"] {
+:root[data-xq-panel] [data-xq-widget='revenue'] {
     border: 1px solid var(--xq-primary);
 }
 ```
