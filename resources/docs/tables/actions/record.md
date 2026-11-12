@@ -47,6 +47,8 @@ Action::make('rename')
     ->action(fn (array $data, Product $record) => $record->update($data));
 ```
 
+`update()` fills the model, so `name` has to be in its `$fillable`.
+
 ## Clicking a row
 
 `recordUrl()` sets where clicking a row goes. A link of a cell's own wins over it.

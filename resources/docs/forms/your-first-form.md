@@ -95,13 +95,15 @@ class OrderController
 
 `save()` validates the request, then creates or updates the record and its relationships inside one transaction.
 
-Add the two routes in `routes/web.php`:
+Add the two routes in `routes/web.php`, behind `auth`, as a starter kit's layout expects a signed-in user:
 
 ```php
 use App\Http\Controllers\OrderController;
 
-Route::get('orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+Route::middleware('auth')->group(function () {
+    Route::get('orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+    Route::put('orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+});
 ```
 
 `back()` shows nothing after a save. To show a toast, send a [queued notification](/forms/notifications/queued) before you return.

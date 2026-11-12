@@ -419,7 +419,8 @@ The `EnterPanel` middleware calls `enter()` on every panel route.
 
 ```text
 web, EnterPanel:{id}
-├── login, register, forgot-password, reset-password, two-factor   only if turned on
+├── login, register, forgot-password, reset-password   only if turned on
+├── two-factor                                         always, as Fortify's own can ask
 └── Authenticate
     └── {tenant}/  (with tenancy)  IdentifyTenant, RequireMultiFactorSetup
         ├── ''                         dashboard

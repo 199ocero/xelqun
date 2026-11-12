@@ -49,6 +49,8 @@ The challenge page says when a code was emailed, and offers "Send a new code". A
 
 ## With a Laravel starter kit
 
-A starter kit has Fortify's own two-factor, on its settings page. That's separate: it uses other columns, and the panel never reads them, so someone set up in one isn't asked for a code by the other. Keep both, or turn Fortify's `twoFactorAuthentication` feature off in `config/fortify.php`.
+A starter kit has Fortify's own two-factor, on its settings page. The panel honors it, with nothing to set up: someone who turned it on there is asked for a code at the panel's login too, and their authenticator app or one of their Fortify recovery codes answers it. Otherwise the panel's login would sign them in to the whole app on the password alone, as both logins share Laravel's session.
+
+It still uses other columns than the panel's own two-factor, so the profile page can't turn it on or off. A session that passed Fortify's challenge is asked again on the panel, as the panel can't tell how it was signed in. Turning Fortify's `twoFactorAuthentication` feature off in `config/fortify.php` stops both from asking.
 
 [Register an account in the demo](demo:/register), then open your profile. The shared demo account can't turn this on.
