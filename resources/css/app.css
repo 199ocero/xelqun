@@ -305,7 +305,7 @@ body {
     }
 }
 
-/* The soft wash of color behind the landing page and the docs. It's only decoration. */
+/* The soft wash of color behind the landing page. It's only decoration. */
 .site-glow {
     position: absolute;
     inset: 0;
@@ -323,15 +323,6 @@ body {
 
 :root.dark .site-glow {
     opacity: 0.3;
-}
-
-/* Softer behind the docs, because people read there. */
-.docs-glow {
-    opacity: 0.55;
-}
-
-:root.dark .docs-glow {
-    opacity: 0.18;
 }
 
 /*
@@ -387,14 +378,20 @@ body {
     }
 }
 
-/* The stacked packages always sit on a dark band, whatever the theme. */
+/* The stacked packages sit on a card, so each layer is a step off it in either theme. */
 .iso-layer {
-    --iso-top: #1c1c20;
-    --iso-side: color-mix(in oklab, var(--tint) 30%, #0d0d10);
-    --iso-shade: rgb(0 0 0 / 0.55);
+    --iso-top: var(--xq-background);
+    --iso-side: color-mix(in oklab, var(--tint) 30%, var(--xq-muted));
+    --iso-shade: rgb(0 0 0 / 0.12);
     border-color: color-mix(in oklab, var(--tint) 45%, transparent);
     translate: 0 0 var(--lift);
     animation: iso-layer 5s ease-in-out infinite;
+}
+
+:root.dark .iso-layer {
+    --iso-top: var(--xq-raised);
+    --iso-side: color-mix(in oklab, var(--tint) 30%, var(--xq-background));
+    --iso-shade: rgb(0 0 0 / 0.35);
 }
 
 @keyframes iso-layer {

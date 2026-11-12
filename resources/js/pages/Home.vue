@@ -256,7 +256,7 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
 
                 <section
                     aria-labelledby="packages"
-                    class="overflow-hidden rounded-[2rem] bg-[#0c0c0e] px-6 py-16 text-white ring-1 ring-white/10 sm:px-12 sm:py-20"
+                    class="overflow-hidden rounded-[2rem] bg-xq-card px-6 py-16 text-xq-foreground ring-1 ring-xq-border sm:px-12 sm:py-20"
                 >
                     <div class="grid items-center gap-10 lg:grid-cols-2">
                         <LayerStack
@@ -264,7 +264,7 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
                         />
                         <div>
                             <p
-                                class="inline-flex items-center gap-2 rounded-full bg-white/8 py-1 pr-3 pl-3.5 text-sm font-medium"
+                                class="inline-flex items-center gap-2 rounded-full bg-xq-muted py-1 pr-3 pl-3.5 text-sm font-medium"
                             >
                                 Three packages
                                 <span
@@ -279,14 +279,14 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
                                 Take one package, or the whole stack.
                             </h2>
                             <p
-                                class="mt-4 text-lg leading-relaxed text-pretty text-white/65"
+                                class="mt-4 text-lg leading-relaxed text-pretty text-xq-muted-foreground"
                             >
                                 Forms works on its own. Tables builds on forms,
                                 and panels brings both together into a complete
                                 admin.
                             </p>
                             <ul
-                                class="mt-8 divide-y divide-white/12 border-y border-white/12"
+                                class="mt-8 divide-y divide-xq-border border-y border-xq-border"
                             >
                                 <li
                                     v-for="item in [...packages].reverse()"
@@ -310,13 +310,13 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
                                                 {{ item.label }}
                                             </span>
                                             <span
-                                                class="block text-sm text-white/60"
+                                                class="block text-sm text-xq-muted-foreground"
                                             >
                                                 {{ item.tagline }}
                                             </span>
                                         </span>
                                         <ArrowUpRight
-                                            class="mt-1 size-4 shrink-0 text-white/50 transition-transform duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
+                                            class="mt-1 size-4 shrink-0 text-xq-muted-foreground transition-transform duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
                                             aria-hidden="true"
                                         />
                                     </Link>

@@ -139,7 +139,6 @@ onBeforeUnmount(() => {
             </header>
 
             <div class="relative min-h-0 flex-1">
-                <div class="site-glow docs-glow" aria-hidden="true"></div>
                 <main class="relative h-full overflow-y-auto" scroll-region>
                     <slot />
                 </main>
