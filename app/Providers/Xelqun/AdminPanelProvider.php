@@ -57,10 +57,10 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Xelqun/Admin/Resources'), for: 'App\\Xelqun\\Admin\\Resources')
             ->widgets([StoreStats::class, OrdersChart::class, OrdersByType::class, ProductsByCategory::class, PendingProducts::class, RecentProducts::class, LowStock::class, CategoryTiles::class])
             ->navigationGroups([
-                NavigationGroup::make('Shop')->icon('shopping-cart'),
-                NavigationGroup::make('Catalog')->icon('package'),
-                NavigationGroup::make('Blog')->icon('newspaper'),
-                NavigationGroup::make('Showcase')->icon('layers')->collapsible(),
+                NavigationGroup::make('Shop'),
+                NavigationGroup::make('Catalog'),
+                NavigationGroup::make('Blog'),
+                NavigationGroup::make('Showcase')->collapsible(),
             ])
             ->plugin(new DemoPlugin);
     }

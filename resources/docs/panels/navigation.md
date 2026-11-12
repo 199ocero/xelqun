@@ -25,7 +25,7 @@ $panel->navigationGroups([
 
 <!-- screenshot: sidebar | The sidebar, with groups, badges, and a card from a render hook -->
 
-<!-- screenshot: navigation-groups | Navigation groups with icons, and a collapsible group folded away -->
+<!-- screenshot: navigation-groups | Navigation groups, with a collapsible group folded away -->
 
 ## Items
 
@@ -132,4 +132,4 @@ $panel->userMenuItems([NavigationItem::make('Billing')->url(fn (): string => rou
 
 `breadcrumbs(false)` removes them.
 
-[See the sidebar in the demo](demo:/): its groups have icons, Showcase folds away, and the Orders badge has a color and a tooltip.
+[See the sidebar in the demo](demo:/): Showcase folds away, and the Orders badge has a color and a tooltip.
