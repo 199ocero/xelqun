@@ -36,7 +36,7 @@ If a panel is on its own [domain](/panels/multiple-panels), add that host to you
 
 ## Server-side rendering
 
-Xelqun's panels haven't been tested with Inertia's server-side rendering, and an admin area behind a login gains little from it. If the rest of your app uses it, you can turn it off for the panel's pages.
+Panels work with Inertia's server-side rendering, as a Laravel starter kit sets it up with `npm run build:ssr` and `php artisan inertia:start-ssr`. An admin area behind a login gains little from it, so you can turn it off for the panel's pages.
 
 ```php
 use Inertia\Inertia;

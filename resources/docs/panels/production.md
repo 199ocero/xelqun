@@ -24,6 +24,5 @@ Schedule::command('xelqun-forms:prune-uploads')->hourly();
 - Export ignores table filters, and only follows the tab.
 - Signing out of one panel signs out of the others in that session.
 - A queued verification email gets Laravel's route, not the panel's.
-- SSR isn't tested.
 
 See [parity with Filament](/panels/parity) for the full comparison.
