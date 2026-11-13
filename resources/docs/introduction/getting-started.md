@@ -142,3 +142,5 @@ You've got the whole loop now: a model, a resource, a policy, a form, a table an
 - Add [relation managers](/panels/resources/relation-managers) for related records
 - Set your [colors](/panels/theming/colors) and [navigation](/panels/navigation)
 - Check the list [before going to production](/panels/production)
+
+If something doesn't show up, see [troubleshooting](/introduction/troubleshooting).

@@ -28,6 +28,8 @@ return [
                     'architecture' => 'How it works',
                     'local-development' => 'Local development',
                     'version-support' => 'Version support',
+                    'troubleshooting' => 'Troubleshooting',
+                    'roadmap' => 'Roadmap and changelog',
                 ],
             ],
         ],

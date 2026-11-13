@@ -20,6 +20,19 @@ body {
     background: var(--xq-shell);
 }
 
+/* The home page and docs sit on one color of their own. The demo panel has another root view, so it keeps the panel's. */
+:root[data-xq-panel][data-xq-site] {
+    --xq-shell: #f0eff3;
+    --xq-background: #f0eff3;
+    --xq-card: #ffffff;
+}
+
+:root[data-xq-panel][data-xq-site].dark {
+    --xq-shell: #1e1e20;
+    --xq-background: #1e1e20;
+    --xq-card: #2d2d2f;
+}
+
 /*
  * The article comes from the server as HTML, so its elements are styled here and
  * not with utilities. Colors and motion are the panel's own tokens.
@@ -167,7 +180,11 @@ body {
 :root.dark .phiki,
 :root.dark .phiki span {
     color: var(--phiki-dark-color) !important;
-    background-color: var(--phiki-dark-background-color) !important;
+}
+
+/* A code block sits on a card, like the rest of the site, not on the highlighter's own background. */
+.phiki {
+    background-color: var(--xq-card) !important;
 }
 
 /* Theme changes cross-fade, and a code block shouldn't lag behind. */

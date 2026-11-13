@@ -83,17 +83,23 @@ Everything else is a CSS token, so you can restyle the whole interface without t
 
 Forms, tables and panels each come with helpers for [Pest and PHPUnit](/panels/testing). They run the same endpoints the browser uses, so a test covers your rules, your actions and your permissions.
 
-## When Xelqun is a good fit
+## Who is it for?
 
-Xelqun suits you if you're on Laravel with Inertia and Vue, and you want to build admin panels, internal tools, dashboards or customer portals quickly. It's made for anything that's mostly forms and tables.
+Xelqun is for Laravel apps built with Inertia and Vue. It's a good fit for admin panels, internal tools, dashboards and customer portals, or anything else that's mostly forms and tables.
 
-It's less of a fit in these cases:
+It needs PHP 8.4, Laravel 13, Inertia 3, Vue 3.5 and Tailwind CSS 4. Older versions aren't supported.
 
-- **You need a 1.0 today.** Xelqun is beta, and a minor release can still break your code, with an upgrade note for each break. See [version support](/introduction/version-support).
-- **Your app uses Livewire.** Xelqun is for Inertia and Vue. [Filament](https://filamentphp.com), which inspired Xelqun, is the mature choice for Livewire, and has a large plugin ecosystem.
-- **You want a one-of-a-kind design.** A marketing site or a highly custom interface is better written by hand.
+### Xelqun, Filament or Nova?
 
-The [limits of tables](/tables/limits) and the [comparison with Filament](/panels/parity) show what isn't built yet.
+- **Choose Xelqun** if your app already uses Inertia and Vue, and you want the admin in the same app and the same stack. It's free and MIT licensed. You can use its forms and tables on your own pages too, not only in a panel.
+- **Choose [Filament](https://filamentphp.com)** if your app uses Livewire, or you need a 1.0 with a large plugin ecosystem today. Filament inspired Xelqun, and it's the mature choice.
+- **Choose [Nova](https://nova.laravel.com)** if you want a paid admin with official support from the Laravel team, and don't need to build your own pages from its parts.
+
+### What it doesn't do yet
+
+- **It's beta.** A minor release can still break your code, with an upgrade note for each break. See [version support](/introduction/version-support).
+- **It's not for one-of-a-kind designs.** A marketing site or a highly custom interface is better written by hand.
+- **Some features are partly built.** The [comparison with Filament](/panels/parity) and the [limits of tables](/tables/limits) list what's missing, and the [roadmap](/introduction/roadmap) sums it up.
 
 ## Next steps
 

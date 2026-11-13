@@ -70,4 +70,4 @@ Whichever you chose, rebuild your assets.
 npm run build
 ```
 
-Next, [build your first panel](/introduction/getting-started).
+Next, [build your first panel](/introduction/getting-started). If something doesn't show up, see [troubleshooting](/introduction/troubleshooting).

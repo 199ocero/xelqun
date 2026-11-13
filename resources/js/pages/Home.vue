@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { ArrowRight, ArrowUpRight } from 'lucide-vue-next';
+import { ArrowRight, ArrowUpRight, Check } from 'lucide-vue-next';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import DocsSearch from '@/components/docs/DocsSearch.vue';
 import GithubStars from '@/components/docs/GithubStars.vue';
 import ThemeToggle from '@/components/docs/ThemeToggle.vue';
 import XelqunMark from '@/components/docs/XelqunMark.vue';
-import HeroScene from '@/components/home/HeroScene.vue';
 import LayerStack from '@/components/home/LayerStack.vue';
 import StepCodeScene from '@/components/home/StepCodeScene.vue';
 import StepInterfaceScene from '@/components/home/StepInterfaceScene.vue';
@@ -46,6 +45,45 @@ const steps = [
     },
 ];
 
+/** What Xelqun is made for, ticked off in the big card of the "Who is it for?" grid. */
+const useCases = [
+    'Admin panels',
+    'Internal tools',
+    'Dashboards',
+    'Customer portals',
+];
+
+/** What it runs on. Older versions aren't supported. */
+const stack = [
+    'PHP 8.4',
+    'Laravel 13',
+    'Inertia 3',
+    'Vue 3.5',
+    'Tailwind CSS 4',
+];
+
+/** When another admin fits better. Each card links out. */
+const alternatives = [
+    {
+        question: 'Using Livewire?',
+        name: 'Filament',
+        url: 'https://filamentphp.com',
+        body: "The mature choice, with a large plugin ecosystem and a 1.0 today. It's what inspired Xelqun.",
+    },
+    {
+        question: 'Want paid, official support?',
+        name: 'Nova',
+        url: 'https://nova.laravel.com',
+        body: "A paid admin from the Laravel team, when you don't need to build your own pages from its parts.",
+    },
+];
+
+/** Where to read up on what beta means, from the strip under the "Who is it for?" grid. */
+const betaLinks = [
+    { label: 'Roadmap', href: '/introduction/roadmap' },
+    { label: 'Compare with Filament', href: '/panels/parity' },
+];
+
 /** Each package's color, shared by its layer in the stack and its dot in the list. */
 const tints: Record<string, string> = {
     Forms: '#8b5cf6',
@@ -77,7 +115,7 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
 
 <template>
     <div
-        class="relative min-h-dvh overflow-x-clip bg-xq-background text-xq-foreground"
+        class="relative min-h-dvh overflow-x-clip bg-xq-shell text-xq-foreground"
     >
         <Head title="Admin panels for Laravel, Inertia and Vue">
             <meta
@@ -108,7 +146,7 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
 
         <div class="relative mx-auto max-w-6xl px-4 pt-4 sm:px-6">
             <header
-                class="sticky top-4 z-20 flex h-14 items-center gap-2 rounded-full border border-xq-border bg-xq-card/80 pr-2 pl-5 backdrop-blur-md"
+                class="sticky top-4 z-20 flex h-14 items-center gap-2 rounded-full border border-xq-border bg-xq-card pr-2 pl-5"
             >
                 <Link href="/" class="flex items-center gap-2.5 font-semibold">
                     <XelqunMark class="size-6.5" />
@@ -134,6 +172,13 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
                     >
                         {{ item.label }}
                     </Link>
+                    <Link
+                        href="/introduction/roadmap"
+                        prefetch
+                        class="transition-colors duration-(--xq-duration-fast) hover:text-xq-foreground"
+                    >
+                        Roadmap
+                    </Link>
                 </nav>
                 <div class="ml-auto flex items-center gap-1.5">
                     <GithubStars />
@@ -144,7 +189,7 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
             <main data-xq-page>
                 <section class="pt-16 text-center sm:pt-24">
                     <p
-                        class="home-rise inline-flex items-center gap-2 rounded-full border border-xq-border bg-xq-card/70 py-1 pr-3 pl-3.5 text-sm font-medium shadow-xs"
+                        class="home-rise inline-flex items-center gap-2 rounded-full border border-xq-border bg-xq-card py-1 pr-3 pl-3.5 text-sm font-medium shadow-xs"
                     >
                         Open source admin panels for Laravel
                         <span :class="badgeDot" aria-hidden="true"></span>
@@ -187,11 +232,27 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
                         </Link>
                     </div>
 
-                    <HeroScene
-                        class="home-rise mx-auto mt-10 w-full max-w-4xl"
+                    <a
+                        :href="links.demo"
+                        class="home-rise mt-12 block rounded-t-2xl mask-b-from-55% mask-b-to-100% focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none sm:mt-16"
                         style="--rise: 4"
-                        aria-hidden="true"
-                    />
+                    >
+                        <img
+                            v-for="theme in ['light', 'dark']"
+                            :key="theme"
+                            :src="`/images/docs/panels/dashboard-${theme}.jpg`"
+                            alt="The demo's dashboard, with a sidebar, stats and charts"
+                            width="1280"
+                            height="800"
+                            fetchpriority="high"
+                            :class="[
+                                'h-auto w-full rounded-t-2xl border border-b-0 border-xq-border',
+                                theme === 'light'
+                                    ? 'block dark:hidden'
+                                    : 'hidden dark:block',
+                            ]"
+                        />
+                    </a>
                 </section>
 
                 <section
@@ -200,7 +261,7 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
                 >
                     <div class="mx-auto max-w-2xl text-center">
                         <p
-                            class="inline-flex items-center gap-2 rounded-full border border-xq-border bg-xq-card/70 py-1 pr-3 pl-3.5 text-sm font-medium shadow-xs"
+                            class="inline-flex items-center gap-2 rounded-full border border-xq-border bg-xq-card py-1 pr-3 pl-3.5 text-sm font-medium shadow-xs"
                         >
                             How it works
                             <span :class="badgeDot" aria-hidden="true"></span>
@@ -320,6 +381,167 @@ const badgeDot = 'size-2.5 rotate-12 rounded-[3px] bg-xq-primary';
                                     </Link>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section aria-labelledby="who-is-it-for" class="py-16 sm:py-24">
+                    <div class="mx-auto max-w-2xl text-center">
+                        <p
+                            class="inline-flex items-center gap-2 rounded-full border border-xq-border bg-xq-card py-1 pr-3 pl-3.5 text-sm font-medium shadow-xs"
+                        >
+                            Who is it for?
+                            <span :class="badgeDot" aria-hidden="true"></span>
+                        </p>
+                        <h2
+                            id="who-is-it-for"
+                            class="mt-5 text-4xl font-medium tracking-[-0.03em] text-balance sm:text-5xl"
+                        >
+                            Made for Laravel apps on Inertia and Vue.
+                        </h2>
+                        <p
+                            class="mt-4 text-lg leading-relaxed text-pretty text-xq-muted-foreground"
+                        >
+                            If that's your stack, Xelqun fits right in. If it
+                            isn't, there's a better pick, and we'll say so.
+                        </p>
+                    </div>
+
+                    <div class="mt-12 grid gap-4 md:grid-cols-3">
+                        <div
+                            class="flex flex-col rounded-[1.75rem] bg-xq-card p-7 ring-1 ring-xq-border sm:p-9 md:col-span-2 md:row-span-2"
+                        >
+                            <div class="flex items-center gap-3">
+                                <span class="flex gap-1.5" aria-hidden="true">
+                                    <span
+                                        v-for="item in packages"
+                                        :key="item.label"
+                                        class="size-3 rotate-12 rounded-[3px]"
+                                        :style="{
+                                            backgroundColor: tints[item.label],
+                                        }"
+                                    ></span>
+                                </span>
+                                <span
+                                    class="text-sm font-medium text-xq-muted-foreground"
+                                >
+                                    Choose Xelqun
+                                </span>
+                            </div>
+                            <h3
+                                class="mt-6 max-w-md text-3xl font-medium tracking-[-0.03em] text-balance sm:text-4xl"
+                            >
+                                Your admin, in the app you already have.
+                            </h3>
+                            <p
+                                class="mt-4 max-w-lg leading-relaxed text-pretty text-xq-muted-foreground"
+                            >
+                                Same stack, same deploy, same policies. Free and
+                                MIT licensed, with forms and tables you can use
+                                on your own pages too.
+                            </p>
+                            <ul
+                                class="mt-8 mb-10 grid max-w-md grid-cols-2 gap-x-6 gap-y-3"
+                            >
+                                <li
+                                    v-for="useCase in useCases"
+                                    :key="useCase"
+                                    class="flex items-center gap-2.5 font-medium"
+                                >
+                                    <span
+                                        class="flex size-6 shrink-0 items-center justify-center rounded-full bg-xq-primary text-xq-primary-foreground"
+                                        aria-hidden="true"
+                                    >
+                                        <Check
+                                            class="size-3.5"
+                                            stroke-width="3"
+                                        />
+                                    </span>
+                                    {{ useCase }}
+                                </li>
+                            </ul>
+                            <div
+                                class="mt-auto border-t border-dashed border-xq-border pt-6"
+                            >
+                                <p
+                                    class="text-xs font-medium tracking-wide text-xq-muted-foreground uppercase"
+                                >
+                                    Runs on
+                                </p>
+                                <ul class="mt-3 flex flex-wrap gap-2">
+                                    <li
+                                        v-for="requirement in stack"
+                                        :key="requirement"
+                                        class="rounded-full bg-xq-muted px-3 py-1 font-mono text-[0.8125rem]"
+                                    >
+                                        {{ requirement }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <a
+                            v-for="alternative in alternatives"
+                            :key="alternative.name"
+                            :href="alternative.url"
+                            class="group flex flex-col rounded-[1.75rem] bg-xq-card p-7 ring-1 ring-xq-border transition-[translate] duration-(--xq-duration-base) ease-(--xq-ease-spring) hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none"
+                        >
+                            <span
+                                class="flex items-center justify-between text-sm font-medium text-xq-muted-foreground"
+                            >
+                                {{ alternative.question }}
+                                <ArrowUpRight
+                                    class="size-4 transition-transform duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-xq-foreground"
+                                    aria-hidden="true"
+                                />
+                            </span>
+                            <span
+                                class="mt-6 text-2xl font-medium tracking-[-0.02em]"
+                            >
+                                Choose {{ alternative.name }}
+                            </span>
+                            <span
+                                class="mt-2 text-sm leading-relaxed text-pretty text-xq-muted-foreground"
+                            >
+                                {{ alternative.body }}
+                            </span>
+                        </a>
+
+                        <div
+                            class="flex flex-col gap-5 rounded-[1.75rem] bg-xq-card p-6 ring-1 ring-xq-border sm:px-7 md:col-span-3 lg:flex-row lg:items-center"
+                        >
+                            <div class="flex flex-1 items-center gap-4">
+                                <span
+                                    class="inline-flex shrink-0 items-center gap-2 rounded-full bg-xq-primary/12 py-1 pr-3 pl-2.5 text-sm font-medium text-xq-primary"
+                                >
+                                    <span
+                                        class="size-1.5 rounded-full bg-xq-primary"
+                                        aria-hidden="true"
+                                    ></span>
+                                    Beta
+                                </span>
+                                <p
+                                    class="text-sm text-pretty text-xq-muted-foreground"
+                                >
+                                    Not 1.0 yet. Every breaking change ships
+                                    with an upgrade note.
+                                </p>
+                            </div>
+                            <div class="flex shrink-0 flex-wrap gap-2">
+                                <Link
+                                    v-for="link in betaLinks"
+                                    :key="link.href"
+                                    :href="link.href"
+                                    prefetch
+                                    class="group inline-flex h-9 items-center gap-1.5 rounded-full bg-xq-muted px-4 text-sm font-medium transition-colors duration-(--xq-duration-fast) hover:bg-xq-accent focus-visible:ring-2 focus-visible:ring-xq-ring focus-visible:outline-none"
+                                >
+                                    {{ link.label }}
+                                    <ArrowRight
+                                        class="size-3.5 transition-transform duration-(--xq-duration-base) ease-(--xq-ease-spring) group-hover:translate-x-0.5"
+                                        aria-hidden="true"
+                                    />
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </section>
